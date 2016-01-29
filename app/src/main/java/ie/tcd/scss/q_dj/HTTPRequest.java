@@ -1,5 +1,7 @@
 package ie.tcd.scss.q_dj;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -13,6 +15,7 @@ import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.net.HttpURLConnection;
+import java.net.InetAddress;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -42,70 +45,89 @@ public class HTTPRequest {
     public JSONObject get(String url,HashMap<String, String> params ) throws IOException {
 
         //HashMap<String, String> h1 = new HashMap<String, String>();
-
-        HttpURLConnection c = null;
-        try {
-
-            //Structuring the URL
-            int i = 0;
-            Iterator it = params.entrySet().iterator();{
-                while (it.hasNext()) {
-                    Map.Entry pair = (Map.Entry)it.next();
-                    //System.out.println(pair.getKey() + " = " + pair.getValue());
-                    if(i==0){
-                        url+= "?" + pair.getKey() + "=" + pair.getValue();
-                    }
-                    else{
-                        url+= "&" + pair.getKey() + "=" + pair.getValue();
-                    }
-                    i++;
-                    it.remove(); // avoids a ConcurrentModificationException
-                }
-            }
-            URL url_obj = new URL(url );
-            c = (HttpURLConnection) url_obj.openConnection();
-            c.setRequestMethod("GET");
-            c.setRequestProperty("Content-length", "0");
-            c.setUseCaches(false);
-            c.setAllowUserInteraction(false);
-            c.connect();
-            int status = c.getResponseCode();
-
-            Writer writer = new StringWriter();
-
-            switch (status) {
-                case 200:
-                case 201:
-                    char[] buffer = new char[1024];
-                    BufferedReader br = new BufferedReader(new InputStreamReader(c.getInputStream()));
-                    StringBuilder sb = new StringBuilder();
-                    String line;
-                    int n;
-                    while ((n = br.read(buffer)) != -1) {
-                        //sb.append(n);
-                        writer.write(buffer, 0, n);
-                    }
-                    br.close();
-                    Log.d("Response", writer.toString());
-                    JSONObject j = new JSONObject(writer.toString());
-                    return j;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
+        if(this.isInternetAvailable()){
+            HttpURLConnection c = null;
             try {
 
+                //Structuring the URL
+                int i = 0;
+                Iterator it = params.entrySet().iterator();{
+                    while (it.hasNext()) {
+                        Map.Entry pair = (Map.Entry)it.next();
+                        //System.out.println(pair.getKey() + " = " + pair.getValue());
+                        if(i==0){
+                            url+= "?" + pair.getKey() + "=" + pair.getValue();
+                        }
+                        else{
+                            url+= "&" + pair.getKey() + "=" + pair.getValue();
+                        }
+                        i++;
+                        it.remove(); // avoids a ConcurrentModificationException
+                    }
+                }
+                URL url_obj = new URL(url );
+                c = (HttpURLConnection) url_obj.openConnection();
+                c.setRequestMethod("GET");
+                c.setRequestProperty("Content-length", "0");
+                c.setUseCaches(false);
+                c.setAllowUserInteraction(false);
+                c.connect();
+                int status = c.getResponseCode();
+
+                Writer writer = new StringWriter();
+
+                switch (status) {
+                    case 200:
+                    case 201:
+                        char[] buffer = new char[1024];
+                        BufferedReader br = new BufferedReader(new InputStreamReader(c.getInputStream()));
+                        StringBuilder sb = new StringBuilder();
+                        String line;
+                        int n;
+                        while ((n = br.read(buffer)) != -1) {
+                            //sb.append(n);
+                            writer.write(buffer, 0, n);
+                        }
+                        br.close();
+                        Log.d("Response", writer.toString());
+                        JSONObject j = new JSONObject(writer.toString());
+                        return j;
+                }
             } catch (Exception e) {
-                e.printStackTrace(); //If you want further info on failure...
+                e.printStackTrace();
+            } finally {
+                try {
+
+                } catch (Exception e) {
+                    e.printStackTrace(); //If you want further info on failure...
+                }
             }
+            try {
+                jObj = new JSONObject(json);
+            } catch (JSONException e) {
+                Log.e("JSON Parser", "Error parsing data " + e.toString());
+            }
+            Log.d("JSONParse", jObj.toString());
+            // return JSON String
+            return jObj;
         }
+        else {
+            return null;
+        }
+
+    }
+
+    public boolean isInternetAvailable() {
         try {
-            jObj = new JSONObject(json);
-        } catch (JSONException e) {
-            Log.e("JSON Parser", "Error parsing data " + e.toString());
+            InetAddress ipAddr = InetAddress.getByName("spotify.com"); //You can replace it with your name
+            if (ipAddr.equals("")) {
+                return false;
+            } else {
+                return true;
+            }
+        } catch (Exception e) {
+            return false;
         }
-        Log.d("JSONParse", jObj.toString());
-        // return JSON String
-        return jObj;
+
     }
 }
