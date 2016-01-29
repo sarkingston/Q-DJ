@@ -7,6 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+/**
+ * Created by UI Team on 29/01/16.
+ */
+
 public class LoginScreen extends AppCompatActivity {
 
     @Override
