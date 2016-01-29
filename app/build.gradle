@@ -17,6 +17,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+}
+repositories {
+    mavenCentral()
+    flatDir {
+        dirs 'libs'
+    }
 }
 
 dependencies {
@@ -24,4 +31,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
+    compile 'com.spotify.sdk:spotify-auth:1.0.0-beta12@aar'
+    compile 'com.spotify.sdk:spotify-player:1.0.0-beta12@aar'
 }
