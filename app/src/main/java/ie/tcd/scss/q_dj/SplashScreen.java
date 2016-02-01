@@ -8,6 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.os.Handler;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
+import android.widget.ImageView;
 
 import com.spotify.sdk.android.authentication.LoginActivity;
 
@@ -25,6 +29,18 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        RotateAnimation anim = new RotateAnimation(0f, 350f, 15f, 15f);
+        anim.setInterpolator(new LinearInterpolator());
+        anim.setRepeatCount(Animation.INFINITE);
+        anim.setDuration(800);
+
+        // Start animating the image
+        final ImageView splash = (ImageView) findViewById(R.id.imgLogo);
+        splash.startAnimation(anim);
+         // Later.. stop the animation
+        //splash.setAnimation(null);
+
 
         new Handler().postDelayed(new Runnable() {
 
