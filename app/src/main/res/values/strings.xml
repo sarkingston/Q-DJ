@@ -13,6 +13,7 @@
 
     <!-- Example General settings -->
     <string name="pref_header_general">General</string>
+    <string name="btn_link_to_register">Login Through Spotify</string>
 
     <string name="pref_title_social_recommendations">Enable social recommendations</string>
     <string name="pref_description_social_recommendations">Recommendations for people to contact

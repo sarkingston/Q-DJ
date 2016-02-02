@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.spotify.sdk.android.authentication.AuthenticationClient;
@@ -40,14 +41,23 @@ public class LoginScreen extends Activity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_login_screen);
 
-        AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID,
-                AuthenticationResponse.Type.TOKEN,
-                REDIRECT_URI);
-        builder.setScopes(new String[]{"user-read-private", "streaming"});
-        AuthenticationRequest request = builder.build();
+        Button b1 = (Button) findViewById(R.id.btnLinkToRegisterScreen);
 
-        //brings up the login screen
-        AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID,
+                        AuthenticationResponse.Type.TOKEN,
+                        REDIRECT_URI);
+                builder.setScopes(new String[]{"user-read-private", "streaming"});
+                AuthenticationRequest request = builder.build();
+
+                //brings up the login screen
+                AuthenticationClient.openLoginActivity(LoginScreen.this, REQUEST_CODE, request);
+            }
+        });
+
+
     }
 
     @Override
