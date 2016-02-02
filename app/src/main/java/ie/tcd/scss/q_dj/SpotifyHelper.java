@@ -11,7 +11,8 @@ import java.util.HashMap;
 public class SpotifyHelper {
 
     String spotify_base_url = "https://api.spotify.com";
-
+    String spotify_client_id = "5929ca64d00d4649a44f21dc487dd094";
+    String spotify_client_secret = "aaa0ba3984ad455d8988044b29212221";
 
     public JSONObject query(String query, String type) throws IOException {
         HashMap<String, String> req = new HashMap<String, String>();
