@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.spotify.sdk.android.authentication.AuthenticationClient;
@@ -20,6 +21,8 @@ import com.spotify.sdk.android.player.ConnectionStateCallback;
 import com.spotify.sdk.android.player.Player;
 import com.spotify.sdk.android.player.PlayerNotificationCallback;
 import com.spotify.sdk.android.player.PlayerState;
+//import android.R;
+
 
 public class LoginScreen extends Activity implements
         PlayerNotificationCallback, ConnectionStateCallback {
@@ -43,6 +46,15 @@ public class LoginScreen extends Activity implements
 
         Button b1 = (Button) findViewById(R.id.btnLinkToRegisterScreen);
 
+        Button btnM = (Button)findViewById(R.id.MockButton);
+        /**Opens up QHost activity*/
+        btnM.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginScreen.this, HostOrClient.class));
+            }
+        });
+
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,8 +68,6 @@ public class LoginScreen extends Activity implements
                 AuthenticationClient.openLoginActivity(LoginScreen.this, REQUEST_CODE, request);
             }
         });
-
-
     }
 
     @Override
