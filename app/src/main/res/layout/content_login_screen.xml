@@ -69,6 +69,16 @@
     </LinearLayout>
 
     <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MockLoginButton"
+        android:id="@+id/MockButton"
+        android:layout_gravity="center_horizontal"
+        android:onClick="goToHostorClient"
+
+        />
+
+    <Button
         android:id="@+id/btnLinkToRegisterScreen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

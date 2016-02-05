@@ -9,4 +9,55 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_qguest" tools:context="ie.tcd.scss.q_dj.QGuest">
 
+    <android.support.design.widget.CoordinatorLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        tools:context=".QGuest"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+
+        android:layout_marginTop="12dp">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <!--include android:id="@+id/toolBar"
+                layout="@layout/toolbar_top"
+                app:layout_scrollFlags="scroll|enterAlways|snap"/-->
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:layout_width="match_parent"
+            android:id="@+id/swipe"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerList"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"/>
+        </android.support.v4.widget.SwipeRefreshLayout>
+    </android.support.design.widget.CoordinatorLayout>
 </RelativeLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
