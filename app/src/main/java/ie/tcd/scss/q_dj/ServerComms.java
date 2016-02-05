@@ -21,7 +21,7 @@ public class ServerComms {
     public static JSONArray getQueue(String partyID) throws IOException {
 
         HashMap<String, String> req = new HashMap<String, String>();
-        req.put("partID", partyID);
+        req.put("partid", partyID);
         String endpoint = "/getQueue.php";            //This will have to Change when we get told how it's done
         JSONObject queue_obj = new HTTPRequest().get(base_server_url + endpoint, req);
 
@@ -37,13 +37,13 @@ public class ServerComms {
         String timestamp =  Long.toString(System.currentTimeMillis() / 1000L);
 
         HashMap<String, String> req = new HashMap<String, String>();
-        req.put("user_id", userID);
-        req.put("partID", partyID);
-        req.put("songID", songID);
-        req.put("title", title);
+        req.put("userID", userID);
+        req.put("partyid", partyID);
+        req.put("spotifyID", songID);
+        req.put("songtitle", title);
         req.put("artist", artist);
-        req.put("duration", Long.toString(duration));
-        req.put("timestamp", timestamp);
+        req.put("songlength", Long.toString(duration));
+        req.put("timesent", timestamp);
         String endpoint = "/addSong.php";            //This will have to Change when we get told how it's done
         JSONObject result = new HTTPRequest().get(base_server_url + endpoint, req);
 
