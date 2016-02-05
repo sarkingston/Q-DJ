@@ -56,8 +56,8 @@ public class ServerComms {
     public boolean deleteSong(String userID, String partyID, String songID) throws IOException {
         HashMap<String, String> req = new HashMap<String, String>();
         req.put("user_id", userID);
-        req.put("partID", partyID);
-        req.put("songID", songID);
+        req.put("partyID", partyID);
+        req.put("spotifyID", songID);
 
         String endpoint = "/deleteSong.php";            //This will have to Change when we get told how it's done
         JSONObject result = new HTTPRequest().get(base_server_url + endpoint, req);
@@ -73,7 +73,7 @@ public class ServerComms {
 
         HashMap<String, String> req = new HashMap<String, String>();
         req.put("user_id", userID);
-        req.put("partID", partyID);
+        req.put("partyID", partyID);
 
         String endpoint = "/createParty.php";            //This will have to Change when we get told how it's done
         JSONObject result = new HTTPRequest().get(base_server_url + endpoint, req);
@@ -88,7 +88,7 @@ public class ServerComms {
 
         HashMap<String, String> req = new HashMap<String, String>();
         req.put("user_id", userID);
-        req.put("partID", partyID);
+        req.put("partyID", partyID);
 
         String endpoint = "/joinParty.php";            //This will have to Change when we get told how it's done
         JSONObject result = new HTTPRequest().get(base_server_url + endpoint, req);
