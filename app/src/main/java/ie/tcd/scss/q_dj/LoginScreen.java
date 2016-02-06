@@ -51,7 +51,7 @@ public class LoginScreen extends Activity implements
         btnM.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginScreen.this, HostOrClient.class));
+                startActivity(new Intent(LoginScreen.this, home.class));
             }
         });
 
