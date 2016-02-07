@@ -6,17 +6,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HostActivity"
-    android:background="@drawable/login_background">
+    tools:context=".MainActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:background="?attr/colorPrimary"
-        app:popupTheme="@style/AppTheme.PopupOverlay"
-
+        android:elevation="6dp"
+        android:minHeight="?attr/actionBarSize"
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,24 +23,22 @@
             android:orientation="horizontal"
             android:gravity="center_vertical|left"
             android:weightSum="1">
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+                android:background="@drawable/ic_sync_black_24dp"
+                />
+
             <ImageView
                 android:id="@+id/image"
                 android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:src="@drawable/qdj"
-
-                android:layout_weight="0.25" />
-
-            <TextView
-                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Find Host"
-                android:layout_weight="0.5"
-                android:layout_gravity="center"
+                android:src="@mipmap/ic_launcher"
                 android:gravity="center"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold"
-                android:textAppearance="?android:attr/textAppearanceLarge"/>
+                android:layout_weight="0.5" />
+
+
         </LinearLayout>
     </android.support.v7.widget.Toolbar>
 
@@ -53,7 +50,7 @@
         android:background="?attr/colorPrimary"
         android:elevation="6dp"
         android:minHeight="?attr/actionBarSize"
-        app:popupTheme="@style/AppTheme.PopupOverlay"/>
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"

@@ -51,7 +51,7 @@ public class LoginScreen extends Activity implements
         btnM.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginScreen.this, home.class));
+                startActivity(new Intent(LoginScreen.this, Main2Activity.class));
             }
         });
 
@@ -96,7 +96,8 @@ public class LoginScreen extends Activity implements
                         mPlayer = player;
                         mPlayer.addConnectionStateCallback(LoginScreen.this);
                         mPlayer.addPlayerNotificationCallback(LoginScreen.this);
-                        mPlayer.play("spotify:track:1j8z4TTjJ1YOdoFEDwJTQa");
+                        mPlayer.play("spotify:track:5DBQWDGt7WVlyMgMgvGko9");
+
                     }
 
                     @Override
@@ -111,7 +112,7 @@ public class LoginScreen extends Activity implements
             @Override
             public void run() {
 
-                Intent i = new Intent(LoginScreen.this, MainActivity.class);
+                Intent i = new Intent(LoginScreen.this, QGuest.class);
                 startActivity(i);
                 finish();
 

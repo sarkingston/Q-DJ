@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ie.tcd.scss.q_dj" >
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -25,11 +26,6 @@
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
-            android:name=".ChooseHost"
-            android:label="@string/title_activity_choose_host"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
-        <activity
             android:name=".LoginScreen"
             android:label="@string/title_activity_login_screen"
             android:theme="@style/AppTheme.NoActionBar" >
@@ -45,41 +41,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".HostOrClient"
-            android:label="@string/title_activity_host_or_client"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
-        <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
+        <activity android:name="com.spotify.sdk.android.authentication.LoginActivity" />
         <activity
-            android:theme="@style/AppTheme.NoActionBar"
-            android:name=".home" >
-
+            android:name=".Main2Activity"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme.NoActionBar" >
         </activity>
-
-        <activity
-            android:theme="@style/AppTheme.NoActionBar"
-            android:name=".HostActivity" >
-        </activity>
-        <!--
-             The API key for Google Maps-based APIs is defined as a string resource.
-             (See the file "res/values/google_maps_api.xml").
-             Note that the API key is linked to the encryption key used to sign the APK.
-             You need a different API key for each encryption key, including the release key that is used to
-             sign the APK for publishing.
-             You can define the keys for the debug and release targets in src/debug/ and src/release/.
-        -->
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
-
-        <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-        <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-
-        <activity
-            android:name="com.spotify.sdk.android.authentication.LoginActivity"/>
     </application>
 
 </manifest>
