@@ -18,7 +18,7 @@ public class ServerComms {
 
 
     }
-    public static JSONArray getQueue(String partyID) throws IOException {
+    public JSONArray getQueue(String partyID) throws IOException {
 
         HashMap<String, String> req = new HashMap<String, String>();
         req.put("partid", partyID);

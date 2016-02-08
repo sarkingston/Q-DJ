@@ -8,6 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.IOException;
 
 /**
@@ -28,18 +31,47 @@ public class QHost extends AppCompatActivity {
 
         //On Click of Submit Button
             //Get The Text and send it to the 'ServerComms' class in an ASYNNCtask
-            new createParty().execute(partyID);
+            //new createParty().execute(partyID);
+            new getQueue().execute(partyID);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
     }
 
+    private class getQueue extends AsyncTask<String, Void, JSONArray> {
+
+
+
+        protected void onPreExecute(String... params) {
+            partyID = params[0];
+        }
+
+        @Override
+        protected JSONArray doInBackground(String... params) {
+            JSONArray queue = null;
+            try {
+                queue = new ServerComms().getQueue(partyID);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return queue;             //Returns True if it was joined succesffuly
+        }
+
+        @Override
+        protected void onPostExecute(JSONArray result) {
+            if(result != null){
+                //Parse the Queue
+
+                //Put it into the Swipe List
+            }else{
+                //Show a Dialogue that it didn't work for some sort of reason... If guess
+                Snackbar.make(findViewById(android.R.id.content), "Sorry! That didn't work, are you sure you're connected?", Snackbar.LENGTH_LONG).show();
+            }
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+        }
+    }
 
     private class createParty extends AsyncTask<String, Void, Boolean> {
 
