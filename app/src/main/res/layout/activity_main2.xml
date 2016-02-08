@@ -24,10 +24,10 @@
             android:gravity="center_vertical|left"
             android:weightSum="1">
             <Button
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.25"
-                android:background="@drawable/ic_sync_black_24dp"
+                android:onClick="add"
+                android:background="@drawable/plus"
                 />
 
             <ImageView

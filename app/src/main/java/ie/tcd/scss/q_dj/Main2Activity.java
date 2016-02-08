@@ -1,5 +1,6 @@
 package ie.tcd.scss.q_dj;
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -17,7 +18,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.Button;
 import android.widget.TextView;
+
 
 public class Main2Activity extends AppCompatActivity {
 
@@ -54,6 +57,32 @@ public class Main2Activity extends AppCompatActivity {
 
             }
         });
+/*
+        final Button activate = (Button) findViewById(R.id.activate);
+        final Button deactivate = (Button) findViewById(R.id.deactivate);
+        activate.setVisibility(View.GONE);
+        deactivate.setVisibility(View.VISIBLE);
+        activate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //when play is clicked show stop button and hide play button
+                activate.setVisibility(View.GONE);
+                deactivate.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+        deactivate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //when play is clicked show stop button and hide play button
+                activate.setVisibility(View.VISIBLE);
+                deactivate.setVisibility(View.GONE);
+
+            }
+        });
+        */
+
     }
 
     @Override
@@ -71,4 +100,13 @@ public class Main2Activity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void add(View v) {
+        Intent intent = new Intent(this,AddActivity.class);
+        startActivity(intent);
+
+    }
+
+
+
 }
