@@ -1,10 +1,8 @@
 package ie.tcd.scss.q_dj;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
 /**
@@ -12,31 +10,31 @@ import java.util.HashMap;
  */
 public class ServerComms {
 
-    static String base_server_url = "base_server_url_goes_here";       //This will change when we know
+    public static final String base_server_url = "http://217.78.0.111/~tuneq";
+    public static final String addSongPHP = "/addSong.php";
+    public static final String deleteSongPHP = "/deleteSong.php";
+    public static final String createPartyPHP = "/createParty.php";
+    public static final String joinPartyPHP = "/joinParty.php";
+    public static final String getQueuePHP = "/getQueue.php";
 
-    public ServerComms(){
+    public ServerComms(){}
 
-
-    }
-    public static JSONArray getQueue(String partyID) throws IOException {
-
-        HashMap<String, String> req = new HashMap<String, String>();
+    public static JSONObject getQueue(String partyID) throws IOException {
+        HashMap<String, String> req = new HashMap<>();
         req.put("partID", partyID);
-        String endpoint = "/getQueue.php";            //This will have to Change when we get told how it's done
-        JSONObject queue_obj = new HTTPRequest().get(base_server_url + endpoint, req);
-
-        return null;
+        return new HTTPRequest().get(base_server_url + getQueuePHP, req);
     }
-    public boolean addSong(String userID,
+
+    public void addSong(String userID,
                         String partyID,
                         String songID,
                         String title,
                         String artist,
                         long duration) throws IOException {
         //Get Timestamp and Add it
-        String timestamp =  Long.toString(System.currentTimeMillis() / 1000L);
+        String timestamp = Long.toString(System.currentTimeMillis() / 1000L);
 
-        HashMap<String, String> req = new HashMap<String, String>();
+        HashMap<String, String> req = new HashMap<>();
         req.put("user_id", userID);
         req.put("partID", partyID);
         req.put("songID", songID);
@@ -44,58 +42,32 @@ public class ServerComms {
         req.put("artist", artist);
         req.put("duration", Long.toString(duration));
         req.put("timestamp", timestamp);
-        String endpoint = "/addSong.php";            //This will have to Change when we get told how it's done
-        JSONObject result = new HTTPRequest().get(base_server_url + endpoint, req);
 
-        if(result != null)
-            return true;
-        else
-            return false;
-
+        new HTTPRequest().get(base_server_url + addSongPHP, req);
     }
-    public boolean deleteSong(String userID, String partyID, String songID) throws IOException {
-        HashMap<String, String> req = new HashMap<String, String>();
+    public void deleteSong(String userID, String partyID, String songID) throws IOException {
+        HashMap<String, String> req = new HashMap<>();
         req.put("user_id", userID);
         req.put("partID", partyID);
         req.put("songID", songID);
 
-        String endpoint = "/deleteSong.php";            //This will have to Change when we get told how it's done
-        JSONObject result = new HTTPRequest().get(base_server_url + endpoint, req);
-
-        if(result != null)
-            return true;
-        else
-            return false;
+        new HTTPRequest().get(base_server_url + deleteSongPHP, req);
     }
 
 
-    public boolean createParty(String userID, String partyID)throws IOException {
-
-        HashMap<String, String> req = new HashMap<String, String>();
+    public void createParty(String userID, String partyID) throws IOException {
+        HashMap<String, String> req = new HashMap<>();
         req.put("user_id", userID);
         req.put("partID", partyID);
 
-        String endpoint = "/createParty.php";            //This will have to Change when we get told how it's done
-        JSONObject result = new HTTPRequest().get(base_server_url + endpoint, req);
-
-        if(result != null)
-            return true;
-        else
-            return false;
+        new HTTPRequest().get(base_server_url + createPartyPHP, req);
     }
 
-    public boolean joinParty(String userID, String partyID)throws IOException {
-
-        HashMap<String, String> req = new HashMap<String, String>();
+    public void joinParty(String userID, String partyID) throws IOException {
+        HashMap<String, String> req = new HashMap<>();
         req.put("user_id", userID);
         req.put("partID", partyID);
 
-        String endpoint = "/joinParty.php";            //This will have to Change when we get told how it's done
-        JSONObject result = new HTTPRequest().get(base_server_url + endpoint, req);
-
-        if(result != null)
-            return true;
-        else
-            return false;
+        new HTTPRequest().get(base_server_url + joinPartyPHP, req);
     }
 }

@@ -38,38 +38,32 @@ public class QGuest extends AppCompatActivity {
         });
     }
 
-    private class joinParty extends AsyncTask<String, Void, Boolean> {
-
-
+    private class joinParty extends AsyncTask<String, Void, Void> {
 
         protected void onPreExecute(String... params) {
             partyID = params[0];
         }
 
         @Override
-        protected Boolean doInBackground(String... params) {
-            boolean success = false;
+        protected Void doInBackground(String... params) {
             try {
-                success = new ServerComms().joinParty("userID",partyID);
+                new ServerComms().joinParty("userID", partyID);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            return success;             //Returns True if it was joined succesffuly
+            return null;
         }
 
         @Override
-        protected void onPostExecute(Boolean result) {
-            if(result){
-                //Save the partyID
-                //Send to the browser screen or something...
-            }else{
-                //Show a Dialogue that it didn't work for some sort of reason... If guess
-                Snackbar.make(findViewById(android.R.id.content), "Sorry! That didn't work, that party might not exist. Try again", Snackbar.LENGTH_LONG).show();
-            }
+        protected void onPostExecute(Void aVoid) {
+            Snackbar.make(findViewById(android.R.id.content),
+                    "Sorry! That didn't work, that party might already exist. Try again",
+                    Snackbar.LENGTH_LONG).show();
         }
 
         @Override
         protected void onProgressUpdate(Void... values) {
+
         }
     }
 
