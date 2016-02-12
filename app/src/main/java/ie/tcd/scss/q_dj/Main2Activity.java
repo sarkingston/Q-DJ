@@ -2,6 +2,7 @@ package ie.tcd.scss.q_dj;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -50,9 +51,13 @@ public class Main2Activity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private RecyclerView recyclerView;
+
+    //sample array and names to simulate graph data
     int[] points = new int[]{2,6,7,4,};
     public final static String POINTS = "ie.tcd.scss.q_dj.POINTS";
     public final static String NAMES = "ie.tcd.scss.counter.NAMES";
+
+    //saved themes from changeColour
     private static final String PREFS_NAME = "prefs";
     private static final String PREF_DARK_THEME = "dark_theme";
     //private MyTask task;
@@ -73,6 +78,18 @@ public class Main2Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Use the chosen theme
+        /*SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        boolean useDarkTheme = preferences.getBoolean(PREF_DARK_THEME, false);
+        if(useDarkTheme){
+            setTheme(R.style.AppTheme2);
+            //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar2);
+            //setSupportActionBar(toolbar);
+        } else{
+            setTheme(R.style.AppTheme);
+            //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            //setSupportActionBar(toolbar);
+        }*/
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -306,6 +323,17 @@ public class Main2Activity extends AppCompatActivity {
         intent.putExtra(POINTS, points);
         //intent.putExtra(LABELS, metrics);
         startActivity(intent);
+    }
+
+    //ensures that after changing colour, the activity starts
+    //fresh so to override previous colour
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        //When BACK BUTTON is pressed, the activity on the stack is restarted
+        finish();
+        Intent i = new Intent(Main2Activity.this, Main2Activity.class);
+        startActivity(i);
     }
 
 

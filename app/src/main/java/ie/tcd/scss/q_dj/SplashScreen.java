@@ -23,6 +23,8 @@ public class SplashScreen extends AppCompatActivity {
 
     // Splash screen timer
     private static int SPLASH_TIME_OUT = 3000;
+    private static final float ROTATE_FROM = 0.0f;
+    private static final float ROTATE_TO = 350f;
 
     @Override
 
@@ -34,7 +36,7 @@ public class SplashScreen extends AppCompatActivity {
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
 
-        RotateAnimation anim = new RotateAnimation(0f, 350f, 300f, 310f);
+        RotateAnimation anim = new RotateAnimation(ROTATE_FROM, ROTATE_TO, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         anim.setInterpolator(new LinearInterpolator());
         anim.setRepeatCount(Animation.INFINITE);
         anim.setDuration(800);
