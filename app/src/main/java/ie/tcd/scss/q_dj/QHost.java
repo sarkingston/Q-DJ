@@ -33,16 +33,14 @@ public class QHost extends AppCompatActivity {
 
 
         //On Click of Submit Button
-            //Get The Text and send it to the 'ServerComms' class in an ASYNNCtask
-            //new createParty().execute(partyID);
-            new getQueue().execute(partyID);
+        //Get The Text and send it to the 'ServerComms' class in an ASYNNCtask
+        //new createParty().execute(partyID);
+        new getQueue().execute(partyID);
 
 
     }
 
     private class getQueue extends AsyncTask<String, Void, JSONArray> {
-
-
 
         protected void onPreExecute(String... params) {
             partyID = params[0];
@@ -50,40 +48,41 @@ public class QHost extends AppCompatActivity {
 
         @Override
         protected JSONArray doInBackground(String... params) {
-            JSONArray queue = null;
             try {
-                queue = new ServerComms().getQueue(partyID);
+                return ServerComms.getQueue(partyID);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            return queue;             //Returns True if it was joined succesffuly
+            return null;
         }
 
         @Override
         protected void onPostExecute(JSONArray result) {
-            if(result != null){
+            if (result != null) {
                 //Parse the Queue
-                for(int i =0; i<result.length(); i++){
-                    try {
+                try {
+                    for (int i = 0; i < result.length(); i++) {
                         JSONObject json_song = result.getJSONObject(i);
-                        Song s = new Song(json_song.optString("songtitle"),json_song.optString("artist"),Double.parseDouble(json_song.optString("songlength")),json_song.optString("spotifyID"));
+                        Song s = new Song(json_song.optString("songtitle"),
+                                json_song.optString("artist"),
+                                Double.parseDouble(json_song.optString("songlength")),
+                                json_song.optString("spotifyID"));
                         //Add the Song to the list
                         queue_list.add(s);
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     }
-
-
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
                 //Put it into the Swipe List
-                if(queue_list.size() > 0){
+                if (queue_list.size() > 0) {
                     //If there's stuff in the Queue...
                     //Populate the Swipelist
                 }
-            }else{
+            } else {
                 //Show a Dialogue that it didn't work for some sort of reason... If guess
-                Snackbar.make(findViewById(android.R.id.content), "Sorry! That didn't work, are you sure you're connected?", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(findViewById(android.R.id.content),
+                        "Sorry! That didn't work, are you sure you're connected?",
+                        Snackbar.LENGTH_LONG).show();
             }
         }
 
@@ -101,7 +100,7 @@ public class QHost extends AppCompatActivity {
         @Override
         protected Void doInBackground(String... params) {
             try {
-                new ServerComms().createParty("userID",partyID);
+                new ServerComms().createParty("userID", partyID);
             } catch (IOException e) {
                 e.printStackTrace();
             }

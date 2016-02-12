@@ -1,5 +1,6 @@
 package ie.tcd.scss.q_dj;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -19,10 +20,14 @@ public class ServerComms {
 
     public ServerComms(){}
 
-    public static JSONObject getQueue(String partyID) throws IOException {
+    public static JSONArray getQueue(String partyID) throws IOException {
         HashMap<String, String> req = new HashMap<>();
         req.put("partID", partyID);
-        return new HTTPRequest().get(base_server_url + getQueuePHP, req);
+        JSONObject jsonObject = new HTTPRequest().get(base_server_url + getQueuePHP, req);
+        System.out.println(jsonObject);
+
+        //should return the json array, not null?
+        return null;
     }
 
     public void addSong(String userID,

@@ -21,6 +21,8 @@ import com.spotify.sdk.android.player.ConnectionStateCallback;
 import com.spotify.sdk.android.player.Player;
 import com.spotify.sdk.android.player.PlayerNotificationCallback;
 import com.spotify.sdk.android.player.PlayerState;
+
+import java.io.IOException;
 //import android.R;
 
 
@@ -124,7 +126,6 @@ public class LoginScreen extends Activity implements
         /*Intent i = new Intent(LoginScreen.this, MainActivity.class);
         startActivity(i);
         finish();*/
-
 
     }
 
