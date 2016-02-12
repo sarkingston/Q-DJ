@@ -108,7 +108,7 @@ public class LoginScreen extends Activity implements
                 });
             }
         }
-        new Handler().postDelayed(new Runnable() {
+       /* new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
 
@@ -118,7 +118,7 @@ public class LoginScreen extends Activity implements
 
             }
 
-        }, 10000);
+        }, 10000);*/
 
 
         /*Intent i = new Intent(LoginScreen.this, MainActivity.class);

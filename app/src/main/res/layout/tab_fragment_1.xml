@@ -9,106 +9,21 @@
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:id="@+id/scrollView" >
-        <LinearLayout
+
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_view"
+            android:layout_gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            >
+            android:layout_height="200dp"
+            card_view:cardCornerRadius="4dp">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/info_text"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:orientation="horizontal"
-                >
+                android:layout_height="match_parent" />
+        </android.support.v7.widget.CardView>
 
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="SONG NAME/ALBUM/ARTIST"
-                    android:textSize="23dp"
-                    android:textColor="#1ed760"
-                    />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/plus"
-                    android:gravity="right"
-                    android:layout_gravity="center_vertical" />
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:orientation="horizontal"
-                >
-
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="SONG NAME/ALBUM/ARTIST"
-                    android:textSize="23dp"
-                    android:textColor="#1ed760"
-                    />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/plus"
-                    android:gravity="right"
-                    android:layout_gravity="center_vertical" />
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:orientation="horizontal"
-                >
-
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="SONG NAME/ALBUM/ARTIST"
-                    android:textSize="23dp"
-                    android:textColor="#1ed760"
-                    />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/plus"
-                    android:gravity="right"
-                    android:layout_gravity="center_vertical" />
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:orientation="horizontal"
-                >
-
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="SONG NAME/ALBUM/ARTIST"
-                    android:textSize="23dp"
-                    android:textColor="#1ed760"
-                    />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/plus"
-                    android:gravity="right"
-                    android:layout_gravity="center_vertical" />
-
-            </LinearLayout>
-
-        </LinearLayout>
     </ScrollView>
     <LinearLayout
         android:layout_width="match_parent"
@@ -140,22 +55,7 @@
             android:id="@+id/forward"
             android:onClick="forward"/>
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Make Q active"
-            android:layout_toRightOf="@id/forward"
-            android:layout_marginLeft="-340dp"
-            android:id="@+id/deactivate"
-            />
-
-
-
 
     </LinearLayout>
-
-
-
-
 </LinearLayout>
 
