@@ -8,12 +8,12 @@
         app:showAsAction="never" />
 
     <item android:id="@+id/action_graph"
-        android:title="Graph1"
+        android:title="@string/title_activity_graph"
         android:orderInCategory="200"
         app:showAsAction="never" />
 
     <item android:id="@+id/action_changeColour"
-        android:title="ChangeColour"
+        android:title="@string/title_activity_change_colour"
         android:orderInCategory="300"
         app:showAsAction="never" />
 </menu>
