@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -34,26 +35,39 @@
         <android.widget.Space
             android:layout_width="70dp"
             android:layout_height="fill_parent" />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rewind"
-            android:id="@+id/rewind"
-            android:onClick="rewind"/>
 
-        <Button
+        <com.getbase.floatingactionbutton.FloatingActionsMenu
+            android:id="@+id/multiple_actions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/play"
-            android:id="@+id/play"
-            android:onClick="play"/>
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            fab:fab_addButtonColorNormal="@color/purple_fab_menu"
+            fab:fab_addButtonColorPressed="@color/purple_fab_menu_pressed"
+            fab:fab_addButtonPlusIconColor="@color/white"
+            android:layout_marginBottom="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp"
+            fab:fab_expandDirection="left">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/forward"
-            android:id="@+id/forward"
-            android:onClick="forward"/>
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/action_a"
+                fab:fab_icon="@mipmap/ic_create_white_24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                fab:fab_colorNormal="@color/purple_fab"
+                fab:fab_colorPressed="@color/purple_fab_pressed"/>
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/action_b"
+                fab:fab_icon="@mipmap/ic_assignment_white_24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                fab:fab_colorNormal="@color/purple_fab"
+                fab:fab_colorPressed="@color/purple_fab_pressed"/>
+
+        </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
 
     </LinearLayout>
