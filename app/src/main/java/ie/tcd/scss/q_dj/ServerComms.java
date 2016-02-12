@@ -45,11 +45,12 @@ public class ServerComms {
 
         new HTTPRequest().get(base_server_url + addSongPHP, req);
     }
+
     public void deleteSong(String userID, String partyID, String songID) throws IOException {
         HashMap<String, String> req = new HashMap<>();
         req.put("user_id", userID);
-        req.put("partID", partyID);
-        req.put("songID", songID);
+        req.put("partyID", partyID);
+        req.put("spotifyID", songID);
 
         new HTTPRequest().get(base_server_url + deleteSongPHP, req);
     }
@@ -58,7 +59,7 @@ public class ServerComms {
     public void createParty(String userID, String partyID) throws IOException {
         HashMap<String, String> req = new HashMap<>();
         req.put("user_id", userID);
-        req.put("partID", partyID);
+        req.put("partyID", partyID);
 
         new HTTPRequest().get(base_server_url + createPartyPHP, req);
     }
@@ -66,7 +67,7 @@ public class ServerComms {
     public void joinParty(String userID, String partyID) throws IOException {
         HashMap<String, String> req = new HashMap<>();
         req.put("user_id", userID);
-        req.put("partID", partyID);
+        req.put("partyID", partyID);
 
         new HTTPRequest().get(base_server_url + joinPartyPHP, req);
     }

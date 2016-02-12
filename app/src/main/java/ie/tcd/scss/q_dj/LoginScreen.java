@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.spotify.sdk.android.authentication.AuthenticationClient;
@@ -20,6 +21,8 @@ import com.spotify.sdk.android.player.ConnectionStateCallback;
 import com.spotify.sdk.android.player.Player;
 import com.spotify.sdk.android.player.PlayerNotificationCallback;
 import com.spotify.sdk.android.player.PlayerState;
+//import android.R;
+
 
 public class LoginScreen extends Activity implements
         PlayerNotificationCallback, ConnectionStateCallback {
@@ -43,6 +46,15 @@ public class LoginScreen extends Activity implements
 
         Button b1 = (Button) findViewById(R.id.btnLinkToRegisterScreen);
 
+        Button btnM = (Button)findViewById(R.id.MockButton);
+        /**Opens up QHost activity*/
+        btnM.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginScreen.this, Main2Activity.class));
+            }
+        });
+
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,8 +68,6 @@ public class LoginScreen extends Activity implements
                 AuthenticationClient.openLoginActivity(LoginScreen.this, REQUEST_CODE, request);
             }
         });
-
-
     }
 
     @Override
@@ -86,7 +96,8 @@ public class LoginScreen extends Activity implements
                         mPlayer = player;
                         mPlayer.addConnectionStateCallback(LoginScreen.this);
                         mPlayer.addPlayerNotificationCallback(LoginScreen.this);
-                        mPlayer.play("spotify:track:1j8z4TTjJ1YOdoFEDwJTQa");
+                        mPlayer.play("spotify:track:5DBQWDGt7WVlyMgMgvGko9");
+
                     }
 
                     @Override
@@ -101,7 +112,7 @@ public class LoginScreen extends Activity implements
             @Override
             public void run() {
 
-                Intent i = new Intent(LoginScreen.this, MainActivity.class);
+                Intent i = new Intent(LoginScreen.this, QGuest.class);
                 startActivity(i);
                 finish();
 

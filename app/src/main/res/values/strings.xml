@@ -1,12 +1,10 @@
 <resources>
-    <string name="app_name">Q-DJ</string>
+    <string name="app_name">QDJ</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_qhost">QHost</string>
     <string name="title_activity_qguest">QGuest</string>
-    <string name="title_activity_choose_host">ChooseHost</string>
     <string name="title_activity_login_screen">LoginScreen</string>
     <string name="title_activity_splash_screen">SplashScreen</string>
-    <string name="title_activity_host_or_client">HostOrClient</string>
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->
@@ -67,4 +65,6 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>
