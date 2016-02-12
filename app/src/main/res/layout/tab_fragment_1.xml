@@ -76,7 +76,7 @@
                     fab:fab_colorNormal="@color/greenAccent"
                     fab:fab_colorPressed="@color/greenAccentPressed"/>
 
-            </com.getbase.floatingactionbutton.FloatingActionsMenu>
+            </com.getbase.floatingactionbutton.FloatingActionsMenu>//
 
         </RelativeLayout>
 
