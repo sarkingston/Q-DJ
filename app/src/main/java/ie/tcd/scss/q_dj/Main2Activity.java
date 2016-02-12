@@ -50,6 +50,11 @@ public class Main2Activity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private RecyclerView recyclerView;
+    int[] points = new int[]{2,6,7,4,};
+    public final static String POINTS = "ie.tcd.scss.q_dj.POINTS";
+    public final static String NAMES = "ie.tcd.scss.counter.NAMES";
+    private static final String PREFS_NAME = "prefs";
+    private static final String PREF_DARK_THEME = "dark_theme";
     //private MyTask task;
     private static final String URL = "http://Alex-was-here";
     private URL url;
@@ -62,6 +67,9 @@ public class Main2Activity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private CardViewHelper adapter;
 
+    com.getbase.floatingactionbutton.FloatingActionButton skip_previous;
+    com.getbase.floatingactionbutton.FloatingActionButton play;
+    com.getbase.floatingactionbutton.FloatingActionButton skip_next;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +82,10 @@ public class Main2Activity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("My Q"));
         tabLayout.addTab(tabLayout.newTab().setText("X's Q"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        skip_previous = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.skip_previous);
+        play = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.play);
+        skip_next = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.skip_next);
 
         /**Google Card Lst View Implementation
          * of recycler view for dynamic list
@@ -169,13 +181,20 @@ public class Main2Activity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+    public boolean onOptionsItemSelected (MenuItem item){
+        switch (item.getItemId()){
+            case R.id.action_settings:
+                Settings();
+                return true;
+            case R.id.action_graph:
+                graph();
+                return true;
+            case R.id.action_changeColour:
+                ChangeColour();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
     /**Class extending the list gathered from the internet
@@ -270,6 +289,23 @@ public class Main2Activity extends AppCompatActivity {
         Intent intent = new Intent(this,AddActivity.class);
         startActivity(intent);
 
+    }
+    private void Settings(){
+        Intent i = new Intent(Main2Activity.this, SettingsActivity.class);
+        startActivity(i);
+    }
+
+    //Temp Colour Change Activity
+    private void ChangeColour(){
+        Intent i = new Intent(Main2Activity.this, ChangeColourActivity.class);
+        startActivity(i);
+    }
+
+    public void graph(){
+        Intent intent = new Intent(this,GraphActivity.class);
+        intent.putExtra(POINTS, points);
+        //intent.putExtra(LABELS, metrics);
+        startActivity(intent);
     }
 
 
