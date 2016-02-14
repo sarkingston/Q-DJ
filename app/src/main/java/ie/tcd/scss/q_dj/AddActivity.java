@@ -4,6 +4,8 @@ import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 
 import org.json.JSONArray;
@@ -28,10 +30,9 @@ public class AddActivity extends AppCompatActivity {
 
     }
 
-    public void search(){
+    public void search(View v){
         EditText et = (EditText) findViewById(R.id.search_q);
         String q = et.getText().toString();
-
         new searchSpotify().execute("track", q);
 
     }
@@ -39,14 +40,14 @@ public class AddActivity extends AppCompatActivity {
     private class searchSpotify extends AsyncTask<String, Void, ArrayList<Song>> {
 
         protected void onPreExecute(String... params) {
-            query_type = params[0];
-            query = params[1];
         }
 
         @Override
         protected ArrayList doInBackground(String... params) {
             try {
-                return new SpotifyHelper().query(query, query_type);
+
+                SpotifyHelper sh = new SpotifyHelper();
+                return  sh.query(params[1], params[0]);
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (JSONException e) {
@@ -60,7 +61,7 @@ public class AddActivity extends AppCompatActivity {
             if (result != null) {
                 //Parse the Queue
                 //Put Each Song in the Listview or whatever it is...
-
+                //We have an ARRAYLIST of 'Song's so it should be easy enough to put them into some sort of list
 
             } else {
                 //Show a Dialogue that it didn't work for some sort of reason... If guess
