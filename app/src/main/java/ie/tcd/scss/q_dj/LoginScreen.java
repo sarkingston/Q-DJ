@@ -21,6 +21,8 @@ import com.spotify.sdk.android.player.ConnectionStateCallback;
 import com.spotify.sdk.android.player.Player;
 import com.spotify.sdk.android.player.PlayerNotificationCallback;
 import com.spotify.sdk.android.player.PlayerState;
+
+import java.io.IOException;
 //import android.R;
 
 
@@ -110,23 +112,12 @@ public class LoginScreen extends Activity implements
                         "Log in not successful. Proceeding to Main Screen for the banter anyway", Toast.LENGTH_LONG).show();
             }
         }
-       /* new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
 
-                Intent i = new Intent(LoginScreen.this, QGuest.class);
-                startActivity(i);
-                finish();
-
-            }
-
-        }, 10000);*/
 
 
         Intent i = new Intent(LoginScreen.this, Main2Activity.class);
         startActivity(i);
         finish();
-
 
     }
 

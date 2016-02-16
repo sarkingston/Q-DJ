@@ -11,6 +11,7 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
@@ -18,9 +19,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-
-import android.support.v7.widget.LinearLayoutManager;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -31,17 +29,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,7 +50,7 @@ public class Main2Activity extends AppCompatActivity {
     private static final String PREF_DARK_THEME = "dark_theme";
     //private MyTask task;
     private static final String URL = "http://Alex-was-here";
-    private URL url;
+    //private URL url;
     private HttpURLConnection urlConnection;
     private List<ServerComms> customList;
     private String title, image, album;
@@ -70,7 +58,7 @@ public class Main2Activity extends AppCompatActivity {
     ArrayList<ServerComms> songList = new ArrayList<ServerComms>();
 
     private ProgressDialog progressDialog;
-    private CardViewHelper adapter;
+    //private CardViewHelper adapter;
 
     com.getbase.floatingactionbutton.FloatingActionButton skip_previous;
     com.getbase.floatingactionbutton.FloatingActionButton play;
@@ -213,94 +201,6 @@ public class Main2Activity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
-    /**Class extending the list gathered from the internet
-     * into the google card list view
-     * Backend stuff to initialize the cardview list
-     * FOR BACKEND GUYS TO DO****
-     */
-   /* private class MyTask extends AsyncTask<String, Void, List>{
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressDialog = new ProgressDialog(Main2Activity.this);
-            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progressDialog.setIndeterminate(true);
-            progressDialog.setMessage("Please Wait");
-            progressDialog.setCancelable(false);
-            progressDialog.show();
-        }
-
-        @Override
-        protected List doInBackground(String... params) {
-            try {
-                url = new URL(params[0]);
-                urlConnection =(HttpURLConnection) url.openConnection();
-                urlConnection.connect();
-                urlConnection.setConnectTimeout(5000);
-                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-                StringBuilder jsonResult = inputStreamToString(in);
-                customList = new ArrayList<>();
-                JSONObject jsonResponseObject = new JSONObject(jsonResult.toString());
-
-                //JSONArray jsonResponseArray = new JSONArray(jsonResult.toString());
-                // [  for JSONArray
-                // { for JSONObject
-
-                JSONObject jsonMasterNode = jsonResponseObject.optJSONObject("data");
-                jsonMasterNode.getString("album");
-                System.out.println("MASTER NODE " + jsonMasterNode);
-
-                JSONArray jsonMainNode = jsonMasterNode.getJSONArray("movies");
-                System.out.println("LENGTH " + jsonMainNode.length());
-                System.out.println(jsonMainNode);
-
-                for(int i = 0; i < jsonMainNode.length(); i++){
-                    JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
-                    title = jsonChildNode.optString("title");
-                    album = jsonChildNode.optString("album");
-                    image = jsonChildNode.optString("urlPoster");
-                    //customList.add(new Main2Activity(title, album, image));
-
-                }
-            } catch (IOException | JSONException e) {
-                e.printStackTrace();
-            }
-            return customList;
-        }
-
-        private StringBuilder inputStreamToString(InputStream is) {
-            String rLine = " ";
-            StringBuilder answer = new StringBuilder();
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is));
-            try {
-                while ((rLine = rd.readLine()) != null) {
-                    answer.append(rLine);
-                }
-            } catch (Exception e) {
-                Main2Activity.this.finish();
-            }
-            return answer;
-        }
-
-        @Override
-        protected void onPostExecute(List list) {
-            ListDrawer(list);
-            progressDialog.dismiss();
-        }
-    }
-    public void ListDrawer(List<ServerComms> customList) {
-        adapter = new CardViewHelper(customList);
-        adapter.notifyDataSetChanged();
-        recyclerView.setAdapter(adapter);
-    }
-
-
-    private void accessWebService(){
-        task = new MyTask();
-        task.execute(new String[] {URL});
-    }*/
 
     public void add(View v) {
         Intent intent = new Intent(this,AddActivity.class);

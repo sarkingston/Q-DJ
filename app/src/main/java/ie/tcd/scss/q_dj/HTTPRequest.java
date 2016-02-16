@@ -39,14 +39,13 @@ public class HTTPRequest {
         p.put("key_2", "value_2");
 
         url is the base urls without any paramters that is to be sent
-
-
      */
     public JSONObject get(String url,HashMap<String, String> params ) throws IOException {
 
         //HashMap<String, String> h1 = new HashMap<String, String>();
         if(this.isInternetAvailable()){
             HttpURLConnection c = null;
+
             try {
 
                 //Structuring the URL
@@ -65,6 +64,7 @@ public class HTTPRequest {
                         it.remove(); // avoids a ConcurrentModificationException
                     }
                 }
+                Log.e("URL", url.toString());
                 URL url_obj = new URL(url );
                 c = (HttpURLConnection) url_obj.openConnection();
                 c.setRequestMethod("GET");
@@ -89,7 +89,7 @@ public class HTTPRequest {
                             writer.write(buffer, 0, n);
                         }
                         br.close();
-                        Log.d("Response", writer.toString());
+                        Log.e("Response", writer.toString());
                         JSONObject j = new JSONObject(writer.toString());
                         return j;
                 }
@@ -107,7 +107,7 @@ public class HTTPRequest {
             } catch (JSONException e) {
                 Log.e("JSON Parser", "Error parsing data " + e.toString());
             }
-            Log.d("JSONParse", jObj.toString());
+            Log.e("JSONParse", jObj.toString());
             // return JSON String
             return jObj;
         }

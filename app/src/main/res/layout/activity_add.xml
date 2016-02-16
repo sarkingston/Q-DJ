@@ -8,9 +8,30 @@
     tools:context="ie.tcd.scss.q_dj.AddActivity"
     android:background="@drawable/login_background">
 
-    <Button
-        android:layout_width="match_parent"
+
+
+    <EditText
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Search..."/>
+        android:id="@+id/search_q"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/seach_btn"
+        android:layout_toLeftOf="@+id/seach_btn"
+        android:autoText="true"
+        android:editable="true"
+        android:textColor="#fff" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/seach_btn"
+        android:onClick="search"
+        android:src="@drawable/search"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:clickable="true" />
 
 </RelativeLayout>
