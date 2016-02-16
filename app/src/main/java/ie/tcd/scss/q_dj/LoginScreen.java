@@ -112,17 +112,7 @@ public class LoginScreen extends Activity implements
                         "Log in not successful. Proceeding to Main Screen for the banter anyway", Toast.LENGTH_LONG).show();
             }
         }
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
 
-                Intent i = new Intent(LoginScreen.this, QGuest.class);
-                startActivity(i);
-                finish();
-
-            }
-
-        }, 10000);
 
 
         Intent i = new Intent(LoginScreen.this, Main2Activity.class);
