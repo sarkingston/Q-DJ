@@ -1,161 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/login_background">
+    android:orientation="vertical">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="370dp"
         android:id="@+id/scrollView" >
-        <LinearLayout
+
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_view"
+            android:layout_gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            >
+            android:layout_height="200dp"
+            card_view:cardCornerRadius="4dp">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/info_text"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:orientation="horizontal"
-                >
+                android:layout_height="match_parent" />
+        </android.support.v7.widget.CardView>
 
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="SONG NAME/ALBUM/ARTIST"
-                    android:textSize="23dp"
-                    android:textColor="#1ed760"
-                    />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/plus"
-                    android:gravity="right"
-                    android:layout_gravity="center_vertical" />
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:orientation="horizontal"
-                >
-
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="SONG NAME/ALBUM/ARTIST"
-                    android:textSize="23dp"
-                    android:textColor="#1ed760"
-                    />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/plus"
-                    android:gravity="right"
-                    android:layout_gravity="center_vertical" />
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:orientation="horizontal"
-                >
-
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="SONG NAME/ALBUM/ARTIST"
-                    android:textSize="23dp"
-                    android:textColor="#1ed760"
-                    />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/plus"
-                    android:gravity="right"
-                    android:layout_gravity="center_vertical" />
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:orientation="horizontal"
-                >
-
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="SONG NAME/ALBUM/ARTIST"
-                    android:textSize="23dp"
-                    android:textColor="#1ed760"
-                    />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/plus"
-                    android:gravity="right"
-                    android:layout_gravity="center_vertical" />
-
-            </LinearLayout>
-
-        </LinearLayout>
     </ScrollView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="#223980"
-        >
-        <android.widget.Space
-            android:layout_width="70dp"
-            android:layout_height="fill_parent" />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rewind"
-            android:id="@+id/rewind"
-            android:onClick="rewind"/>
+        android:background="#223980">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/play"
-            android:id="@+id/play"
-            android:onClick="play"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/forward"
-            android:id="@+id/forward"
-            android:onClick="forward"/>
-
-        <Button
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Make Q active"
-            android:layout_toRightOf="@id/forward"
-            android:layout_marginLeft="-340dp"
-            android:id="@+id/deactivate"
-            />
+            android:layout_height="wrap_content">
 
+            <com.getbase.floatingactionbutton.FloatingActionsMenu
+                android:id="@+id/multiple_actions"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                fab:fab_addButtonColorNormal="@color/greenAccent"
+                fab:fab_addButtonColorPressed="@color/greenAccentPressed"
+                fab:fab_addButtonPlusIconColor="#FFFFFF"
+                android:layout_marginBottom="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginEnd="16dp"
+                fab:fab_expandDirection="left">
 
+                <com.getbase.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/skip_previous"
+                    fab:fab_icon="@mipmap/ic_skip_previous_white_24dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    fab:fab_colorNormal="@color/greenAccent"
+                    fab:fab_colorPressed="@color/greenAccentPressed"/>
 
+                <com.getbase.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/play"
+                    fab:fab_icon="@mipmap/ic_play_arrow_white_24dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    fab:fab_colorNormal="@color/greenAccent"
+                    fab:fab_colorPressed="@color/greenAccentPressed"/>
+
+                <com.getbase.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/skip_next"
+                    fab:fab_icon="@mipmap/ic_skip_next_white_24dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    fab:fab_colorNormal="@color/greenAccent"
+                    fab:fab_colorPressed="@color/greenAccentPressed"/>
+
+            </com.getbase.floatingactionbutton.FloatingActionsMenu>//
+
+        </RelativeLayout>
 
     </LinearLayout>
-
-
-
-
 </LinearLayout>
 

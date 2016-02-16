@@ -93,8 +93,6 @@ public class LoginScreen extends Activity implements
                 Spotify.getPlayer(playerConfig, this, new Player.InitializationObserver() {
                     @Override
                     public void onInitialized(Player player) {
-                        Toast.makeText(LoginScreen.this,
-                                "Playing song for 10 seconds", Toast.LENGTH_LONG).show();
                         mPlayer = player;
                         mPlayer.addConnectionStateCallback(LoginScreen.this);
                         mPlayer.addPlayerNotificationCallback(LoginScreen.this);
@@ -108,6 +106,10 @@ public class LoginScreen extends Activity implements
                     }
 
                 });
+            }
+            else{
+                Toast.makeText(LoginScreen.this,
+                        "Log in not successful. Proceeding to Main Screen for the banter anyway", Toast.LENGTH_LONG).show();
             }
         }
         new Handler().postDelayed(new Runnable() {
@@ -123,9 +125,9 @@ public class LoginScreen extends Activity implements
         }, 10000);
 
 
-        /*Intent i = new Intent(LoginScreen.this, MainActivity.class);
+        Intent i = new Intent(LoginScreen.this, Main2Activity.class);
         startActivity(i);
-        finish();*/
+        finish();
 
     }
 
