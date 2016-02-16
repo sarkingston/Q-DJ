@@ -9,7 +9,10 @@ import android.os.AsyncTask;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import android.support.v4.app.Fragment;
@@ -25,6 +28,10 @@ import android.view.ViewGroup;
 
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.net.HttpURLConnection;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Main2Activity extends AppCompatActivity {
@@ -43,7 +50,7 @@ public class Main2Activity extends AppCompatActivity {
     private static final String PREF_DARK_THEME = "dark_theme";
     //private MyTask task;
     private static final String URL = "http://Alex-was-here";
-    private URL url;
+    //private URL url;
     private HttpURLConnection urlConnection;
     private List<ServerComms> customList;
     private String title, image, album;
@@ -51,7 +58,7 @@ public class Main2Activity extends AppCompatActivity {
     ArrayList<ServerComms> songList = new ArrayList<ServerComms>();
 
     private ProgressDialog progressDialog;
-    private CardViewHelper adapter;
+    //private CardViewHelper adapter;
 
     com.getbase.floatingactionbutton.FloatingActionButton skip_previous;
     com.getbase.floatingactionbutton.FloatingActionButton play;
