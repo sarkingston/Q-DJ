@@ -1,6 +1,7 @@
 package ie.tcd.scss.q_dj;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -20,6 +21,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,6 +30,8 @@ import android.view.ViewGroup;
 
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.spotify.sdk.android.player.Config;
 
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
@@ -64,20 +68,14 @@ public class Main2Activity extends AppCompatActivity {
     com.getbase.floatingactionbutton.FloatingActionButton play;
     com.getbase.floatingactionbutton.FloatingActionButton skip_next;
 
+    MusicPlayer mp;
+    Config playerConfig;
+    String[] testSongList  = {"2zMoMsf7KtqCQvlNfdFKtW", "5DBQWDGt7WVlyMgMgvGko9", "5blEjbK0DUQBxggguyKsEP"};
+    int songNumber = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Use the chosen theme
-        /*SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        boolean useDarkTheme = preferences.getBoolean(PREF_DARK_THEME, false);
-        if(useDarkTheme){
-            setTheme(R.style.AppTheme2);
-            //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar2);
-            //setSupportActionBar(toolbar);
-        } else{
-            setTheme(R.style.AppTheme);
-            //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-            //setSupportActionBar(toolbar);
-        }*/
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -92,6 +90,7 @@ public class Main2Activity extends AppCompatActivity {
         play = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.play);
         skip_next = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.skip_next);
 
+
         /**Google Card Lst View Implementation
          * of recycler view for dynamic list
          * entries and place swapping
@@ -105,27 +104,6 @@ public class Main2Activity extends AppCompatActivity {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         boolean connected = networkInfo != null && networkInfo.isAvailable() && networkInfo.isConnectedOrConnecting();
-
-        /**Internet availability implementation*/
-       /* if (connected){
-            accessWebService();
-            swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                @Override
-                public void onRefresh() {
-                    accessWebService();
-                    swipeRefreshLayout.setRefreshing(false);
-                }
-            });
-        }*/
-        /*else {
-            com.nispok.snackbar.Snackbar.with(Intro.this).text("No Internet Connection").actionLabel("Retry").actionListener(new ActionClickListener() {
-                @Override
-                public void onActionClicked(com.nispok.snackbar.Snackbar snackbar) {
-                    accessWebService();
-                    snackbar.dismiss();
-                }
-            }).show(Main2Activity.this);
-        }*/
 
 
 
@@ -151,32 +129,30 @@ public class Main2Activity extends AppCompatActivity {
 
             }
         });
-/*
-        final Button activate = (Button) findViewById(R.id.activate);
-        final Button deactivate = (Button) findViewById(R.id.deactivate);
-        activate.setVisibility(View.GONE);
-        deactivate.setVisibility(View.VISIBLE);
-        activate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //when play is clicked show stop button and hide play button
-                activate.setVisibility(View.GONE);
-                deactivate.setVisibility(View.VISIBLE);
 
-            }
-        });
+        mp = new MusicPlayer();
+        SharedPreferences token = this.getSharedPreferences(
+                "ie.tcd.scss.q_dj", Context.MODE_PRIVATE
+        );
+        playerConfig = new Config(this, token.getString("authToken", null), "92780422e43e48acb1c590c38bacb70f"); // copied client id because it is private in login screen, this should be moved to a public class elsewhere
+    }
 
-        deactivate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //when play is clicked show stop button and hide play button
-                activate.setVisibility(View.VISIBLE);
-                deactivate.setVisibility(View.GONE);
+    public void playSong(View view) {
+        mp.play(playerConfig, testSongList[songNumber]);
+    }
 
-            }
-        });
-        */
+    public void skipSong(View view) {
+        if (songNumber < testSongList.length) {
+            songNumber++;
+            playSong(view);
+        }
+    }
 
+    public void prevSong(View view) {
+        if (songNumber > 0) {
+            songNumber--;
+            playSong(view);
+        }
     }
 
     @Override

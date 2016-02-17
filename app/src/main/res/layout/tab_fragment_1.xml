@@ -57,7 +57,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     fab:fab_colorNormal="@color/greenAccent"
-                    fab:fab_colorPressed="@color/greenAccentPressed"/>
+                    fab:fab_colorPressed="@color/greenAccentPressed"
+                    android:onClick="prevSong"/>
 
                 <com.getbase.floatingactionbutton.FloatingActionButton
                     android:id="@+id/play"
@@ -65,7 +66,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     fab:fab_colorNormal="@color/greenAccent"
-                    fab:fab_colorPressed="@color/greenAccentPressed"/>
+                    fab:fab_colorPressed="@color/greenAccentPressed"
+                    android:onClick="playSong"/>
 
                 <com.getbase.floatingactionbutton.FloatingActionButton
                     android:id="@+id/skip_next"
@@ -73,7 +75,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     fab:fab_colorNormal="@color/greenAccent"
-                    fab:fab_colorPressed="@color/greenAccentPressed"/>
+                    fab:fab_colorPressed="@color/greenAccentPressed"
+                    android:onClick="skipSong"/>
 
             </com.getbase.floatingactionbutton.FloatingActionsMenu>//
 
