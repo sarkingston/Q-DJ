@@ -29,6 +29,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -79,8 +81,9 @@ public class Main2Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Use the chosen theme
-        /*SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         boolean useDarkTheme = preferences.getBoolean(PREF_DARK_THEME, false);
+
         if(useDarkTheme){
             setTheme(R.style.AppTheme2);
             //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar2);
@@ -89,11 +92,12 @@ public class Main2Activity extends AppCompatActivity {
             setTheme(R.style.AppTheme);
             //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
             //setSupportActionBar(toolbar);
-        }*/
+
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("My Q"));
@@ -201,7 +205,7 @@ public class Main2Activity extends AppCompatActivity {
     public boolean onOptionsItemSelected (MenuItem item){
         switch (item.getItemId()){
             case R.id.action_settings:
-                Settings();
+                Settings2();
                 return true;
             case R.id.action_graph:
                 graph();
@@ -309,6 +313,10 @@ public class Main2Activity extends AppCompatActivity {
     }
     private void Settings(){
         Intent i = new Intent(Main2Activity.this, SettingsActivity.class);
+        startActivity(i);
+    }
+    private void Settings2(){
+        Intent i = new Intent(Main2Activity.this, SettingsActivity2.class);
         startActivity(i);
     }
 

@@ -4,10 +4,10 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="greenAccent">#4CAF50</color>
     <color name="greenAccentPressed">#43A047</color>
-    <color name="colorBackground">#acb8ff</color>
+    <color name="colorBackground">#ccd3ff</color>
     <color name="colorAccent">#49e065</color>
     <color name="colorPrimary2">#ed4c48</color>
     <color name="colorPrimaryDark2">#a73030</color>
-    <color name="colorAccent2">#ff6a9d</color>
-    <color name="colorBackground2">#ffacac</color>
+    <color name="colorAccent2">#49e065</color>
+    <color name="colorBackground2">#fdd2d2</color>
 </resources>
