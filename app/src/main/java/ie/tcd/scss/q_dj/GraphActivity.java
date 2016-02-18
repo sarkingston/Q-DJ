@@ -4,11 +4,14 @@ package ie.tcd.scss.q_dj;
  * Created by conor on 12/02/2016.
  */
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -22,13 +25,27 @@ public class GraphActivity extends AppCompatActivity {
 
     int[] points;
 
+    //saved themes from changeColour
+    private static final String PREFS_NAME = "prefs";
+    private static final String PREF_DARK_THEME = "dark_theme";
+
 
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {// Use the chosen theme
+        SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        boolean useDarkTheme = preferences.getBoolean(PREF_DARK_THEME, false);
+
+        if(useDarkTheme){
+            setTheme(R.style.AppTheme2);
+        } else{
+            setTheme(R.style.AppTheme);
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph);
+        setupActionBar();
 
         Intent intent = getIntent();
         points = intent.getIntArrayExtra(Main2Activity.POINTS);
@@ -89,6 +106,23 @@ public class GraphActivity extends AppCompatActivity {
 
 
 
+    }
+    private void setupActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            // Show the Up button in the action bar.
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }
