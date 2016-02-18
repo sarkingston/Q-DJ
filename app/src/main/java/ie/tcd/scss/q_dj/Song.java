@@ -5,11 +5,10 @@ package ie.tcd.scss.q_dj;
  */
 public class Song {
 
-    public String title;
-    public String artist;
-    public double duration;
-    public String spotifyID;
-    public String coverPhoto;
+    private String title;
+    private String artist;
+    private double duration;
+    private String spotifyID;
 
     public Song(String title, String artist, double duration, String spotifyID){
         this.title = title;
@@ -17,4 +16,13 @@ public class Song {
         this.duration = duration;
         this.spotifyID = spotifyID;
     }
+
+    public void setTitle(String title){this.title=title;}
+    public String getTitle(){return title;}
+    public void setArtist(String artist){this.artist=artist;}
+    public String getArtist(){return artist;}
+    public void setDuration(long duration){this.duration=duration;}
+    public double getDuration(){return duration;}
+    public void setSpotifyID(String spotifyID){this.spotifyID=spotifyID;}
+    public String getSpotifyID(){return spotifyID;}
 }

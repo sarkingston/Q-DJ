@@ -1,6 +1,10 @@
 package ie.tcd.scss.q_dj;
 
+import android.annotation.TargetApi;
+import android.os.Build;
+
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -11,22 +15,27 @@ import java.util.HashMap;
  */
 public class ServerComms {
 
-    public static final String base_server_url = "http://217.78.0.111/~tuneq";
-    public static final String addSongPHP = "/addSong.php";
-    public static final String deleteSongPHP = "/deleteSong.php";
-    public static final String createPartyPHP = "/createParty.php";
-    public static final String joinPartyPHP = "/joinParty.php";
-    public static final String getQueuePHP = "/getQueue.php";
+    public static final String base_server_url = "http://tuneq.2digital.ie";
+    public static final String addSongPHP = "/addsong.php";
+    public static final String deleteSongPHP = "/deletesong.php";
+    public static final String createPartyPHP = "/createparty.php";
+    public static final String joinPartyPHP = "/joinparty.php";
+    public static final String getQueuePHP = "/getqueue.php";
 
-    public ServerComms(){}
+    public ServerComms() {}
 
+    @TargetApi(Build.VERSION_CODES.KITKAT)
     public static JSONArray getQueue(String partyID) throws IOException {
         HashMap<String, String> req = new HashMap<>();
-        req.put("partID", partyID);
+        req.put("partyid", partyID);
         JSONObject jsonObject = new HTTPRequest().get(base_server_url + getQueuePHP, req);
-        System.out.println(jsonObject);
 
-        //should return the json array, not null?
+        try {
+            return new JSONArray(jsonObject);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 

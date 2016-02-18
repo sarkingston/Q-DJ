@@ -114,9 +114,9 @@ public class LoginScreen extends Activity implements
             @Override
             public void run() {
 
-                Intent i = new Intent(LoginScreen.this, QGuest.class);
+                /*Intent i = new Intent(LoginScreen.this, QGuest.class);
                 startActivity(i);
-                finish();
+                finish();*/
 
             }
 
