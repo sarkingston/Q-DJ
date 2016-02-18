@@ -36,7 +36,7 @@ public class GraphActivity extends AppCompatActivity {
         BarChart chart = (BarChart) findViewById(R.id.chart);
 
         /*ArrayList<BarEntry> entries = new ArrayList<>();
-        entries.add(new BarEntry(10, 0));
+        entries.add(new BarEntry(10, 0));//
         entries.add(new BarEntry(2, 1));
         entries.add(new BarEntry(6, 2));
         entries.add(new BarEntry(7, 3));

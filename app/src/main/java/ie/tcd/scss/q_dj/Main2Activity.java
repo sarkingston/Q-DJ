@@ -20,6 +20,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,6 +28,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.net.HttpURLConnection;
@@ -64,11 +67,17 @@ public class Main2Activity extends AppCompatActivity {
     com.getbase.floatingactionbutton.FloatingActionButton play;
     com.getbase.floatingactionbutton.FloatingActionButton skip_next;
 
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private static String LOG_TAG = "CardViewActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Use the chosen theme
-        /*SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         boolean useDarkTheme = preferences.getBoolean(PREF_DARK_THEME, false);
+
         if(useDarkTheme){
             setTheme(R.style.AppTheme2);
             //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar2);
@@ -77,11 +86,12 @@ public class Main2Activity extends AppCompatActivity {
             setTheme(R.style.AppTheme);
             //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
             //setSupportActionBar(toolbar);
-        }*/
+
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("My Q"));
@@ -106,28 +116,12 @@ public class Main2Activity extends AppCompatActivity {
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         boolean connected = networkInfo != null && networkInfo.isAvailable() && networkInfo.isConnectedOrConnecting();
 
-        /**Internet availability implementation*/
-       /* if (connected){
-            accessWebService();
-            swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                @Override
-                public void onRefresh() {
-                    accessWebService();
-                    swipeRefreshLayout.setRefreshing(false);
-                }
-            });
-        }*/
-        /*else {
-            com.nispok.snackbar.Snackbar.with(Intro.this).text("No Internet Connection").actionLabel("Retry").actionListener(new ActionClickListener() {
-                @Override
-                public void onActionClicked(com.nispok.snackbar.Snackbar snackbar) {
-                    accessWebService();
-                    snackbar.dismiss();
-                }
-            }).show(Main2Activity.this);
-        }*/
-
-
+        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mAdapter = new CardViewAdapter(getDataSet());
+        mRecyclerView.setAdapter(mAdapter);
 
         /**ViewPager Implementation*/
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
@@ -151,32 +145,6 @@ public class Main2Activity extends AppCompatActivity {
 
             }
         });
-/*
-        final Button activate = (Button) findViewById(R.id.activate);
-        final Button deactivate = (Button) findViewById(R.id.deactivate);
-        activate.setVisibility(View.GONE);
-        deactivate.setVisibility(View.VISIBLE);
-        activate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //when play is clicked show stop button and hide play button
-                activate.setVisibility(View.GONE);
-                deactivate.setVisibility(View.VISIBLE);
-
-            }
-        });
-
-        deactivate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //when play is clicked show stop button and hide play button
-                activate.setVisibility(View.VISIBLE);
-                deactivate.setVisibility(View.GONE);
-
-            }
-        });
-        */
-
     }
 
     @Override
@@ -189,7 +157,7 @@ public class Main2Activity extends AppCompatActivity {
     public boolean onOptionsItemSelected (MenuItem item){
         switch (item.getItemId()){
             case R.id.action_settings:
-                Settings();
+                Settings2();
                 return true;
             case R.id.action_graph:
                 graph();
@@ -209,6 +177,10 @@ public class Main2Activity extends AppCompatActivity {
     }
     private void Settings(){
         Intent i = new Intent(Main2Activity.this, SettingsActivity.class);
+        startActivity(i);
+    }
+    private void Settings2(){
+        Intent i = new Intent(Main2Activity.this, SettingsActivity2.class);
         startActivity(i);
     }
 
@@ -234,6 +206,28 @@ public class Main2Activity extends AppCompatActivity {
         finish();
         Intent i = new Intent(Main2Activity.this, Main2Activity.class);
         startActivity(i);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ((CardViewAdapter) mAdapter).setOnItemClickListener(new CardViewAdapter
+                .MyClickListener() {
+            @Override
+            public void onItemClick(int position, View v) {
+                Log.i(LOG_TAG, " Clicked on Item " + position);
+            }
+        });
+    }
+
+    private ArrayList<DataObject> getDataSet() {
+        ArrayList results = new ArrayList<DataObject>();
+        for (int index = 0; index < 20; index++) {
+            DataObject obj = new DataObject("Some Primary Text " + index,
+                    "Secondary " + index);
+            results.add(index, obj);
+        }
+        return results;
     }
 
 
