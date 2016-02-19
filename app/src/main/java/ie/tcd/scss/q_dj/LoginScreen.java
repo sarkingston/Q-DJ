@@ -2,7 +2,9 @@ package ie.tcd.scss.q_dj;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -34,8 +36,6 @@ public class LoginScreen extends Activity implements
     private static final String CLIENT_ID = "92780422e43e48acb1c590c38bacb70f";
     private static final String REDIRECT_URI = "q-dj-login://callback";
 
-    //initialse spotify player variable
-    private Player mPlayer;
     // Request code that will be used to verify if the result comes from correct activity
     // Can be any integer
     private static final int REQUEST_CODE = 1337;
@@ -82,38 +82,21 @@ public class LoginScreen extends Activity implements
 
             //grants access token
             if (response.getType() == AuthenticationResponse.Type.TOKEN) {
-                Config playerConfig = new Config(this, response.getAccessToken(), CLIENT_ID);
+
+                SharedPreferences token = this.getSharedPreferences(
+                        "ie.tcd.scss.q_dj", Context.MODE_PRIVATE
+                );
+
+                token.edit().putString("authToken", response.getAccessToken()).apply();
 
                 Toast.makeText(LoginScreen.this,
                         "Log in successful", Toast.LENGTH_LONG).show();
-
-
-
-                //accesses spotify player and plays a song
-                Spotify.getPlayer(playerConfig, this, new Player.InitializationObserver() {
-                    @Override
-                    public void onInitialized(Player player) {
-                        mPlayer = player;
-                        mPlayer.addConnectionStateCallback(LoginScreen.this);
-                        mPlayer.addPlayerNotificationCallback(LoginScreen.this);
-                        mPlayer.play("spotify:track:5DBQWDGt7WVlyMgMgvGko9");
-
-                    }
-
-                    @Override
-                    public void onError(Throwable throwable) {
-                        Log.e("MainActivity", "Could not initialize player: " + throwable.getMessage());
-                    }
-
-                });
             }
             else{
                 Toast.makeText(LoginScreen.this,
                         "Log in not successful. Proceeding to Main Screen for the banter anyway", Toast.LENGTH_LONG).show();
             }
         }
-
-
 
         Intent i = new Intent(LoginScreen.this, Main2Activity.class);
         startActivity(i);
@@ -160,7 +143,7 @@ public class LoginScreen extends Activity implements
 
     @Override
     protected void onDestroy() {
-        Spotify.destroyPlayer(this);
+        //Spotify.destroyPlayer(this);
         super.onDestroy();
     }
 }

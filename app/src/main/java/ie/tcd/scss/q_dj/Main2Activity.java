@@ -1,6 +1,7 @@
 package ie.tcd.scss.q_dj;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -33,6 +34,8 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.spotify.sdk.android.player.Config;
 
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
@@ -74,6 +77,9 @@ public class Main2Activity extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private static String LOG_TAG = "CardViewActivity";
 
+    MusicPlayer mp;
+    Config playerConfig;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Use the chosen theme
@@ -85,6 +91,7 @@ public class Main2Activity extends AppCompatActivity {
         } else{
             setTheme(R.style.AppTheme);
         }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
@@ -100,6 +107,7 @@ public class Main2Activity extends AppCompatActivity {
         skip_previous = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.skip_previous);
         play = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.play);
         skip_next = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.skip_next);
+
 
         /**Google Card Lst View Implementation
          * of recycler view for dynamic list
@@ -121,6 +129,7 @@ public class Main2Activity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new CardViewAdapter(getDataSet());
         mRecyclerView.setAdapter(mAdapter);
+
 
         /**ViewPager Implementation*/
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
@@ -144,6 +153,28 @@ public class Main2Activity extends AppCompatActivity {
 
             }
         });
+
+
+        SharedPreferences token = this.getSharedPreferences(
+                "ie.tcd.scss.q_dj", Context.MODE_PRIVATE
+        );
+        playerConfig = new Config(this, token.getString("authToken", null), "92780422e43e48acb1c590c38bacb70f"); // copied client id because it is private in login screen, this should be moved to a public class elsewhere
+
+        mp = new MusicPlayer();
+        mp.addConfig(playerConfig);
+
+    }
+
+    public void playSong(View view) {
+        mp.play();
+    }
+
+    public void skipSong(View view) {
+        mp.skipNext();
+    }
+
+    public void prevSong(View view) {
+        mp.prevSong();
     }
 
     @Override
@@ -239,7 +270,5 @@ public class Main2Activity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
     }
-
-
 
 }
