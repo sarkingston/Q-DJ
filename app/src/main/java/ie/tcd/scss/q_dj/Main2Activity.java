@@ -70,8 +70,6 @@ public class Main2Activity extends AppCompatActivity {
 
     MusicPlayer mp;
     Config playerConfig;
-    String[] testSongList  = {"2zMoMsf7KtqCQvlNfdFKtW", "5DBQWDGt7WVlyMgMgvGko9", "5blEjbK0DUQBxggguyKsEP"};
-    int songNumber = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,29 +128,27 @@ public class Main2Activity extends AppCompatActivity {
             }
         });
 
-        mp = new MusicPlayer();
+
         SharedPreferences token = this.getSharedPreferences(
                 "ie.tcd.scss.q_dj", Context.MODE_PRIVATE
         );
         playerConfig = new Config(this, token.getString("authToken", null), "92780422e43e48acb1c590c38bacb70f"); // copied client id because it is private in login screen, this should be moved to a public class elsewhere
+
+        mp = new MusicPlayer();
+        mp.addConfig(playerConfig);
+
     }
 
     public void playSong(View view) {
-        mp.play(playerConfig, testSongList[songNumber]);
+        mp.play();
     }
 
     public void skipSong(View view) {
-        if (songNumber < testSongList.length) {
-            songNumber++;
-            playSong(view);
-        }
+        mp.skipNext();
     }
 
     public void prevSong(View view) {
-        if (songNumber > 0) {
-            songNumber--;
-            playSong(view);
-        }
+        mp.prevSong();
     }
 
     @Override
@@ -211,7 +207,5 @@ public class Main2Activity extends AppCompatActivity {
         Intent i = new Intent(Main2Activity.this, Main2Activity.class);
         startActivity(i);
     }
-
-
 
 }

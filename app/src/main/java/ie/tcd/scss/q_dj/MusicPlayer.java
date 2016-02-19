@@ -21,27 +21,47 @@ import com.spotify.sdk.android.player.Spotify;
 public class MusicPlayer extends Activity implements
         PlayerNotificationCallback, ConnectionStateCallback {
 
-    private Player mPlayer;
+    String[] songList  = {"2zMoMsf7KtqCQvlNfdFKtW", "5DBQWDGt7WVlyMgMgvGko9", "5blEjbK0DUQBxggguyKsEP"}; //Comms can put the list of song id's in here
 
-    public void play(Config playerConfig, final String trackID) {
+    int songNumber = 0;
+
+    private Player mPlayer;
+    Config playerConfig;
+
+    public void addConfig(Config _playerConfig) {
+        playerConfig = _playerConfig;
+    }
+
+    public void play() {
         Spotify.getPlayer(playerConfig, this, new Player.InitializationObserver() {
             @Override
             public void onInitialized(Player player) {
                 mPlayer = player;
                 mPlayer.addConnectionStateCallback(MusicPlayer.this);
                 mPlayer.addPlayerNotificationCallback(MusicPlayer.this);
-                mPlayer.play("spotify:track:" + trackID);
-
+                mPlayer.play("spotify:track:" + songList[songNumber]);
             }
 
             @Override
             public void onError(Throwable throwable) {
                 Log.e("MainActivity", "Could not initialize player: " + throwable.getMessage());
             }
-
         });
     }
 
+    public void skipNext() {
+        if (songNumber < songList.length) {
+            songNumber++;
+            play();
+        }
+    }
+
+    public void prevSong() {
+        if (songNumber > 0) {
+            songNumber--;
+            play();
+        }
+    }
 
     @Override
     public void onLoggedIn() {
@@ -77,6 +97,4 @@ public class MusicPlayer extends Activity implements
     public void onPlaybackError(ErrorType errorType, String errorDetails) {
         Log.d("MainActivity", "Playback error received: " + errorType.name());
     }
-
-
 }
