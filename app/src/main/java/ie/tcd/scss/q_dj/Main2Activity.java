@@ -10,6 +10,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,6 +30,7 @@ import android.view.ViewGroup;
 
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -80,18 +82,15 @@ public class Main2Activity extends AppCompatActivity {
 
         if(useDarkTheme){
             setTheme(R.style.AppTheme2);
-            //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar2);
-            //setSupportActionBar(toolbar);
         } else{
             setTheme(R.style.AppTheme);
-            //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-            //setSupportActionBar(toolbar);
-
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+
+        /** Adds temp icon to action bar **/
+        //getSupportActionBar().setDisplayShowHomeEnabled(true);
+        //getSupportActionBar().setIcon(R.mipmap.ic_launcher);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("My Q"));
@@ -156,14 +155,17 @@ public class Main2Activity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected (MenuItem item){
         switch (item.getItemId()){
-            case R.id.action_settings:
-                Settings2();
+            case R.id.action_leave_host:
+                LeaveHost();
                 return true;
             case R.id.action_graph:
                 graph();
                 return true;
             case R.id.action_changeColour:
                 ChangeColour();
+                return true;
+            case R.id.action_add:
+                add();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -173,15 +175,15 @@ public class Main2Activity extends AppCompatActivity {
     public void add(View v) {
         Intent intent = new Intent(this,AddActivity.class);
         startActivity(intent);
+    }
+    public void add() {
+        Intent intent = new Intent(this,AddActivity.class);
+        startActivity(intent);
+    }
+    private void LeaveHost(){
 
-    }
-    private void Settings(){
-        Intent i = new Intent(Main2Activity.this, SettingsActivity.class);
-        startActivity(i);
-    }
-    private void Settings2(){
-        Intent i = new Intent(Main2Activity.this, SettingsActivity2.class);
-        startActivity(i);
+        //Intent i = new Intent(Main2Activity.this, SettingsActivity2.class);
+        //startActivity(i);
     }
 
     //Temp Colour Change Activity
@@ -228,6 +230,14 @@ public class Main2Activity extends AppCompatActivity {
             results.add(index, obj);
         }
         return results;
+    }
+
+    private void setupActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            // Show the Up button in the action bar.
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
     }
 
 
