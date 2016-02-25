@@ -44,12 +44,28 @@
             android:label="@string/title_activity_change_colour" >
         </activity>
         <activity android:name="com.spotify.sdk.android.authentication.LoginActivity" />
-        <activity
+        <!--activity
             android:name=".Main2Activity"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar" >
+        </activity-->
+        <activity android:name=".AddActivity"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".AddActivity" >
+        <activity
+            android:name=".CreatePlaylistActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity android:name=".HostActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".GuestActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".JoinPlaylist"
+            android:label="@string/title_activity_join_playlist"
+            android:theme="@style/AppTheme.NoActionBar" >
         </activity>
     </application>
 

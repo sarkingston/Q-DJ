@@ -69,14 +69,24 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="MockLoginButton"
-        android:id="@+id/MockButton"
+        android:text="Login as guest"
+        android:id="@+id/guestLogin"
         android:layout_gravity="center_horizontal"
         android:onClick="goToHostorClient"
 
         />
 
     <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login as host"
+        android:id="@+id/hostLogin"
+        android:layout_gravity="center_horizontal"
+        android:onClick="goToHostorClient"
+
+        />
+
+    <!--<Button
         android:id="@+id/btnLinkToRegisterScreen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -87,6 +97,6 @@
         android:textAllCaps="false"
         android:textSize="15dp"
         android:layout_gravity="center_horizontal"
-        />
+        />-->
 
 </LinearLayout>

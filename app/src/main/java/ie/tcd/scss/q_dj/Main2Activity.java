@@ -1,4 +1,4 @@
-package ie.tcd.scss.q_dj;
+/**package ie.tcd.scss.q_dj;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -113,7 +113,7 @@ public class Main2Activity extends AppCompatActivity {
          * of recycler view for dynamic list
          * entries and place swapping
          * */
-        recyclerView = (RecyclerView)findViewById(R.id.recyclerList);
+     /**   recyclerView = (RecyclerView)findViewById(R.id.recyclerList);
         recyclerView.setNestedScrollingEnabled(true);
         recyclerView.setHasFixedSize(true);
         final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipe);
@@ -147,7 +147,7 @@ public class Main2Activity extends AppCompatActivity {
 
 
         /**ViewPager Implementation*/
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+      /**  final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         final PagerAdapter adapter = new PagerAdapter
                 (getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
@@ -193,7 +193,7 @@ public class Main2Activity extends AppCompatActivity {
             }
         });
         */
-
+/**
     }
 
     @Override
@@ -306,7 +306,7 @@ public class Main2Activity extends AppCompatActivity {
         task = new MyTask();
         task.execute(new String[] {URL});
     }*/
-
+/**
     public void add(View v) {
         Intent intent = new Intent(this,AddActivity.class);
         startActivity(intent);
@@ -347,4 +347,4 @@ public class Main2Activity extends AppCompatActivity {
 
 
 
-}
+}*/
