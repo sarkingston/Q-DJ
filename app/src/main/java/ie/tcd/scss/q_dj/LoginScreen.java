@@ -46,14 +46,14 @@ public class LoginScreen extends Activity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_login_screen);
 
-        Button b1 = (Button) findViewById(R.id.btnLinkToRegisterScreen);
+        Button b1 = (Button) findViewById(R.id.hostLogin);
 
-        Button btnM = (Button)findViewById(R.id.MockButton);
+        Button btnM = (Button)findViewById(R.id.guestLogin);
         /**Opens up QHost activity*/
         btnM.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginScreen.this, Main2Activity.class));
+                startActivity(new Intent(LoginScreen.this, JoinPlaylist.class));
             }
         });
 
@@ -115,7 +115,7 @@ public class LoginScreen extends Activity implements
 
 
 
-        Intent i = new Intent(LoginScreen.this, Main2Activity.class);
+        Intent i = new Intent(LoginScreen.this, CreatePlaylistActivity.class);
         startActivity(i);
         finish();
 
