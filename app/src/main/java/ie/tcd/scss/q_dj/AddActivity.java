@@ -6,14 +6,11 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -48,7 +45,7 @@ public class AddActivity extends AppCompatActivity {
     }
 
     public void search(View v){
-        EditText et = (EditText) findViewById(R.id.search_q);
+        EditText et = (EditText) findViewById(R.id.party_name);
         String q = et.getText().toString();
         new searchSpotify().execute("track", q);
 

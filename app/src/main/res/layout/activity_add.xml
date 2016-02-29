@@ -22,7 +22,7 @@ android:layout_height="fill_parent"
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/search_q"
+            android:id="@+id/party_name"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"

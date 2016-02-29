@@ -9,6 +9,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -20,6 +23,8 @@ public class HostActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private static String LOG_TAG = "HostActivity";
 
+    String partyID = "0";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +33,13 @@ public class HostActivity extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new CardViewAdapter(getDataSet());
+        try {
+            mAdapter = new CardViewAdapter(new ServerComms().getQueue(partyID));
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         mRecyclerView.setAdapter(mAdapter);
 
     }
@@ -44,14 +55,6 @@ public class HostActivity extends AppCompatActivity {
         });
     }
 
-    private ArrayList<DataObject> getDataSet() {
-        ArrayList results = new ArrayList<DataObject>();
-        for (int index = 0; index < 20; index++) {
-            DataObject obj = new DataObject("Some Primary Text " + index,
-                    "Secondary " + index);
-            results.add(index, obj);
-        }
-        return results;
-    }
+
 
 }

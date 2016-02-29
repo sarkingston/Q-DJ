@@ -1,9 +1,11 @@
 package ie.tcd.scss.q_dj;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -20,14 +22,30 @@ public class ServerComms {
 
     public ServerComms(){}
 
-    public static JSONArray getQueue(String partyID) throws IOException {
+    public static ArrayList<Song> getQueue(String partyID) throws IOException, JSONException {
         HashMap<String, String> req = new HashMap<>();
         req.put("partID", partyID);
         JSONObject jsonObject = new HTTPRequest().get(base_server_url + getQueuePHP, req);
         System.out.println(jsonObject);
+        ArrayList<Song> songs_list = new ArrayList<Song>();
+        if(jsonObject.get("status")=="true"){
+            JSONArray songs_obj = jsonObject.getJSONArray("songs");
+            for(int i =0; i< songs_obj.length(); i++){
+                JSONObject song_x = songs_obj.getJSONObject(i);
 
-        //should return the json array, not null?
-        return null;
+                songs_list.add(new Song(
+                        song_x.getString("songtitle"),
+                        song_x.getString("artist"),
+                        Double.parseDouble(song_x.getString("songlength")),
+                        song_x.getString("spotifyID")
+                        ));
+            }
+
+            return  songs_list;
+        }
+
+        return  null;
+
     }
 
     public void addSong(String userID,
@@ -69,11 +87,22 @@ public class ServerComms {
         new HTTPRequest().get(base_server_url + createPartyPHP, req);
     }
 
-    public void joinParty(String userID, String partyID) throws IOException {
+    public boolean joinParty(String userID, String partyID) throws IOException, JSONException {
         HashMap<String, String> req = new HashMap<>();
         req.put("user_id", userID);
         req.put("partyID", partyID);
 
-        new HTTPRequest().get(base_server_url + joinPartyPHP, req);
+
+        //Temporairly Disable Joining - Cause Server isn't ready yet
+       /*JSONObject result =  new HTTPRequest().get(base_server_url + joinPartyPHP, req);
+
+        if(result.getString("status") == "true"){
+            return  true;
+        }
+        else{
+            return  false;
+        }
+        */
+        return true;
     }
 }

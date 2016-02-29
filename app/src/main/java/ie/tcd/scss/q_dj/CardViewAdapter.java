@@ -13,7 +13,7 @@ public class CardViewAdapter extends RecyclerView
         .Adapter<CardViewAdapter
         .DataObjectHolder> {
     private static String LOG_TAG = "CardViewAdapter";
-    private ArrayList<DataObject> mDataset;
+    private ArrayList<Song> mDataset;
     private static MyClickListener myClickListener;
 
     public static class DataObjectHolder extends RecyclerView.ViewHolder
@@ -40,7 +40,7 @@ public class CardViewAdapter extends RecyclerView
         this.myClickListener = myClickListener;
     }
 
-    public CardViewAdapter(ArrayList<DataObject> myDataset) {
+    public CardViewAdapter(ArrayList<Song> myDataset) {
         mDataset = myDataset;
     }
 
@@ -56,11 +56,11 @@ public class CardViewAdapter extends RecyclerView
 
     @Override
     public void onBindViewHolder(DataObjectHolder holder, int position) {
-        holder.label.setText(mDataset.get(position).getmText1());
-        holder.dateTime.setText(mDataset.get(position).getmText2());
+        holder.label.setText(mDataset.get(position).getTitle());
+        holder.dateTime.setText(mDataset.get(position).getArtist());
     }
 
-    public void addItem(DataObject dataObj, int index) {
+    public void addItem(Song dataObj, int index) {
         mDataset.add(index, dataObj);
         notifyItemInserted(index);
     }
