@@ -40,24 +40,26 @@ public class LoginScreen extends Activity implements
     // Can be any integer
     private static final int REQUEST_CODE = 1337;
 
+    Button guestBtn, hostBtn;
+
     //checks user credentials
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_login_screen);
 
-        Button b1 = (Button) findViewById(R.id.hostLogin);
+        guestBtn = (Button) findViewById(R.id.guestLogin);
+        hostBtn = (Button) findViewById(R.id.hostLogin);
 
-        Button btnM = (Button)findViewById(R.id.guestLogin);
         /**Opens up QHost activity*/
-        btnM.setOnClickListener(new View.OnClickListener() {
+        guestBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginScreen.this, JoinPlaylist.class));
             }
         });
 
-        b1.setOnClickListener(new View.OnClickListener() {
+        hostBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID,

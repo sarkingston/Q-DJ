@@ -21,8 +21,6 @@ public class GuestActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private static String LOG_TAG = "HostActivity";
 
-    String partyID = "0";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +29,8 @@ public class GuestActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         try {
-            mAdapter = new CardViewAdapter(ServerComms.getQueue(partyID));
+            Bundle received = getIntent().getExtras();
+            mAdapter = new CardViewAdapter(ServerComms.getQueue(received.getString("PARTYID")));
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
