@@ -9,23 +9,19 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class CardViewAdapter extends RecyclerView
-        .Adapter<CardViewAdapter
-        .DataObjectHolder> {
-    private static String LOG_TAG = "CardViewAdapter";
+public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.DataObjectHolder> {
     private ArrayList<Song> mDataset;
     private static MyClickListener myClickListener;
 
     public static class DataObjectHolder extends RecyclerView.ViewHolder
-            implements View
-            .OnClickListener {
-        TextView label;
-        TextView dateTime;
+            implements View.OnClickListener {
+        TextView song, artist, userID;
 
         public DataObjectHolder(View itemView) {
             super(itemView);
-            label = (TextView) itemView.findViewById(R.id.song_name);
-            dateTime = (TextView) itemView.findViewById(R.id.album_name);
+            song = (TextView) itemView.findViewById(R.id.song_name);
+            artist = (TextView) itemView.findViewById(R.id.artist_name);
+            userID = (TextView) itemView.findViewById(R.id.userid);
             itemView.setOnClickListener(this);
         }
 
@@ -44,18 +40,16 @@ public class CardViewAdapter extends RecyclerView
     }
 
     @Override
-    public DataObjectHolder onCreateViewHolder(ViewGroup parent,
-                                               int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.card_view_row, parent, false);
-
+    public DataObjectHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_view_row, parent, false);
         return new DataObjectHolder(view);
     }
 
     @Override
     public void onBindViewHolder(DataObjectHolder holder, int position) {
-        holder.label.setText(mDataset.get(position).getTitle());
-        holder.dateTime.setText(mDataset.get(position).getArtist());
+        holder.song.setText(mDataset.get(position).getTitle() + position);
+        holder.artist.setText(mDataset.get(position).getArtist());
+        holder.userID.setText(mDataset.get(position).getSpotifyID());
     }
 
     public void addItem(Song dataObj, int index) {

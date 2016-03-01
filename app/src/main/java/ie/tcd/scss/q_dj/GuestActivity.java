@@ -36,8 +36,6 @@ public class GuestActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         mRecyclerView.setAdapter(mAdapter);
-
-
     }
 
     @Override
