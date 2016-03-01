@@ -27,15 +27,12 @@ public class GuestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guest);
-        mRecyclerView = (RecyclerView) findViewById(R.id.card_view);
-        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerList);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         try {
-            mAdapter = new CardViewAdapter(new ServerComms().getQueue(partyID));
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
+            mAdapter = new CardViewAdapter(ServerComms.getQueue(partyID));
+        } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
         mRecyclerView.setAdapter(mAdapter);

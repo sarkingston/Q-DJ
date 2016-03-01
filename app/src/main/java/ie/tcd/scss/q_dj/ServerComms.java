@@ -1,5 +1,7 @@
 package ie.tcd.scss.q_dj;
 
+import android.os.StrictMode;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,39 +15,49 @@ import java.util.HashMap;
  */
 public class ServerComms {
 
-    public static final String base_server_url = "http://217.78.0.111/~tuneq";
-    public static final String addSongPHP = "/addSong.php";
-    public static final String deleteSongPHP = "/deleteSong.php";
-    public static final String createPartyPHP = "/createParty.php";
-    public static final String joinPartyPHP = "/joinParty.php";
-    public static final String getQueuePHP = "/getQueue.php";
+    public static final String base_server_url = "http://tuneq.2digital.ie";
+    public static final String addSongPHP = "/addsong.php";
+    public static final String deleteSongPHP = "/deletesong.php";
+    public static final String createPartyPHP = "/createparty.php";
+    public static final String joinPartyPHP = "/joinparty.php";
+    public static final String getQueuePHP = "/getqueue.php";
 
-    public ServerComms(){}
+    public ServerComms() {
+    }
 
     public static ArrayList<Song> getQueue(String partyID) throws IOException, JSONException {
         HashMap<String, String> req = new HashMap<>();
-        req.put("partID", partyID);
-        JSONObject jsonObject = new HTTPRequest().get(base_server_url + getQueuePHP, req);
-        System.out.println(jsonObject);
-        ArrayList<Song> songs_list = new ArrayList<Song>();
-        if(jsonObject.get("status")=="true"){
-            JSONArray songs_obj = jsonObject.getJSONArray("songs");
+        req.put("partyid", partyID);
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        JSONObject httpJson = new HTTPRequest().get(base_server_url + getQueuePHP, req);
+        ArrayList<Song> songs_list = new ArrayList<>();
+
+        String title, artist, id, timeSent, userID;
+        Double duration;
+
+        if(httpJson.get("status").equals("true")){
+            JSONArray songs_obj = httpJson.getJSONArray("songs");
             for(int i =0; i< songs_obj.length(); i++){
                 JSONObject song_x = songs_obj.getJSONObject(i);
 
-                songs_list.add(new Song(
-                        song_x.getString("songtitle"),
-                        song_x.getString("artist"),
-                        Double.parseDouble(song_x.getString("songlength")),
-                        song_x.getString("spotifyID")
-                        ));
+                title = song_x.optString("songtitle");
+                artist = song_x.optString("artist");
+                id = song_x.optString("spotifyID");
+                timeSent = song_x.optString("timesent");
+                userID = song_x.optString("userID");
+                duration = Double.parseDouble(song_x.getString("songlength"));
+
+                System.out.println(title + " by " + artist + " with ID " + id +
+                        " with length " + duration + " was sent by " + userID + " at " + timeSent);
+
+                songs_list.add(new Song(title, artist, duration, id));
             }
-
-            return  songs_list;
+            return songs_list;
         }
-
-        return  null;
-
+        return null;
     }
 
     public void addSong(String userID,

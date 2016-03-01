@@ -26,7 +26,6 @@ public class CardViewAdapter extends RecyclerView
             super(itemView);
             label = (TextView) itemView.findViewById(R.id.song_name);
             dateTime = (TextView) itemView.findViewById(R.id.album_name);
-            Log.i(LOG_TAG, "Adding Listener");
             itemView.setOnClickListener(this);
         }
 
@@ -37,7 +36,7 @@ public class CardViewAdapter extends RecyclerView
     }
 
     public void setOnItemClickListener(MyClickListener myClickListener) {
-        this.myClickListener = myClickListener;
+        CardViewAdapter.myClickListener = myClickListener;
     }
 
     public CardViewAdapter(ArrayList<Song> myDataset) {
@@ -50,8 +49,7 @@ public class CardViewAdapter extends RecyclerView
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.card_view_row, parent, false);
 
-        DataObjectHolder dataObjectHolder = new DataObjectHolder(view);
-        return dataObjectHolder;
+        return new DataObjectHolder(view);
     }
 
     @Override
