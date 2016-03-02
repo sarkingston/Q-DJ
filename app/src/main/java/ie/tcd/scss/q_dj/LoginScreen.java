@@ -85,11 +85,8 @@ public class LoginScreen extends Activity implements
             //grants access token
             if (response.getType() == AuthenticationResponse.Type.TOKEN) {
                 Config playerConfig = new Config(this, response.getAccessToken(), CLIENT_ID);
-
                 Toast.makeText(LoginScreen.this,
                         "Log in successful", Toast.LENGTH_LONG).show();
-
-
 
                 //accesses spotify player and plays a song
                 Spotify.getPlayer(playerConfig, this, new Player.InitializationObserver() {
@@ -99,14 +96,12 @@ public class LoginScreen extends Activity implements
                         mPlayer.addConnectionStateCallback(LoginScreen.this);
                         mPlayer.addPlayerNotificationCallback(LoginScreen.this);
                         mPlayer.play("spotify:track:5DBQWDGt7WVlyMgMgvGko9");
-
                     }
 
                     @Override
                     public void onError(Throwable throwable) {
                         Log.e("MainActivity", "Could not initialize player: " + throwable.getMessage());
                     }
-
                 });
             }
             else{
@@ -115,15 +110,10 @@ public class LoginScreen extends Activity implements
             }
         }
 
-
-
-        Intent i = new Intent(LoginScreen.this, CreatePlaylistActivity.class);
-        startActivity(i);
+        startActivity(new Intent(LoginScreen.this, HostActivity.class));
         finish();
 
     }
-
-
 
     @Override
     public void onLoggedIn() {
