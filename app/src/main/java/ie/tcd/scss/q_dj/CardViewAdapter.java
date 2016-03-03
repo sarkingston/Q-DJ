@@ -1,11 +1,19 @@
 package ie.tcd.scss.q_dj;
 
+import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.spotify.sdk.android.authentication.AuthenticationClient;
+import com.spotify.sdk.android.authentication.AuthenticationRequest;
+import com.spotify.sdk.android.authentication.AuthenticationResponse;
 
 import java.util.ArrayList;
 
@@ -15,13 +23,25 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.DataOb
 
     public static class DataObjectHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener {
-        TextView song, artist, userID;
+        TextView song, artist, userID, upVoted;
+        ImageView upVote;
 
         public DataObjectHolder(View itemView) {
             super(itemView);
             song = (TextView) itemView.findViewById(R.id.song_name);
             artist = (TextView) itemView.findViewById(R.id.artist_name);
             userID = (TextView) itemView.findViewById(R.id.userid);
+            upVoted = (TextView) itemView.findViewById(R.id.upVoted);
+            upVoted.setVisibility(View.GONE);
+            upVote = (ImageView) itemView.findViewById(R.id.upVote);
+            upVote.setClickable(true);
+            upVote.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    upVote.setVisibility(View.GONE);
+                    upVoted.setVisibility(View.VISIBLE);
+                }
+            });
             itemView.setOnClickListener(this);
         }
 
