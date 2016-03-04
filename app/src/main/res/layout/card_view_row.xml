@@ -61,6 +61,27 @@
                 android:layout_toRightOf="@+id/userid"
                 android:text="Artist" />
 
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true">
+
+                <ImageView
+                    android:id="@+id/upVote"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/ic_thumb_up_black_24dp"
+                    android:layout_alignParentRight="true"
+                    android:clickable="true"/>
+
+                <TextView
+                    android:id="@+id/upVoted"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/upVoted"
+                    android:visibility="gone"/>
+            </FrameLayout>
+
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 

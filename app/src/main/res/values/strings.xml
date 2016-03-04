@@ -8,6 +8,7 @@
     <string name="action_add">Add</string>
     <string name="title_activity_settings">Settings</string>
     <string name="title_activity_change_colour">Change Colour</string>
+    <string name="upVoted">Voted!</string>
 
     <!-- Strings related to Settings -->
 

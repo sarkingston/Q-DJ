@@ -1,18 +1,16 @@
 package ie.tcd.scss.q_dj;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import org.json.JSONException;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Created by Sam on 24/2/16.
@@ -21,23 +19,41 @@ public class HostActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private static String LOG_TAG = "HostActivity";
 
-    String partyID = "0";
+    com.getbase.floatingactionbutton.FloatingActionButton play;
+    boolean playActive;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_host);
-        mRecyclerView = (RecyclerView) findViewById(R.id.card_view);
-        mRecyclerView.setHasFixedSize(true);
+
+        play = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.play);
+
+        final int idPlay = R.mipmap.ic_play_arrow_white_24dp;
+        final int idPause = R.mipmap.ic_pause_white_24dp;
+        play.setIcon(idPlay);
+        playActive = true;
+        play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(playActive) {
+                    play.setIcon(idPause);
+                    playActive = false;
+                }
+                else {
+                    play.setIcon(idPlay);
+                    playActive = true;
+                }
+            }
+        });
+
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerList);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         try {
-            mAdapter = new CardViewAdapter(new ServerComms().getQueue(partyID));
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
+            mAdapter = new CardViewAdapter(ServerComms.getQueue("0"));
+        } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
         mRecyclerView.setAdapter(mAdapter);
@@ -50,11 +66,8 @@ public class HostActivity extends AppCompatActivity {
                 .MyClickListener() {
             @Override
             public void onItemClick(int position, View v) {
-                Log.i(LOG_TAG, " Clicked on Item " + position);
+
             }
         });
     }
-
-
-
 }
