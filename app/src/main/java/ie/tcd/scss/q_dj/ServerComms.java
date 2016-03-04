@@ -1,6 +1,7 @@
 package ie.tcd.scss.q_dj;
 
 import android.os.StrictMode;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,7 +20,7 @@ public class ServerComms {
     public static final String addSongPHP = "/addsong.php";
     public static final String deleteSongPHP = "/deletesong.php";
     public static final String createPartyPHP = "/createparty.php";
-    public static final String joinPartyPHP = "/joinparty.php";
+    public static final String joinPartyPHP = "/adduser.php";
     public static final String getQueuePHP = "/getqueue.php";
 
     public ServerComms() {
@@ -101,20 +102,18 @@ public class ServerComms {
 
     public boolean joinParty(String userID, String partyID) throws IOException, JSONException {
         HashMap<String, String> req = new HashMap<>();
-        req.put("user_id", userID);
-        req.put("partyID", partyID);
+        req.put("userID", userID);
+        req.put("partyid", partyID);
 
 
-        //Temporairly Disable Joining - Cause Server isn't ready yet
-       /*JSONObject result =  new HTTPRequest().get(base_server_url + joinPartyPHP, req);
 
-        if(result.getString("status") == "true"){
+       JSONObject result =  new HTTPRequest().get(base_server_url + joinPartyPHP, req);
+        Log.d("SERVERCOMMS",result.getString("status").replace(" ","") );
+        if(result.get("status").equals("true")){
+            Log.d("SERVERCOMMS", "RETURNING TRUE");
             return  true;
         }
-        else{
-            return  false;
-        }
-        */
-        return true;
+
+        return false;
     }
 }

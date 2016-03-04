@@ -56,13 +56,14 @@ public class JoinPlaylist extends AppCompatActivity {
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
             }
-            return null;
+            return false;
         }
 
         @Override
         protected void onPostExecute(Boolean result) {
             dialog.dismiss();
-            if (result) {
+
+            if (result == true) {
                 Intent intent = new Intent(JoinPlaylist.this, GuestActivity.class);
                 intent.putExtra("PARTYID", partyName);
                 startActivity(intent);

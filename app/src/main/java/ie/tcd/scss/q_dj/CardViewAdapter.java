@@ -1,11 +1,13 @@
 package ie.tcd.scss.q_dj;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -50,7 +52,13 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.DataOb
         holder.song.setText(mDataset.get(position).getTitle() + position);
         holder.artist.setText(mDataset.get(position).getArtist());
         holder.userID.setText(mDataset.get(position).getSpotifyID());
+
+
+        Log.d("ON CLICK", mDataset.get(position).getTitle());
+
     }
+
+
 
     public void addItem(Song dataObj, int index) {
         mDataset.add(index, dataObj);

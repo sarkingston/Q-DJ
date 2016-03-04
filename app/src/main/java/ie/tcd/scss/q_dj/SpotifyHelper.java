@@ -26,7 +26,7 @@ public class SpotifyHelper {
     public ArrayList<Song> query(String q, String type) throws IOException, JSONException {
         HashMap<String, String> req = new HashMap<String, String>();
         req.put("type", type);
-        req.put("q", q);
+        req.put("q", q.replace(" ", "+"));
         String endpoint = "/v1/search";
         JSONObject  search_result = new HTTPRequest().get(spotify_base_url + endpoint, req);
 
