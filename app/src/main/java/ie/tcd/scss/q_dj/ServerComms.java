@@ -1,9 +1,14 @@
 package ie.tcd.scss.q_dj;
 
+import android.os.StrictMode;
+import android.util.Log;
+
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -11,22 +16,48 @@ import java.util.HashMap;
  */
 public class ServerComms {
 
-    public static final String base_server_url = "http://217.78.0.111/~tuneq";
-    public static final String addSongPHP = "/addSong.php";
-    public static final String deleteSongPHP = "/deleteSong.php";
-    public static final String createPartyPHP = "/createParty.php";
-    public static final String joinPartyPHP = "/joinParty.php";
-    public static final String getQueuePHP = "/getQueue.php";
+    public static final String base_server_url = "http://tuneq.2digital.ie";
+    public static final String addSongPHP = "/addsong.php";
+    public static final String deleteSongPHP = "/deletesong.php";
+    public static final String createPartyPHP = "/createparty.php";
+    public static final String joinPartyPHP = "/adduser.php";
+    public static final String getQueuePHP = "/getqueue.php";
 
-    public ServerComms(){}
+    public ServerComms() {
+    }
 
-    public static JSONArray getQueue(String partyID) throws IOException {
+    public static ArrayList<Song> getQueue(String partyID) throws IOException, JSONException {
         HashMap<String, String> req = new HashMap<>();
-        req.put("partID", partyID);
-        JSONObject jsonObject = new HTTPRequest().get(base_server_url + getQueuePHP, req);
-        System.out.println(jsonObject);
+        req.put("partyid", partyID);
 
-        //should return the json array, not null?
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        JSONObject httpJson = new HTTPRequest().get(base_server_url + getQueuePHP, req);
+        ArrayList<Song> songs_list = new ArrayList<>();
+
+        String title, artist, id, timeSent, userID;
+        Double duration;
+
+        if(httpJson.get("status").equals("true")){
+            JSONArray songs_obj = httpJson.getJSONArray("songs");
+            for(int i =0; i< songs_obj.length(); i++){
+                JSONObject song_x = songs_obj.getJSONObject(i);
+
+                title = song_x.optString("songtitle");
+                artist = song_x.optString("artist");
+                id = song_x.optString("spotifyID");
+                timeSent = song_x.optString("timesent");
+                userID = song_x.optString("userID");
+                duration = Double.parseDouble(song_x.getString("songlength"));
+
+                System.out.println(title + " by " + artist + " with ID " + id +
+                        " with length " + duration + " was sent by " + userID + " at " + timeSent);
+
+                songs_list.add(new Song(title, artist, duration, id));
+            }
+            return songs_list;
+        }
         return null;
     }
 
@@ -69,11 +100,20 @@ public class ServerComms {
         new HTTPRequest().get(base_server_url + createPartyPHP, req);
     }
 
-    public void joinParty(String userID, String partyID) throws IOException {
+    public boolean joinParty(String userID, String partyID) throws IOException, JSONException {
         HashMap<String, String> req = new HashMap<>();
-        req.put("user_id", userID);
-        req.put("partyID", partyID);
+        req.put("userID", userID);
+        req.put("partyid", partyID);
 
-        new HTTPRequest().get(base_server_url + joinPartyPHP, req);
+
+
+       JSONObject result =  new HTTPRequest().get(base_server_url + joinPartyPHP, req);
+        Log.d("SERVERCOMMS",result.getString("status").replace(" ","") );
+        if(result.get("status").equals("true")){
+            Log.d("SERVERCOMMS", "RETURNING TRUE");
+            return  true;
+        }
+
+        return false;
     }
 }

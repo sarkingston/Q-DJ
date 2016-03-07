@@ -1,37 +1,80 @@
 package ie.tcd.scss.q_dj;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
+import android.widget.EditText;
+
+import org.json.JSONException;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created by Sam on 24/2/16.
  */
 public class JoinPlaylist extends AppCompatActivity {
+    String partyName;
+    ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join_playlist);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        Button btnM = (Button)findViewById(R.id.guest);
-        /**Opens up QHost activity*/
-        btnM.setOnClickListener(new View.OnClickListener() {
+        dialog = new ProgressDialog(this);
+
+        Button joinPartyBtn = (Button)findViewById(R.id.joinButton);
+        joinPartyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(JoinPlaylist.this, GuestActivity.class));
+                EditText partyNameED = (EditText) findViewById(R.id.party_name);
+                partyName = partyNameED.getText().toString();
+
+                if(partyName.equals("")){
+                    Snackbar.make(findViewById(android.R.id.content),
+                        "Please input a party ID", Snackbar.LENGTH_LONG).show();
+                } else {
+                    new joinParty().execute();
+                }
             }
         });
-
     }
 
+    private class joinParty extends AsyncTask<String, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+            try {
+                ServerComms sc = new ServerComms();
+                return sc.joinParty("0000", partyName);
+            } catch (IOException | JSONException e) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            dialog.dismiss();
+
+            if (result == true) {
+                Intent intent = new Intent(JoinPlaylist.this, GuestActivity.class);
+                intent.putExtra("PARTYID", partyName);
+                startActivity(intent);
+            } else {
+                Snackbar.make(findViewById(android.R.id.content),
+                        "Sorry! That Party either doesn't exist or you might not be connected",
+                        Snackbar.LENGTH_LONG).show();
+            }
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) { }
+    }
 }

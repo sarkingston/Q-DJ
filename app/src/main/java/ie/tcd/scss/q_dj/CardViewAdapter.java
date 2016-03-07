@@ -5,28 +5,35 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class CardViewAdapter extends RecyclerView
-        .Adapter<CardViewAdapter
-        .DataObjectHolder> {
-    private static String LOG_TAG = "CardViewAdapter";
-    private ArrayList<DataObject> mDataset;
+public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.DataObjectHolder> {
+    private ArrayList<Song> mDataset;
     private static MyClickListener myClickListener;
 
     public static class DataObjectHolder extends RecyclerView.ViewHolder
-            implements View
-            .OnClickListener {
-        TextView label;
-        TextView dateTime;
-
+            implements View.OnClickListener {
+        TextView song, artist, userID, upVoted;
+        ImageView upVote;
         public DataObjectHolder(View itemView) {
             super(itemView);
-            label = (TextView) itemView.findViewById(R.id.song_name);
-            dateTime = (TextView) itemView.findViewById(R.id.album_name);
-            Log.i(LOG_TAG, "Adding Listener");
+            song = (TextView) itemView.findViewById(R.id.song_name);
+            artist = (TextView) itemView.findViewById(R.id.artist_name);
+            userID = (TextView) itemView.findViewById(R.id.userid);
+            upVoted = (TextView) itemView.findViewById(R.id.upVoted);
+            upVoted.setVisibility(View.GONE);
+            upVote = (ImageView) itemView.findViewById(R.id.upVote);
+            upVote.setClickable(true);
+            upVote.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    upVote.setVisibility(View.GONE);
+                    upVoted.setVisibility(View.VISIBLE);
+                }
+            });
             itemView.setOnClickListener(this);
         }
 
@@ -37,30 +44,27 @@ public class CardViewAdapter extends RecyclerView
     }
 
     public void setOnItemClickListener(MyClickListener myClickListener) {
-        this.myClickListener = myClickListener;
+        CardViewAdapter.myClickListener = myClickListener;
     }
 
-    public CardViewAdapter(ArrayList<DataObject> myDataset) {
+    public CardViewAdapter(ArrayList<Song> myDataset) {
         mDataset = myDataset;
     }
 
     @Override
-    public DataObjectHolder onCreateViewHolder(ViewGroup parent,
-                                               int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.card_view_row, parent, false);
-
-        DataObjectHolder dataObjectHolder = new DataObjectHolder(view);
-        return dataObjectHolder;
+    public DataObjectHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_view_row, parent, false);
+        return new DataObjectHolder(view);
     }
 
     @Override
     public void onBindViewHolder(DataObjectHolder holder, int position) {
-        holder.label.setText(mDataset.get(position).getmText1());
-        holder.dateTime.setText(mDataset.get(position).getmText2());
+        holder.song.setText(mDataset.get(position).getTitle() + position);
+        holder.artist.setText(mDataset.get(position).getArtist());
+        holder.userID.setText(mDataset.get(position).getSpotifyID());
     }
 
-    public void addItem(DataObject dataObj, int index) {
+    public void addItem(Song dataObj, int index) {
         mDataset.add(index, dataObj);
         notifyItemInserted(index);
     }

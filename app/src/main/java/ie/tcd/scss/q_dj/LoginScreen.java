@@ -40,24 +40,26 @@ public class LoginScreen extends Activity implements
     // Can be any integer
     private static final int REQUEST_CODE = 1337;
 
+    Button guestBtn, hostBtn;
+
     //checks user credentials
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_login_screen);
 
-        Button b1 = (Button) findViewById(R.id.hostLogin);
+        guestBtn = (Button) findViewById(R.id.guestLogin);
+        hostBtn = (Button) findViewById(R.id.hostLogin);
 
-        Button btnM = (Button)findViewById(R.id.guestLogin);
         /**Opens up QHost activity*/
-        btnM.setOnClickListener(new View.OnClickListener() {
+        guestBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginScreen.this, JoinPlaylist.class));
             }
         });
 
-        b1.setOnClickListener(new View.OnClickListener() {
+        hostBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID,
@@ -83,11 +85,8 @@ public class LoginScreen extends Activity implements
             //grants access token
             if (response.getType() == AuthenticationResponse.Type.TOKEN) {
                 Config playerConfig = new Config(this, response.getAccessToken(), CLIENT_ID);
-
                 Toast.makeText(LoginScreen.this,
                         "Log in successful", Toast.LENGTH_LONG).show();
-
-
 
                 //accesses spotify player and plays a song
                 Spotify.getPlayer(playerConfig, this, new Player.InitializationObserver() {
@@ -97,14 +96,12 @@ public class LoginScreen extends Activity implements
                         mPlayer.addConnectionStateCallback(LoginScreen.this);
                         mPlayer.addPlayerNotificationCallback(LoginScreen.this);
                         mPlayer.play("spotify:track:5DBQWDGt7WVlyMgMgvGko9");
-
                     }
 
                     @Override
                     public void onError(Throwable throwable) {
                         Log.e("MainActivity", "Could not initialize player: " + throwable.getMessage());
                     }
-
                 });
             }
             else{
@@ -113,15 +110,10 @@ public class LoginScreen extends Activity implements
             }
         }
 
-
-
-        Intent i = new Intent(LoginScreen.this, CreatePlaylistActivity.class);
-        startActivity(i);
+        startActivity(new Intent(LoginScreen.this, HostActivity.class));
         finish();
 
     }
-
-
 
     @Override
     public void onLoggedIn() {

@@ -6,23 +6,28 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.security.auth.Subject;
 
 public class AddActivity extends AppCompatActivity {
 
     //saved themes from changeColour
     private static final String PREFS_NAME = "prefs";
     private static final String PREF_DARK_THEME = "dark_theme";
+
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     String query_type;
     String query;
@@ -42,13 +47,19 @@ public class AddActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add);
         setupActionBar();
 
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerList);
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+
+
         //Add to the Queue - or in other words, search...spotify
 
 
     }
 
     public void search(View v){
-        EditText et = (EditText) findViewById(R.id.search_q);
+        EditText et = (EditText) findViewById(R.id.party_name);
         String q = et.getText().toString();
         new searchSpotify().execute("track", q);
 
@@ -79,6 +90,9 @@ public class AddActivity extends AppCompatActivity {
                 //Parse the Queue
                 //Put Each Song in the Listview or whatever it is...
                 //We have an ARRAYLIST of 'Song's so it should be easy enough to put them into some sort of list
+
+                mAdapter = new CardViewAdapter(result);
+                mRecyclerView.setAdapter(mAdapter);
 
             } else {
                 //Show a Dialogue that it didn't work for some sort of reason... If guess
