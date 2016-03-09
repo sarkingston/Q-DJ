@@ -19,6 +19,11 @@ import android.view.View;
 //import com.github.mikephil.charting.data.BarDataSet;
 //import com.github.mikephil.charting.data.BarEntry;
 
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+
 import java.util.ArrayList;
 
 public class GraphActivity extends AppCompatActivity {
@@ -45,10 +50,10 @@ public class GraphActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph);
-        //setupActionBar();
+        setupActionBar();
 
         Intent intent = getIntent();
-        /**points = intent.getIntArrayExtra(Main2Activity.POINTS);
+        points = intent.getIntArrayExtra(HostActivity.POINTS);
 
         BarChart chart = (BarChart) findViewById(R.id.chart);
 
@@ -67,13 +72,13 @@ public class GraphActivity extends AppCompatActivity {
         labels.add("Darragh");
         labels.add("Sarah");
         labels.add("Dave");
-        labels.add("John");
+        labels.add("John");*/
 
 
 
         String[] names;
 
-        names = intent.getStringArrayExtra(Main2Activity.NAMES);
+        names = intent.getStringArrayExtra(HostActivity.NAMES);
 
         //new ArrayList<Element>(Arrays.asList(array))
         ArrayList<String> xvals = new ArrayList<String>();
@@ -123,6 +128,6 @@ public class GraphActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }*/
+    }
 
-}}
+}
