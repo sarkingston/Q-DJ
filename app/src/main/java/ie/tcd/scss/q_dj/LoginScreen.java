@@ -62,19 +62,21 @@ public class LoginScreen extends Activity implements
         hostBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID,
+                startActivity(new Intent(LoginScreen.this, HostActivity.class));
+                finish();
+                /*AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID,
                         AuthenticationResponse.Type.TOKEN,
                         REDIRECT_URI);
                 builder.setScopes(new String[]{"user-read-private", "streaming"});
                 AuthenticationRequest request = builder.build();
 
                 //brings up the login screen
-                AuthenticationClient.openLoginActivity(LoginScreen.this, REQUEST_CODE, request);
+                AuthenticationClient.openLoginActivity(LoginScreen.this, REQUEST_CODE, request);*/
             }
         });
     }
 
-    @Override
+    /*@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
 
@@ -110,10 +112,18 @@ public class LoginScreen extends Activity implements
             }
         }
 
-        startActivity(new Intent(LoginScreen.this, HostActivity.class));
-        finish();
+        //startActivity(new Intent(LoginScreen.this, HostActivity.class));
+        //finish();
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startActivity(new Intent(LoginScreen.this, HostActivity.class));
+                finish();
+            }
+        }, 10000);
 
-    }
+    }*/
 
     @Override
     public void onLoggedIn() {

@@ -44,6 +44,7 @@
             android:label="@string/title_activity_change_colour" >
         </activity>
         <activity android:name="com.spotify.sdk.android.authentication.LoginActivity" />
+        <!--activity android:name="com.spotify.sdk.android.authentication.HostActivity" /-->
         <!--activity
             android:name=".Main2Activity"
             android:label="@string/title_activity_main2"
@@ -57,6 +58,7 @@
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity android:name=".HostActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity android:name=".GuestActivity"
