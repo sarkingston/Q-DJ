@@ -64,7 +64,7 @@ public class JoinPlaylist extends AppCompatActivity {
             dialog.dismiss();
 
             if (result == true) {
-                Intent intent = new Intent(JoinPlaylist.this, GuestActivity.class);
+                Intent intent = new Intent(JoinPlaylist.this, HostActivity.class);
                 intent.putExtra("PARTYID", partyName);
                 startActivity(intent);
             } else {
