@@ -62,7 +62,12 @@ public class LoginScreen extends Activity implements
         hostBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LoginScreen.this, HostActivity.class));
+
+                Intent intent = new Intent(LoginScreen.this, HostActivity.class);
+                intent.putExtra("PARTYID", "0");
+                intent.putExtra("USERMODE", "host");
+
+                startActivity(intent);
                 finish();
                 /*AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID,
                         AuthenticationResponse.Type.TOKEN,

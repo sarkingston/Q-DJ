@@ -47,8 +47,12 @@ public class HostActivity extends AppCompatActivity implements
     private static final String PREFS_NAME = "prefs";
     private static final String PREF_DARK_THEME = "dark_theme";
 
+    com.getbase.floatingactionbutton.FloatingActionsMenu player;
     com.getbase.floatingactionbutton.FloatingActionButton play;
+    com.getbase.floatingactionbutton.FloatingActionButton previous;
+    com.getbase.floatingactionbutton.FloatingActionButton next;
     boolean playActive;
+    String userMode;
 
     //********************************************//
     //These are details you recieve when you resgister an app
@@ -78,6 +82,9 @@ public class HostActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_host);
         setupActionBar();
 
+        Bundle received = getIntent().getExtras();
+        userMode = received.getString("USERMODE");
+
         //*******************************************************//
 
         AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID,
@@ -91,7 +98,17 @@ public class HostActivity extends AppCompatActivity implements
 
         //**********************************************************//
 
+        player = (com.getbase.floatingactionbutton.FloatingActionsMenu) findViewById(R.id.multiple_actions);
         play = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.play);
+        previous = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.skip_previous);
+        next = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.skip_next);
+
+        if(userMode == "guest") {
+            player.setVisibility(View.INVISIBLE);
+            play.setVisibility(View.INVISIBLE);
+            previous.setVisibility(View.INVISIBLE);
+            next.setVisibility(View.INVISIBLE);
+        }
 
         final int idPlay = R.mipmap.ic_play_arrow_white_24dp;
         final int idPause = R.mipmap.ic_pause_white_24dp;
@@ -115,7 +132,7 @@ public class HostActivity extends AppCompatActivity implements
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         try {
-            mAdapter = new CardViewAdapter(ServerComms.getQueue("0"));
+            mAdapter = new CardViewAdapter(ServerComms.getQueue(received.getString("PARTYID")));
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }

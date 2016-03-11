@@ -66,6 +66,8 @@ public class JoinPlaylist extends AppCompatActivity {
             if (result == true) {
                 Intent intent = new Intent(JoinPlaylist.this, HostActivity.class);
                 intent.putExtra("PARTYID", partyName);
+                intent.putExtra("USERMODE", "guest");
+
                 startActivity(intent);
             } else {
                 Snackbar.make(findViewById(android.R.id.content),
