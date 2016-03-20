@@ -17,9 +17,20 @@
         android:orderInCategory="300"
         app:showAsAction="never" />
 
+    <item android:id="@+id/Q_prompt"
+        android:title="@string/Q_prompt"
+        android:orderInCategory="1"
+        app:showAsAction="ifRoom" />
+
+    <item android:id="@+id/Q_code"
+        android:title="@string/Q_code"
+        android:orderInCategory="2"
+        app:showAsAction="ifRoom" />
+
     <item android:id="@+id/action_add"
         android:title="@string/action_add"
-        android:orderInCategory="300"
+        android:orderInCategory="3"
         android:icon="@drawable/ic_plus_white_24dp"
         app:showAsAction="ifRoom" />
+
 </menu>

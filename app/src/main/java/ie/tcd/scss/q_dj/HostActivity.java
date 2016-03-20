@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.spotify.sdk.android.authentication.AuthenticationClient;
@@ -39,6 +41,7 @@ public class HostActivity extends AppCompatActivity implements
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
+
     //sample array and names to simulate graph data
     int[] points = new int[]{2,6,7,4,};
     public final static String POINTS = "ie.tcd.scss.q_dj.POINTS";
@@ -53,6 +56,8 @@ public class HostActivity extends AppCompatActivity implements
     com.getbase.floatingactionbutton.FloatingActionButton next;
     boolean playActive;
     String userMode;
+    int code=0;
+
 
     //********************************************//
     //These are details you recieve when you resgister an app
@@ -81,6 +86,10 @@ public class HostActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_host);
         setupActionBar();
+
+
+
+        //getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         Bundle received = getIntent().getExtras();
         userMode = received.getString("USERMODE");
@@ -211,6 +220,17 @@ public class HostActivity extends AppCompatActivity implements
     @Override
     protected void onResume() {
         super.onResume();
+
+
+        Bundle received = getIntent().getExtras();
+        userMode = received.getString("USERMODE");
+        if(userMode == "guest") {
+            player.setVisibility(View.INVISIBLE);
+            play.setVisibility(View.INVISIBLE);
+            previous.setVisibility(View.INVISIBLE);
+            next.setVisibility(View.INVISIBLE);
+        }
+
         ((CardViewAdapter) mAdapter).setOnItemClickListener(new CardViewAdapter
                 .MyClickListener() {
             @Override
@@ -222,6 +242,8 @@ public class HostActivity extends AppCompatActivity implements
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        MenuItem Qcode = menu.findItem(R.id.Q_code);
+        Qcode.setTitle(String.valueOf(code));
         return true;
     }
 
@@ -249,19 +271,20 @@ public class HostActivity extends AppCompatActivity implements
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             // Show the Up button in the action bar.
-            actionBar.setDisplayHomeAsUpEnabled(true);
+            //actionBar.setDisplayHomeAsUpEnabled(true);
         }
     }
 
     private void LeaveHost(){
 
-        //Intent i = new Intent(Main2Activity.this, SettingsActivity2.class);
-        //startActivity(i);
+        Intent i = new Intent(this, JoinPlaylist.class);
+        startActivity(i);
+        finish();
     }
 
     public void add() {
         Intent intent = new Intent(this,AddActivity.class);
-        startActivity(intent);
+
     }
 
     //Temp Colour Change Activity
@@ -328,4 +351,6 @@ public class HostActivity extends AppCompatActivity implements
         Spotify.destroyPlayer(this);
         super.onDestroy();
     }
+
+
 }

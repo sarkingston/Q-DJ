@@ -21,13 +21,38 @@ import java.util.ArrayList;
 public class JoinPlaylist extends AppCompatActivity {
     String partyName;
     ProgressDialog dialog;
-
+    Button  hostBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join_playlist);
 
         dialog = new ProgressDialog(this);
+
+
+        hostBtn = (Button) findViewById(R.id.hostButton);
+
+        /**Opens up QHost activity*/
+        hostBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(JoinPlaylist.this, HostActivity.class);
+                intent.putExtra("PARTYID", "0");
+                intent.putExtra("USERMODE", "host");
+
+                startActivity(intent);
+                finish();
+                /*AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID,
+                        AuthenticationResponse.Type.TOKEN,
+                        REDIRECT_URI);
+                builder.setScopes(new String[]{"user-read-private", "streaming"});
+                AuthenticationRequest request = builder.build();
+
+                //brings up the login screen
+                AuthenticationClient.openLoginActivity(LoginScreen.this, REQUEST_CODE, request);*/
+            }
+        });
 
         Button joinPartyBtn = (Button)findViewById(R.id.joinButton);
         joinPartyBtn.setOnClickListener(new View.OnClickListener() {
