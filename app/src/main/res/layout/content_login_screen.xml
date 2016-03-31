@@ -34,17 +34,17 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login as Guest"
+        android:text="Login with Spotify"
         android:id="@+id/guestLogin"
         android:layout_gravity="center_horizontal"
         />
 
-    <Button
+    <!--Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Login as Host"
         android:id="@+id/hostLogin"
         android:layout_gravity="center_horizontal"
-        />
+        /-->
 
 </LinearLayout>

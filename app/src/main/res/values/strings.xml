@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">QDJ</string>
-    <string name="action_leave_host">Leave Host</string>
+    <string name="Q_code">Qcode</string>
+    <string name="Q_prompt">Q Code: </string>
+    <string name="action_leave_host">Choose New Playlist</string>
     <string name="title_activity_login_screen">LoginScreen</string>
     <string name="title_activity_splash_screen">SplashScreen</string>
     <string name="title_activity_leave_host">Leave Host</string>

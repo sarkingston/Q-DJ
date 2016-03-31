@@ -49,7 +49,7 @@ public class LoginScreen extends Activity implements
         setContentView(R.layout.content_login_screen);
 
         guestBtn = (Button) findViewById(R.id.guestLogin);
-        hostBtn = (Button) findViewById(R.id.hostLogin);
+        //hostBtn = (Button) findViewById(R.id.hostLogin);
 
         /**Opens up QHost activity*/
         guestBtn.setOnClickListener(new View.OnClickListener() {
@@ -59,10 +59,15 @@ public class LoginScreen extends Activity implements
             }
         });
 
-        hostBtn.setOnClickListener(new View.OnClickListener() {
+        /*hostBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LoginScreen.this, HostActivity.class));
+
+                Intent intent = new Intent(LoginScreen.this, HostActivity.class);
+                intent.putExtra("PARTYID", "0");
+                intent.putExtra("USERMODE", "host");
+
+                startActivity(intent);
                 finish();
                 /*AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID,
                         AuthenticationResponse.Type.TOKEN,
@@ -71,9 +76,9 @@ public class LoginScreen extends Activity implements
                 AuthenticationRequest request = builder.build();
 
                 //brings up the login screen
-                AuthenticationClient.openLoginActivity(LoginScreen.this, REQUEST_CODE, request);*/
+                AuthenticationClient.openLoginActivity(LoginScreen.this, REQUEST_CODE, request);
             }
-        });
+        });*/
     }
 
     /*@Override

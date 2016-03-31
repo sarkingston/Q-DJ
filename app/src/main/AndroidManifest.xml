@@ -51,6 +51,7 @@
             android:theme="@style/AppTheme.NoActionBar" >
         </activity-->
         <activity android:name=".AddActivity"
+            android:label="Add music"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
@@ -59,6 +60,7 @@
         </activity>
         <activity android:name=".HostActivity"
             android:screenOrientation="portrait"
+
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity android:name=".GuestActivity"
