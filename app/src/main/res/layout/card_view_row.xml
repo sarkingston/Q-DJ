@@ -31,9 +31,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginRight="16dp"
                 android:layout_marginEnd="16dp"
-                android:contentDescription="album_art"
-                android:background="@drawable/play"
-                />
+                android:contentDescription="album_art" />
 
             <TextView
                 android:id="@+id/song_name"

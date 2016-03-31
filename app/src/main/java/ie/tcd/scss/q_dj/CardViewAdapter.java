@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
 
@@ -18,13 +17,12 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.DataOb
     public static class DataObjectHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener {
         TextView song, artist, userID, upVoted;
-        ImageView upVote, picture;
+        ImageView upVote;
         public DataObjectHolder(View itemView) {
             super(itemView);
             song = (TextView) itemView.findViewById(R.id.song_name);
             artist = (TextView) itemView.findViewById(R.id.artist_name);
             userID = (TextView) itemView.findViewById(R.id.userid);
-            picture = (ImageView) itemView.findViewById(R.id.photo);
             upVoted = (TextView) itemView.findViewById(R.id.upVoted);
             upVoted.setVisibility(View.GONE);
             upVote = (ImageView) itemView.findViewById(R.id.upVote);
@@ -64,7 +62,6 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.DataOb
         holder.song.setText(mDataset.get(position).getTitle() + position);
         holder.artist.setText(mDataset.get(position).getArtist());
         holder.userID.setText(mDataset.get(position).getSpotifyID());
-        Ion.with(holder.picture).error(R.mipmap.ic_launcher).load(mDataset.get(position).getImage());
     }
 
     public void addItem(Song dataObj, int index) {
