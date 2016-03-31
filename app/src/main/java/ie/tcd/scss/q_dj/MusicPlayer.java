@@ -27,6 +27,7 @@ public class MusicPlayer extends Activity implements
     Song[] songList  = {song1, song2, song3}; //Comms can put the list of song id's in here
 
     int songNumber = 0;
+    int playing = 0;
 
     private Player mPlayer;
     Config playerConfig;
@@ -42,7 +43,22 @@ public class MusicPlayer extends Activity implements
                 mPlayer = player;
                 mPlayer.addConnectionStateCallback(MusicPlayer.this);
                 mPlayer.addPlayerNotificationCallback(MusicPlayer.this);
-                mPlayer.play("spotify:track:" + songList[songNumber].spotifyID);
+                if (playing == 0)
+                {
+                    mPlayer.play("spotify:track:" + songList[songNumber].spotifyID);
+                    playing = 2;
+                }
+                else if (playing == 1)
+                {
+                    mPlayer.resume();
+                    playing = 2;
+                }
+                else if (playing == 2)
+                {
+                    mPlayer.pause();
+                    playing = 1;
+                }
+
             }
 
             @Override
@@ -55,13 +71,18 @@ public class MusicPlayer extends Activity implements
     public void skipNext() {
         if (songNumber < songList.length) {
             songNumber++;
+            playing = 0;
             play();
+            //mPlayer.pause();
+            //mPlayer.resume()
+            //mPlayer.playing();
         }
     }
 
     public void prevSong() {
         if (songNumber > 0) {
             songNumber--;
+            playing = 0;
             play();
         }
     }
