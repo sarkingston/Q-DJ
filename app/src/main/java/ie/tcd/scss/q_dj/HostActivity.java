@@ -2,6 +2,7 @@ package ie.tcd.scss.q_dj;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.Snackbar;
@@ -66,7 +67,8 @@ public class HostActivity extends AppCompatActivity implements
     private static final String REDIRECT_URI = "q-dj-login://callback";
 
     //initialse spotify player variable
-    private Player mPlayer;
+    MusicPlayer mPlayer = new MusicPlayer();
+    Config playerConfig;
     // Request code that will be used to verify if the result comes from correct activity
     // Can be any integer
     private static final int REQUEST_CODE = 1337;
@@ -162,46 +164,51 @@ public class HostActivity extends AppCompatActivity implements
             //grants access token
             if (response.getType() == AuthenticationResponse.Type.TOKEN) {
                 Config playerConfig = new Config(this, response.getAccessToken(), CLIENT_ID);
+                mPlayer.addConfig(playerConfig);
                 Toast.makeText(HostActivity.this,
                         "Log in successful", Toast.LENGTH_LONG).show();
 
-                //accesses spotify player and plays a song
-                Spotify.getPlayer(playerConfig, this, new Player.InitializationObserver() {
-                    @Override
-                    public void onInitialized(Player player) {
-                        final int idPlay = R.mipmap.ic_play_arrow_white_24dp;
-                        final int idPause = R.mipmap.ic_pause_white_24dp;
-                        mPlayer = player;
-                        mPlayer.addConnectionStateCallback(HostActivity.this);
-                        mPlayer.addPlayerNotificationCallback(HostActivity.this);
-                        play.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                if (playActive) {
-                                    play.setIcon(idPause);
-                                    if (count == 0) {
-                                        mPlayer.play("spotify:track:5DBQWDGt7WVlyMgMgvGko9");
-                                    }
-                                    else {
-                                        mPlayer.resume();
-                                        count++;
-                                    }
-                                    playActive = false;
-                                }
-                                else {
-                                    play.setIcon(idPlay);
-                                    mPlayer.pause();
-                                    playActive = true;
-                                }
-                            }
-                        });
-                    }
+                final int idPlay = R.mipmap.ic_play_arrow_white_24dp;
+                final int idPause = R.mipmap.ic_pause_white_24dp;
 
+                //accesses spotify player and plays a song
+
+                play.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onError(Throwable throwable) {
-                        Log.e("MainActivity", "Could not initialize player: " + throwable.getMessage());
+                    public void onClick(View v) {
+                        if (playActive) {
+                            play.setIcon(idPause);
+                            mPlayer.play();
+                            playActive = false;
+                        }
+                        else {
+                            play.setIcon(idPlay);
+                            mPlayer.play();
+                            playActive = true;
+                        }
                     }
                 });
+
+                previous.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mPlayer.prevSong();
+                        playActive = false;
+                        play.setIcon(idPause);
+                    }
+                });
+                next.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mPlayer.skipNext();
+                        playActive = false;
+                        play.setIcon(idPause);
+                    }
+                });
+
+
+
+
             }
             else{
                 Toast.makeText(HostActivity.this,
