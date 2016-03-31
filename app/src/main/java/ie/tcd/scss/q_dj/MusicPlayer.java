@@ -21,9 +21,9 @@ import com.spotify.sdk.android.player.Spotify;
 public class MusicPlayer extends Activity implements
         PlayerNotificationCallback, ConnectionStateCallback {
 
-    Song song1 = new Song("", "", 0.0, "2zMoMsf7KtqCQvlNfdFKtW");
-    Song song2 = new Song("", "", 0.0, "5DBQWDGt7WVlyMgMgvGko9");
-    Song song3 = new Song("", "", 0.0, "5blEjbK0DUQBxggguyKsEP");
+    Song song1 = new Song("", "", 0.0, "2zMoMsf7KtqCQvlNfdFKtW", "");
+    Song song2 = new Song("", "", 0.0, "5DBQWDGt7WVlyMgMgvGko9", "");
+    Song song3 = new Song("", "", 0.0, "5blEjbK0DUQBxggguyKsEP", "");
     Song[] songList  = {song1, song2, song3}; //Comms can put the list of song id's in here
 
     int songNumber = 0;
@@ -35,7 +35,6 @@ public class MusicPlayer extends Activity implements
     public void addConfig(Config _playerConfig) {
         playerConfig = _playerConfig;
     }
-
     public void replace(Song[] list)
     {
         songList = list;
