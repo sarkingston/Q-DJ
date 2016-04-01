@@ -57,7 +57,7 @@ public class HostActivity extends AppCompatActivity implements
     com.getbase.floatingactionbutton.FloatingActionButton next;
     boolean playActive;
     String userMode;
-    int code=0;
+    String code;
 
 
     //********************************************//
@@ -95,7 +95,7 @@ public class HostActivity extends AppCompatActivity implements
 
         Bundle received = getIntent().getExtras();
         userMode = received.getString("USERMODE");
-
+        code = received.getString("PARTYID");
         //*******************************************************//
 
         AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID,
