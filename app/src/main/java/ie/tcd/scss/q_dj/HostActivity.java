@@ -114,7 +114,7 @@ public class HostActivity extends AppCompatActivity implements
         previous = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.skip_previous);
         next = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.skip_next);
 
-        if(userMode == "guest") {
+        if(userMode.equals("guest")) {
             player.setVisibility(View.INVISIBLE);
             play.setVisibility(View.INVISIBLE);
             previous.setVisibility(View.INVISIBLE);
