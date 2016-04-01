@@ -291,6 +291,9 @@ public class HostActivity extends AppCompatActivity implements
 
     public void add() {
         Intent intent = new Intent(this,AddActivity.class);
+        startActivity(intent);
+
+
     }
 
     //Temp Colour Change Activity
