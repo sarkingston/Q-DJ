@@ -63,9 +63,6 @@
 
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".GuestActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
         <activity
             android:name=".JoinPlaylist"
             android:label="@string/title_activity_join_playlist"
