@@ -59,6 +59,11 @@ public class AddActivity extends AppCompatActivity {
         new searchSpotify().execute("track", q);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
     private class searchSpotify extends AsyncTask<String, Void, ArrayList<Song>> {
 
         protected void onPreExecute(String... params) {
