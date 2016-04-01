@@ -114,7 +114,7 @@ public class HostActivity extends AppCompatActivity implements
         previous = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.skip_previous);
         next = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.skip_next);
 
-        if(userMode == "guest") {
+        if(userMode.equals("guest")) {
             player.setVisibility(View.INVISIBLE);
             play.setVisibility(View.INVISIBLE);
             previous.setVisibility(View.INVISIBLE);
@@ -128,25 +128,23 @@ public class HostActivity extends AppCompatActivity implements
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(playActive) {
+                if (playActive) {
                     play.setIcon(idPause);
                     playActive = false;
-                }
-                else {
+                } else {
                     play.setIcon(idPlay);
                     playActive = true;
                 }
             }
         });
-
-       loadQueue(this);
-
+       loadQueue();
     }
 
     //******************************************************************//
 
 
-    protected  void loadQueue(Context that){
+
+    protected void loadQueue(){
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerList);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -210,29 +208,25 @@ public class HostActivity extends AppCompatActivity implements
                         play.setIcon(idPause);
                     }
                 });
-
-
-
-
             }
             else{
                 Toast.makeText(HostActivity.this,
                         "Log in not successful. Proceeding to Main Screen for the banter anyway", Toast.LENGTH_LONG).show();
             }
         }
-
-        //startActivity(new Intent(LoginScreen.this, HostActivity.class));
-        //finish();
-
     }
-
-    //****************************************************//
-
 
     @Override
     protected void onResume() {
         super.onResume();
 
+        try {
+            ServerComms.getQueue(code);
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        } finally {
+            loadQueue();
+        }
 
         Bundle received = getIntent().getExtras();
         userMode = received.getString("USERMODE");
@@ -305,8 +299,7 @@ public class HostActivity extends AppCompatActivity implements
     }
 
     public void refresh() {
-        loadQueue(this);
-
+        loadQueue();
     }
 
 
