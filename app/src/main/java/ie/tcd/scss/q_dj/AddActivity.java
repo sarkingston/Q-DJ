@@ -30,11 +30,13 @@ public class AddActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    String query_type;
-    String query;
+    String code;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Bundle received = getIntent().getExtras();
+        code = received.getString("PARTYID");
+
         // Use the chosen theme
         SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         boolean useDarkTheme = preferences.getBoolean(PREF_DARK_THEME, false);
@@ -67,12 +69,12 @@ public class AddActivity extends AppCompatActivity {
     private class searchSpotify extends AsyncTask<String, Void, ArrayList<Song>> {
 
         protected void onPreExecute(String... params) {
+
         }
 
         @Override
         protected ArrayList doInBackground(String... params) {
             try {
-
                 SpotifyHelper sh = new SpotifyHelper();
                 return  sh.query(params[1], params[0]);
             } catch (IOException | JSONException e) {
@@ -88,7 +90,7 @@ public class AddActivity extends AppCompatActivity {
                 //Put Each Song in the Listview or whatever it is...
                 //We have an ARRAYLIST of 'Song's so it should be easy enough to put them into some sort of list
 
-                mAdapter = new CardViewAdapter(result);
+                mAdapter = new CardViewAdapter(result, code);
                 mRecyclerView.setAdapter(mAdapter);
 
             } else {
@@ -101,6 +103,7 @@ public class AddActivity extends AppCompatActivity {
 
         @Override
         protected void onProgressUpdate(Void... values) {
+
         }
     }
     private void setupActionBar() {
@@ -117,7 +120,6 @@ public class AddActivity extends AppCompatActivity {
                 finish();
                 return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }

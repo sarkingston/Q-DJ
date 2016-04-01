@@ -89,14 +89,9 @@ public class HostActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_host);
         setupActionBar();
 
-
-
-        //getSupportActionBar().setDisplayShowTitleEnabled(false);
-
         Bundle received = getIntent().getExtras();
         userMode = received.getString("USERMODE");
         code = received.getString("PARTYID");
-        //*******************************************************//
 
         AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID,
                 AuthenticationResponse.Type.TOKEN,
@@ -106,8 +101,6 @@ public class HostActivity extends AppCompatActivity implements
 
         //brings up the login screen
         AuthenticationClient.openLoginActivity(HostActivity.this, REQUEST_CODE, request);
-
-        //**********************************************************//
 
         player = (com.getbase.floatingactionbutton.FloatingActionsMenu) findViewById(R.id.multiple_actions);
         play = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.play);
@@ -140,16 +133,12 @@ public class HostActivity extends AppCompatActivity implements
        loadQueue();
     }
 
-    //******************************************************************//
-
-
-
     protected void loadQueue(){
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerList);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         try {
-            mAdapter = new CardViewAdapter(ServerComms.getQueue(code));
+            mAdapter = new CardViewAdapter(ServerComms.getQueue(code), code);
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
@@ -266,7 +255,7 @@ public class HostActivity extends AppCompatActivity implements
                 ChangeColour();
                 return true;
             case R.id.action_add:
-                add();
+                add(code);
                 return true;
             case R.id.action_refresh:
                 refresh();
@@ -291,11 +280,10 @@ public class HostActivity extends AppCompatActivity implements
         finish();
     }
 
-    public void add() {
+    public void add(String code) {
         Intent intent = new Intent(this,AddActivity.class);
+        intent.putExtra("PARTYID", code);
         startActivity(intent);
-
-
     }
 
     public void refresh() {

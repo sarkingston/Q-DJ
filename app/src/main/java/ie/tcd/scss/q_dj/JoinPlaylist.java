@@ -97,7 +97,7 @@ public class JoinPlaylist extends AppCompatActivity {
         protected void onPostExecute(Boolean result) {
             dialog.dismiss();
 
-            if (result == true) {
+            if (result) {
                 Intent intent = new Intent(JoinPlaylist.this, HostActivity.class);
                 intent.putExtra("PARTYID", partyName);
                 intent.putExtra("USERMODE", "host");
@@ -119,8 +119,7 @@ public class JoinPlaylist extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(String... params) {
             try {
-                ServerComms sc = new ServerComms();
-                return sc.joinParty("0000", partyName);
+                return ServerComms.joinParty("0000", partyName);
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
             }
@@ -131,7 +130,7 @@ public class JoinPlaylist extends AppCompatActivity {
         protected void onPostExecute(Boolean result) {
             dialog.dismiss();
 
-            if (result == true) {
+            if (result) {
                 Intent intent = new Intent(JoinPlaylist.this, HostActivity.class);
                 intent.putExtra("PARTYID", partyName);
                 intent.putExtra("USERMODE", "guest");

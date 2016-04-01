@@ -20,6 +20,9 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.DataOb
     private ArrayList<Song> mDataset;
     private static MyClickListener myClickListener;
 
+    String code;
+    private static final String USER_ID = "0000";
+
     public class DataObjectHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener {
         TextView song, artist, userID, upVoted;
@@ -51,8 +54,8 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.DataOb
                             + "|" + artist.getText().toString());
                     try {
                         ServerComms.addSong(
-                                "0000",
-                                "0000",
+                                USER_ID,
+                                code,
                                 userID.getText().toString(),
                                 song.getText().toString(),
                                 artist.getText().toString(),
@@ -75,8 +78,9 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.DataOb
         CardViewAdapter.myClickListener = myClickListener;
     }
 
-    public CardViewAdapter(ArrayList<Song> myDataset) {
+    public CardViewAdapter(ArrayList<Song> myDataset, String code) {
         mDataset = myDataset;
+        this.code = code;
     }
 
     @Override

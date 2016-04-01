@@ -1,7 +1,5 @@
 package ie.tcd.scss.q_dj;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -15,11 +13,9 @@ import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.net.HttpURLConnection;
-import java.net.InetAddress;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -96,19 +92,5 @@ public class HTTPRequest {
         }
 
         return null;
-    }
-
-    public boolean isInternetAvailable() {
-        try {
-            InetAddress ipAddr = InetAddress.getByName("spotify.com"); //You can replace it with your name
-            if (ipAddr.equals("")) {
-                return false;
-            } else {
-                return true;
-            }
-        } catch (Exception e) {
-            return false;
-        }
-
     }
 }
