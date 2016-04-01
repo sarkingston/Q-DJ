@@ -37,8 +37,13 @@ public class JoinPlaylist extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                EditText partyNameED = (EditText) findViewById(R.id.party_name);
+                partyName = partyNameED.getText().toString();
+
                 Intent intent = new Intent(JoinPlaylist.this, HostActivity.class);
-                intent.putExtra("PARTYID", "0");
+
+
+                intent.putExtra("PARTYID", partyName);
                 intent.putExtra("USERMODE", "host");
 
                 startActivity(intent);
