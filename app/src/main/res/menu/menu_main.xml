@@ -31,6 +31,6 @@
         android:title="@string/action_add"
         android:orderInCategory="3"
         android:icon="@drawable/ic_plus_white_24dp"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never" />
 
 </menu>
