@@ -59,7 +59,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.DataOb
 
     @Override
     public void onBindViewHolder(DataObjectHolder holder, int position) {
-        holder.song.setText(mDataset.get(position).getTitle() + position);
+        holder.song.setText(mDataset.get(position).getTitle());
         holder.artist.setText(mDataset.get(position).getArtist());
         holder.userID.setText(mDataset.get(position).getSpotifyID());
     }
