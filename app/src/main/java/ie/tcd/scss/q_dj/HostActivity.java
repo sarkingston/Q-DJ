@@ -269,6 +269,9 @@ public class HostActivity extends AppCompatActivity implements
             case R.id.action_add:
                 add();
                 return true;
+            case R.id.action_refresh:
+                refresh();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -295,6 +298,12 @@ public class HostActivity extends AppCompatActivity implements
 
 
     }
+
+    public void refresh() {
+        loadQueue(this);
+
+    }
+
 
     //Temp Colour Change Activity
     private void ChangeColour(){
