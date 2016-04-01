@@ -54,10 +54,6 @@
             android:label="Add music"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity
-            android:name=".CreatePlaylistActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
         <activity android:name=".HostActivity"
             android:screenOrientation="portrait"
 

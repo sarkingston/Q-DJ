@@ -19,7 +19,7 @@ public class ServerComms {
     public static final String base_server_url = "http://tuneq.2digital.ie";
     public static final String addSongPHP = "/addsong.php";
     public static final String deleteSongPHP = "/deletesong.php";
-    public static final String createPartyPHP = "/createparty.php";
+    public static final String createPartyPHP = "/createQ.php";
     public static final String joinPartyPHP = "/adduser.php";
     public static final String getQueuePHP = "/getqueue.php";
 
@@ -92,12 +92,20 @@ public class ServerComms {
     }
 
 
-    public static void createParty(String userID, String partyID) throws IOException {
-        HashMap<String, String> req = new HashMap<>();
-        req.put("user_id", userID);
-        req.put("partyID", partyID);
 
-        new HTTPRequest().get(base_server_url + createPartyPHP, req);
+    public boolean createParty(String userID, String partyID) throws IOException, JSONException {
+        HashMap<String, String> req = new HashMap<>();
+        req.put("userID", userID);
+        req.put("partyid", partyID);
+
+        JSONObject result =  new HTTPRequest().get(base_server_url + createPartyPHP, req);
+        Log.d("SERVERCOMMS",result.getString("status").replace(" ","") );
+        if(result.get("status").equals("true")){
+            Log.d("SERVERCOMMS", "RETURNING TRUE");
+            return  true;
+        }
+
+        return false;
     }
 
     public static boolean joinParty(String userID, String partyID) throws IOException, JSONException {
