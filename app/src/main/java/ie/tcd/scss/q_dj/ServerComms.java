@@ -61,9 +61,9 @@ public class ServerComms {
         return null;
     }
 
-    public void addSong(String userID,
+    public static void addSong(String userID,
                         String partyID,
-                        String songID,
+                        String spotifyID,
                         String title,
                         String artist,
                         long duration) throws IOException {
@@ -71,18 +71,18 @@ public class ServerComms {
         String timestamp = Long.toString(System.currentTimeMillis() / 1000L);
 
         HashMap<String, String> req = new HashMap<>();
-        req.put("user_id", userID);
-        req.put("partID", partyID);
-        req.put("songID", songID);
-        req.put("title", title);
+        req.put("userID", userID);
+        req.put("partyid", partyID);
+        req.put("spotifyID", spotifyID);
+        req.put("songtitle", title);
         req.put("artist", artist);
-        req.put("duration", Long.toString(duration));
-        req.put("timestamp", timestamp);
+        req.put("songlength", Long.toString(duration));
+        req.put("timesent", timestamp);
 
         new HTTPRequest().get(base_server_url + addSongPHP, req);
     }
 
-    public void deleteSong(String userID, String partyID, String songID) throws IOException {
+    public static void deleteSong(String userID, String partyID, String songID) throws IOException {
         HashMap<String, String> req = new HashMap<>();
         req.put("user_id", userID);
         req.put("partyID", partyID);
@@ -92,7 +92,7 @@ public class ServerComms {
     }
 
 
-    public void createParty(String userID, String partyID) throws IOException {
+    public static void createParty(String userID, String partyID) throws IOException {
         HashMap<String, String> req = new HashMap<>();
         req.put("user_id", userID);
         req.put("partyID", partyID);
@@ -100,7 +100,7 @@ public class ServerComms {
         new HTTPRequest().get(base_server_url + createPartyPHP, req);
     }
 
-    public boolean joinParty(String userID, String partyID) throws IOException, JSONException {
+    public static boolean joinParty(String userID, String partyID) throws IOException, JSONException {
         HashMap<String, String> req = new HashMap<>();
         req.put("userID", userID);
         req.put("partyid", partyID);
