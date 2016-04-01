@@ -139,19 +139,24 @@ public class HostActivity extends AppCompatActivity implements
             }
         });
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerList);
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        try {
-            mAdapter = new CardViewAdapter(ServerComms.getQueue(received.getString("PARTYID")));
-        } catch (IOException | JSONException e) {
-            e.printStackTrace();
-        }
-        mRecyclerView.setAdapter(mAdapter);
+       loadQueue(this);
 
     }
 
     //******************************************************************//
+
+
+    protected  void loadQueue(Context that){
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerList);
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        try {
+            mAdapter = new CardViewAdapter(ServerComms.getQueue(code));
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+        mRecyclerView.setAdapter(mAdapter);
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {

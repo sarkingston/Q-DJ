@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.json.JSONException;
 
@@ -50,19 +51,12 @@ public class AddActivity extends AppCompatActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerList);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-
-
-
-        //Add to the Queue - or in other words, search...spotify
-
-
     }
 
     public void search(View v){
         EditText et = (EditText) findViewById(R.id.party_name);
         String q = et.getText().toString();
         new searchSpotify().execute("track", q);
-
     }
 
     private class searchSpotify extends AsyncTask<String, Void, ArrayList<Song>> {
@@ -76,9 +70,7 @@ public class AddActivity extends AppCompatActivity {
 
                 SpotifyHelper sh = new SpotifyHelper();
                 return  sh.query(params[1], params[0]);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
+            } catch (IOException | JSONException e) {
                 e.printStackTrace();
             }
             return null;
