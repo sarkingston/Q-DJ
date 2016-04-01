@@ -1,6 +1,7 @@
 package ie.tcd.scss.q_dj;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,11 +31,13 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.DataOb
             upVoted.setVisibility(View.GONE);
             upVote = (ImageView) itemView.findViewById(R.id.upVote);
             upVote.setClickable(true);
+            final MediaPlayer sound = MediaPlayer.create(context, R.raw.success1);
             upVote.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     upVote.setVisibility(View.GONE);
                     upVoted.setVisibility(View.VISIBLE);
+                    sound.start();
                 }
             });
             itemView.setOnClickListener(new View.OnClickListener() {
