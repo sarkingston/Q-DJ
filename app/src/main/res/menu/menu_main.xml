@@ -33,4 +33,9 @@
         android:icon="@drawable/ic_plus_white_24dp"
         app:showAsAction="never" />
 
+    <item android:id="@+id/action_refresh"
+        android:title="@string/action_refresh"
+        android:orderInCategory="4"
+        app:showAsAction="never" />
+
 </menu>

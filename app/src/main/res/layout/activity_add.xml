@@ -30,7 +30,8 @@
             android:editable="true"
             android:textColor="#fff"
             android:singleLine="true"
-            android:lines="1"/>
+            android:lines="1"
+            android:imeOptions="actionDone" />
 
         <ImageView
             android:layout_width="wrap_content"
