@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.koushikdutta.ion.Ion;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -21,16 +23,18 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.DataOb
     public class DataObjectHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener {
         TextView song, artist, userID, upVoted;
-        ImageView upVote;
+        ImageView upVote, image;
         public DataObjectHolder(View itemView, final Context context) {
             super(itemView);
             song = (TextView) itemView.findViewById(R.id.song_name);
             artist = (TextView) itemView.findViewById(R.id.artist_name);
             userID = (TextView) itemView.findViewById(R.id.userid);
             upVoted = (TextView) itemView.findViewById(R.id.upVoted);
+            //image = (ImageView) itemView.findViewById(R.id.photo);
             upVoted.setVisibility(View.GONE);
             upVote = (ImageView) itemView.findViewById(R.id.upVote);
             upVote.setClickable(true);
+
             final MediaPlayer sound = MediaPlayer.create(context, R.raw.success1);
             upVote.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -86,6 +90,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.DataOb
         holder.song.setText(mDataset.get(position).getTitle());
         holder.artist.setText(mDataset.get(position).getArtist());
         holder.userID.setText(mDataset.get(position).getSpotifyID());
+        //Ion.with(holder.image).error(R.mipmap.ic_launcher).load(mDataset.get(position).getImage());
     }
 
     public void addItem(Song dataObj, int index) {
