@@ -40,13 +40,17 @@ public class JoinPlaylist extends AppCompatActivity {
                 EditText partyNameED = (EditText) findViewById(R.id.party_name);
                 partyName = partyNameED.getText().toString();
 
-                Intent intent = new Intent(JoinPlaylist.this, HostActivity.class);
+                //Intent intent = new Intent(JoinPlaylist.this, HostActivity.class);
+
+                if(partyName.equals("")){
+                    Snackbar.make(findViewById(android.R.id.content),
+                            "Please input a party ID", Snackbar.LENGTH_LONG).show();
+                } else {
+                    new createParty().execute();
+                }
 
 
-                intent.putExtra("PARTYID", partyName);
-                intent.putExtra("USERMODE", "host");
 
-                startActivity(intent);
                 finish();
                 /*AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID,
                         AuthenticationResponse.Type.TOKEN,
@@ -74,6 +78,40 @@ public class JoinPlaylist extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private class createParty extends AsyncTask<String, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+            try {
+                ServerComms sc = new ServerComms();
+                return sc.createParty("0000", partyName);
+            } catch (IOException | JSONException e) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            dialog.dismiss();
+
+            if (result == true) {
+                Intent intent = new Intent(JoinPlaylist.this, HostActivity.class);
+                intent.putExtra("PARTYID", partyName);
+                intent.putExtra("USERMODE", "host");
+
+                startActivity(intent);
+            } else {
+                Snackbar.make(findViewById(android.R.id.content),
+                        "Sorry! That Party either already exists or you might not be connected",
+                        Snackbar.LENGTH_LONG).show();
+            }
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) { }
     }
 
     private class joinParty extends AsyncTask<String, Void, Boolean> {

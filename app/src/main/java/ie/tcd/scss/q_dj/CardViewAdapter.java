@@ -76,7 +76,9 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.DataOb
 
     @Override
     public int getItemCount() {
-        return mDataset.size();
+        if(mDataset != null)
+            return mDataset.size();
+        return 0;
     }
 
     public interface MyClickListener {
