@@ -111,12 +111,14 @@ public class HostActivity extends AppCompatActivity implements
         play = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.play);
         previous = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.skip_previous);
         next = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.skip_next);
+        seekBar = (SeekBar)findViewById(R.id.seekBar);
 
         if(userMode.equals("guest")) {
             player.setVisibility(View.INVISIBLE);
             play.setVisibility(View.INVISIBLE);
             previous.setVisibility(View.INVISIBLE);
             next.setVisibility(View.INVISIBLE);
+            seekBar.setVisibility(View.INVISIBLE);
         }
 
         final int idPlay = R.mipmap.ic_play_arrow_white_24dp;
@@ -232,6 +234,7 @@ public class HostActivity extends AppCompatActivity implements
             play.setVisibility(View.INVISIBLE);
             previous.setVisibility(View.INVISIBLE);
             next.setVisibility(View.INVISIBLE);
+            seekBar.setVisibility(View.INVISIBLE);
         }
 
         ((CardViewAdapter) mAdapter).setOnItemClickListener(new CardViewAdapter
@@ -365,7 +368,7 @@ public class HostActivity extends AppCompatActivity implements
     }
 
     public void getInit(){
-        seekBar = (SeekBar)findViewById(R.id.seekBar);
+        //seekBar = (SeekBar)findViewById(R.id.seekBar);
         //double dDuration = mPlayer.getSongDuration();
         //int duration = (int)dDuration;
         //seekBar.setMax(duration);

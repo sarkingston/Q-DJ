@@ -43,13 +43,14 @@
                 android:text="SONG NAME"
                 android:textSize="17sp" />
 
-            <!--TextView
+            <TextView
                 android:id="@+id/userid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/song_name"
                 android:layout_toRightOf="@+id/photo"
-                android:text="SENT BY" /-->
+                android:text="SENT BY"
+                android:visibility="invisible"/>
 
             <TextView
                 android:id="@+id/artist_name"

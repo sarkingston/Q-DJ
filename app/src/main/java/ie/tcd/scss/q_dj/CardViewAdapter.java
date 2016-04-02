@@ -41,7 +41,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.DataOb
             super(itemView);
             song = (TextView) itemView.findViewById(R.id.song_name);
             artist = (TextView) itemView.findViewById(R.id.artist_name);
-            //userID = (TextView) itemView.findViewById(R.id.userid);
+            userID = (TextView) itemView.findViewById(R.id.userid);
             upVoted = (TextView) itemView.findViewById(R.id.upVoted);
             image = (ImageView) itemView.findViewById(R.id.photo);
             duration = (TextView) itemView.findViewById(R.id.length);
@@ -61,6 +61,12 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.DataOb
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    System.out.println("********************************");
+                    System.out.println("********************************");
+                    System.out.println("********************************");
+                    System.out.println("********************************");
+                    System.out.println("********************************");
+                    System.out.println("********************************");
                     System.out.println(userID.getText().toString() + "|" + song.getText().toString()
                             + "|" + artist.getText().toString());
                     try {
@@ -71,7 +77,9 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.DataOb
                                 song.getText().toString(),
                                 artist.getText().toString(),
                                 3000
+
                         );
+                        System.out.println("*************** SONG ADDED **************");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -163,7 +171,6 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.DataOb
     }
 
     private String calculateDifference(long timeInMillis){
-
         int minutes = (int) ((timeInMillis / 60 ) % 60);
         int seconds = (int) ((timeInMillis) % 60);
         return minutes+":"+seconds;

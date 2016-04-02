@@ -74,7 +74,13 @@ public class AddActivity extends AppCompatActivity {
     public void search(View v){
         EditText et = (EditText) findViewById(R.id.party_name);
         String q = et.getText().toString();
-        new searchSpotify().execute("track", q);
+        if(q.equals("")) {
+            Snackbar.make(findViewById(android.R.id.content),
+                    "Invalid Search",
+                    Snackbar.LENGTH_SHORT).show();
+        }else{
+            new searchSpotify().execute("track", q);
+        }
     }
 
     @Override
@@ -83,7 +89,6 @@ public class AddActivity extends AppCompatActivity {
     }
 
     private class searchSpotify extends AsyncTask<String, Void, ArrayList<Song>> {
-
         protected void onPreExecute(String... params) {
 
         }
