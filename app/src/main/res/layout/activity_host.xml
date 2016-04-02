@@ -89,6 +89,18 @@
                     fab:fab_icon="@mipmap/ic_skip_next_white_24dp" />
 
             </com.getbase.floatingactionbutton.FloatingActionsMenu>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_alignTop="@+id/multiple_actions"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true">
+                <SeekBar
+                    android:id="@+id/seekBar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+            </LinearLayout>
+
         </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

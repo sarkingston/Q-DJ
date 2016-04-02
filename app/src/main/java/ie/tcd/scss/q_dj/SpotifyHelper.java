@@ -39,7 +39,7 @@ public class SpotifyHelper {
             Song track = new Song(t.getString("name"),
                     t.getJSONArray("artists").getJSONObject(0).getString("name"),
                     Double.parseDouble(t.getString("duration_ms"))/1000,
-                    t.getString("id")
+                    t.getString("id"),t.getJSONObject("album").getJSONArray("images").getJSONObject(1).getString("url")
                     );
             songs.add(track);
             //Log.e("SONGS", track.title + " " + track.artist + " " + track.duration);

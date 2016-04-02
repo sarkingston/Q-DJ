@@ -21,9 +21,9 @@ import com.spotify.sdk.android.player.Spotify;
 public class MusicPlayer extends Activity implements
         PlayerNotificationCallback, ConnectionStateCallback {
 
-    Song song1 = new Song("", "", 0.0, "2zMoMsf7KtqCQvlNfdFKtW");
-    Song song2 = new Song("", "", 0.0, "5DBQWDGt7WVlyMgMgvGko9");
-    Song song3 = new Song("", "", 0.0, "5blEjbK0DUQBxggguyKsEP");
+    Song song1 = new Song("", "", 50.0, "2zMoMsf7KtqCQvlNfdFKtW", "");
+    Song song2 = new Song("", "", 0.0, "5DBQWDGt7WVlyMgMgvGko9", "");
+    Song song3 = new Song("", "", 0.0, "5blEjbK0DUQBxggguyKsEP", "");
     Song[] songList  = {song1, song2, song3}; //Comms can put the list of song id's in here
 
     int songNumber = 0;
@@ -126,4 +126,12 @@ public class MusicPlayer extends Activity implements
     public void onPlaybackError(ErrorType errorType, String errorDetails) {
         Log.d("MainActivity", "Playback error received: " + errorType.name());
     }
+
+    public double getSongDuration() {
+        //double dur =  song1.getDuration();
+        double dur = songList[songNumber].getDuration();
+        return dur;
+    }
+
+
 }
