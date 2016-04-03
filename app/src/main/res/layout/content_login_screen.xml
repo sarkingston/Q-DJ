@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-
-    android:gravity="center"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="10dp"
     android:weightSum="1">
 
     <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-       android:src="@mipmap/ic_launcher"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@mipmap/ic_launcher"
         android:id="@+id/loginTitle"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="0.5" />
+        android:layout_weight="0.5"
+        android:layout_above="@+id/L1"
+        />
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -22,7 +22,11 @@
         android:layout_gravity="center"
         android:orientation="vertical"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp" >
+        android:paddingRight="20dp"
+        android:layout_above="@+id/guestLogin"
+        android:id="@+id/L1"
+        >
+
 
         <ImageView
             android:layout_width="wrap_content"
@@ -36,15 +40,22 @@
         android:layout_height="wrap_content"
         android:text="Login with Spotify"
         android:id="@+id/guestLogin"
+        android:layout_above="@+id/adView"
+        android:layout_marginBottom="30dp"
+        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
         android:layout_gravity="center_horizontal"
         />
-
-    <!--Button
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login as Host"
-        android:id="@+id/hostLogin"
-        android:layout_gravity="center_horizontal"
-        /-->
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id">
+    </com.google.android.gms.ads.AdView>
 
-</LinearLayout>
+
+</RelativeLayout>
+

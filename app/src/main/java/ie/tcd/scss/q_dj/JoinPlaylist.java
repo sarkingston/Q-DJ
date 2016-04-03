@@ -12,10 +12,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+
 import org.json.JSONException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by Sam on 24/2/16.
@@ -29,6 +34,7 @@ public class JoinPlaylist extends AppCompatActivity {
     String partyName;
     ProgressDialog dialog;
     Button  hostBtn;
+    InterstitialAd mInterstitialAd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Use the chosen theme
@@ -44,16 +50,34 @@ public class JoinPlaylist extends AppCompatActivity {
         setContentView(R.layout.activity_join_playlist);
         setupActionBar();
 
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                requestNewInterstitial();
+            }
+        });
+        requestNewInterstitial();
+
         dialog = new ProgressDialog(this);
 
 
         hostBtn = (Button) findViewById(R.id.hostButton);
 
+
         /**Opens up QHost activity*/
         hostBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
+            public void onClick(View view)
+            {
+                Random r = new Random();
+                int k = r.nextInt(2 - 0) + 0;
+                if (mInterstitialAd.isLoaded()) {
+                    if (k < 1) {
+                        mInterstitialAd.show();
+                    }
+                }
                 EditText partyNameED = (EditText) findViewById(R.id.party_name);
                 partyName = partyNameED.getText().toString();
 
@@ -89,7 +113,7 @@ public class JoinPlaylist extends AppCompatActivity {
 
                 if(partyName.equals("")){
                     Snackbar.make(findViewById(android.R.id.content),
-                        "Please input a party ID", Snackbar.LENGTH_LONG).show();
+                            "Please input a party ID", Snackbar.LENGTH_LONG).show();
                 } else {
                     new joinParty().execute();
                 }
@@ -164,6 +188,16 @@ public class JoinPlaylist extends AppCompatActivity {
         protected void onProgressUpdate(Void... values) { }
     }
 
+    private void requestNewInterstitial() {
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice("SEE_YOUR_LOGCAT_TO_GET_YOUR_DEVICE_ID")
+                .build();
+
+        mInterstitialAd.loadAd(adRequest);
+    }
+
+
+
     private void setupActionBar() {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -171,4 +205,5 @@ public class JoinPlaylist extends AppCompatActivity {
             //actionBar.setDisplayHomeAsUpEnabled(true);
         }
     }
+
 }

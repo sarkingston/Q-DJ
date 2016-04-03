@@ -13,7 +13,7 @@
     <string name="title_activity_change_colour">Change Colour</string>
     <string name="upVoted">Voted!</string>
     <string name="joinParty">Please enter a party ID</string>
-
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->
