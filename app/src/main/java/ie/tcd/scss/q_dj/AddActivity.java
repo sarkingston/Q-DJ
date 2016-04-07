@@ -78,7 +78,7 @@ public class AddActivity extends AppCompatActivity {
             Snackbar.make(findViewById(android.R.id.content),
                     "Invalid Search",
                     Snackbar.LENGTH_SHORT).show();
-        }else{
+        } else {
             new searchSpotify().execute("track", q);
         }
     }
@@ -111,7 +111,7 @@ public class AddActivity extends AppCompatActivity {
                 //Put Each Song in the Listview or whatever it is...
                 //We have an ARRAYLIST of 'Song's so it should be easy enough to put them into some sort of list
 
-                mAdapter = new CardViewAdapter(result, code);
+                mAdapter = new CardViewAdapter(result, code, true);
                 mRecyclerView.setAdapter(mAdapter);
 
             } else {

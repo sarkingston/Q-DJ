@@ -31,6 +31,8 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.DataOb
     private static MyClickListener myClickListener;
 
     String code;
+    boolean isSearch;
+
     private static final String USER_ID = "0000";
 
     public class DataObjectHolder extends RecyclerView.ViewHolder
@@ -58,31 +60,23 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.DataOb
                     sound.start();
                 }
             });
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    System.out.println("********************************");
-                    System.out.println("********************************");
-                    System.out.println("********************************");
-                    System.out.println("********************************");
-                    System.out.println("********************************");
-                    System.out.println("********************************");
-                    System.out.println(userID.getText().toString() + "|" + song.getText().toString()
-                            + "|" + artist.getText().toString());
-                    try {
-                        ServerComms.addSong(
-                                USER_ID,
-                                code,
-                                userID.getText().toString(),
-                                song.getText().toString(),
-                                artist.getText().toString(),
-                                3000
-
-                        );
-                        System.out.println("*************** SONG ADDED **************");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    songClicked(context);
+                }
+            });
+            song.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    songClicked(context);
+                }
+            });
+            artist.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    songClicked(context);
                 }
             });
         }
@@ -91,15 +85,38 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.DataOb
         public void onClick(View v) {
             myClickListener.onItemClick(getAdapterPosition(), v);
         }
+
+        private void songClicked(Context context) {
+            if (isSearch) {
+                System.out.println(userID.getText().toString() + "|" + song.getText().toString()
+                        + "|" + artist.getText().toString());
+                try {
+                    ServerComms.addSong(
+                            USER_ID,
+                            code,
+                            userID.getText().toString(),
+                            song.getText().toString(),
+                            artist.getText().toString(),
+                            3000
+                    );
+                    Toast.makeText(context, song.getText().toString() + " was added to the queue!", Toast.LENGTH_LONG).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                Toast.makeText(context, "Now playing: " + song.getText().toString(), Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     public void setOnItemClickListener(MyClickListener myClickListener) {
         CardViewAdapter.myClickListener = myClickListener;
     }
 
-    public CardViewAdapter(ArrayList<Song> myDataset, String code) {
+    public CardViewAdapter(ArrayList<Song> myDataset, String code, boolean isSearch) {
         mDataset = myDataset;
         this.code = code;
+        this.isSearch = isSearch;
     }
 
     @Override

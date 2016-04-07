@@ -1,8 +1,5 @@
 package ie.tcd.scss.q_dj;
 
-import android.media.Image;
-import android.widget.SeekBar;
-
 /**
  * Created by Darragh on 08/02/2016.
  */
@@ -30,7 +27,6 @@ public class Song {
     public double getDuration(){return duration;}
     public void setSpotifyID(String spotifyID){this.spotifyID=spotifyID;}
     public String getSpotifyID(){return spotifyID;}
-
     public void setImage(String image){this.image = image;}
     public String getImage(){return image;}
 

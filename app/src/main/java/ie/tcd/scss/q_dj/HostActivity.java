@@ -73,7 +73,6 @@ public class HostActivity extends AppCompatActivity implements
     MusicPlayer mPlayer = new MusicPlayer();
     SeekBar seekBar;
     int SBCounter = 0;
-    Config playerConfig;
     // Request code that will be used to verify if the result comes from correct activity
     // Can be any integer
     private static final int REQUEST_CODE = 1337;
@@ -145,7 +144,7 @@ public class HostActivity extends AppCompatActivity implements
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         try {
-            mAdapter = new CardViewAdapter(ServerComms.getQueue(code), code);
+            mAdapter = new CardViewAdapter(ServerComms.getQueue(code), code, false);
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
