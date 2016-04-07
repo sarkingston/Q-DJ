@@ -21,7 +21,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.DataObjectHolder> {
 
@@ -97,7 +104,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.DataOb
                             userID.getText().toString(),
                             song.getText().toString(),
                             artist.getText().toString(),
-                            3000
+                            getMillis(duration.getText().toString())
                     );
                     Toast.makeText(context, song.getText().toString() + " was added to the queue!", Toast.LENGTH_LONG).show();
                 } catch (IOException e) {
@@ -135,13 +142,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.DataOb
         long longTimeInMillis = (long)timeInMillis;
         String result = (calculateDifference(longTimeInMillis));
         holder.duration.setText(result);
-
-        //holder.userID.setText(mDataset.get(position).getSpotifyID());
-
         holder.image.setImageBitmap(getImageBitmap(mDataset.get(position).getImage()));
-
-
-        //Ion.with(holder.image).error(R.mipmap.ic_launcher).load(mDataset.get(position).getImage());
     }
 
     public void addItem(Song dataObj, int index) {
@@ -191,5 +192,11 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.DataOb
         int minutes = (int) ((timeInMillis / 60 ) % 60);
         int seconds = (int) ((timeInMillis) % 60);
         return minutes+":"+seconds;
+    }
+
+    public static long getMillis(String time) {
+        String[] segments = time.split(":");
+        return TimeUnit.MINUTES.toMillis(Long.parseLong(String.valueOf(segments[0]))) +
+                TimeUnit.SECONDS.toMillis(Long.parseLong(String.valueOf(segments[1])));
     }
 }
