@@ -116,7 +116,7 @@ public class ServerComms {
      * @param partyID individual party id associated with the queue
      * @return boolean value of success
      */
-    public boolean createParty(String userID, String partyID) throws IOException, JSONException {
+    public static boolean createParty(String userID, String partyID) throws IOException, JSONException {
         HashMap<String, String> req = new HashMap<>();
         req.put("userID", userID);
         req.put("partyid", partyID);

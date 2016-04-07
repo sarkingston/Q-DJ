@@ -15,6 +15,7 @@ import android.widget.EditText;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
+import com.spotify.sdk.android.player.Config;
 
 import org.json.JSONException;
 
@@ -30,13 +31,20 @@ public class JoinPlaylist extends AppCompatActivity {
     //saved themes from changeColour
     private static final String PREFS_NAME = "prefs";
     private static final String PREF_DARK_THEME = "dark_theme";
+    public static final String USER_ID = "1995";
 
-    String partyName;
+    String partyName, token;
     ProgressDialog dialog;
     Button  hostBtn;
     InterstitialAd mInterstitialAd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Intent i = getIntent();
+        token = i.getStringExtra("token");
+
         // Use the chosen theme
         SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         boolean useDarkTheme = preferences.getBoolean(PREF_DARK_THEME, false);
@@ -46,38 +54,24 @@ public class JoinPlaylist extends AppCompatActivity {
         } else{
             setTheme(R.style.AppTheme);
         }
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_join_playlist);
-        setupActionBar();
 
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
-        mInterstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdClosed() {
-                requestNewInterstitial();
-            }
-        });
-        requestNewInterstitial();
+        setContentView(R.layout.activity_join_playlist);
 
         dialog = new ProgressDialog(this);
-
-
         hostBtn = (Button) findViewById(R.id.hostButton);
-
 
         /**Opens up QHost activity*/
         hostBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
             {
-                Random r = new Random();
-                int k = r.nextInt(2 - 0) + 0;
+                /*Random r = new Random();
+                int k = r.nextInt(2);
                 if (mInterstitialAd.isLoaded()) {
                     if (k < 1) {
                         mInterstitialAd.show();
                     }
-                }
+                }*/
                 EditText partyNameED = (EditText) findViewById(R.id.party_name);
                 partyName = partyNameED.getText().toString();
 
@@ -89,18 +83,7 @@ public class JoinPlaylist extends AppCompatActivity {
                 } else {
                     new createParty().execute();
                 }
-
-
-
                 finish();
-                /*AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(CLIENT_ID,
-                        AuthenticationResponse.Type.TOKEN,
-                        REDIRECT_URI);
-                builder.setScopes(new String[]{"user-read-private", "streaming"});
-                AuthenticationRequest request = builder.build();
-
-                //brings up the login screen
-                AuthenticationClient.openLoginActivity(LoginScreen.this, REQUEST_CODE, request);*/
             }
         });
 
@@ -126,8 +109,7 @@ public class JoinPlaylist extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(String... params) {
             try {
-                ServerComms sc = new ServerComms();
-                return sc.createParty("0000", partyName);
+                return ServerComms.createParty(USER_ID, partyName);
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
             }
@@ -142,6 +124,7 @@ public class JoinPlaylist extends AppCompatActivity {
                 Intent intent = new Intent(JoinPlaylist.this, HostActivity.class);
                 intent.putExtra("PARTYID", partyName);
                 intent.putExtra("USERMODE", "host");
+                intent.putExtra("TOKEN", token);
 
                 startActivity(intent);
             } else {
@@ -160,7 +143,7 @@ public class JoinPlaylist extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(String... params) {
             try {
-                return ServerComms.joinParty("0000", partyName);
+                return ServerComms.joinParty(USER_ID, partyName);
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
             }
@@ -175,6 +158,7 @@ public class JoinPlaylist extends AppCompatActivity {
                 Intent intent = new Intent(JoinPlaylist.this, HostActivity.class);
                 intent.putExtra("PARTYID", partyName);
                 intent.putExtra("USERMODE", "guest");
+                intent.putExtra("TOKEN", token);
 
                 startActivity(intent);
             } else {
@@ -195,15 +179,4 @@ public class JoinPlaylist extends AppCompatActivity {
 
         mInterstitialAd.loadAd(adRequest);
     }
-
-
-
-    private void setupActionBar() {
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            // Show the Up button in the action bar.
-            //actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-    }
-
 }
