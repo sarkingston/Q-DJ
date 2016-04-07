@@ -88,8 +88,8 @@ public class ServerComms {
         req.put("userID", userID);
         req.put("partyid", partyID);
         req.put("spotifyID", spotifyID);
-        req.put("songtitle", title);
-        req.put("artist", artist);
+        req.put("songtitle", title.replace(" ", "%20"));
+        req.put("artist", artist.replace(" ", "%20"));
         req.put("songlength", Long.toString(duration));
         req.put("timesent", timestamp);
 

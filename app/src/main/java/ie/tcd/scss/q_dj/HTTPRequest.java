@@ -54,7 +54,7 @@ public class HTTPRequest {
                     it.remove(); // avoids a ConcurrentModificationException
                 }
             }
-
+            url = url.replace(" ", "%20");
             System.out.println("HEY I'VE GOTTEN A URL! " + url);
 
             URL url_obj = new URL(url);

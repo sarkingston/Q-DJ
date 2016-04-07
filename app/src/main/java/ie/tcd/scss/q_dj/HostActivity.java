@@ -106,6 +106,8 @@ public class HostActivity extends AppCompatActivity implements
         //brings up the login screen
         AuthenticationClient.openLoginActivity(HostActivity.this, REQUEST_CODE, request);
 
+        //**********************************************************//
+
         player = (com.getbase.floatingactionbutton.FloatingActionsMenu) findViewById(R.id.multiple_actions);
         play = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.play);
         previous = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.skip_previous);
