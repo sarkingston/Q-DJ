@@ -2,6 +2,7 @@ package ie.tcd.scss.q_dj;
 
 import android.app.Activity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.spotify.sdk.android.player.Config;
 import com.spotify.sdk.android.player.ConnectionStateCallback;
@@ -9,6 +10,10 @@ import com.spotify.sdk.android.player.Player;
 import com.spotify.sdk.android.player.PlayerNotificationCallback;
 import com.spotify.sdk.android.player.PlayerState;
 import com.spotify.sdk.android.player.Spotify;
+
+import java.util.ArrayList;
+
+
 
 /**
  * Created by john on 17/02/16.
@@ -20,45 +25,23 @@ public class MusicPlayer extends Activity implements
     Song song2 = new Song("", "", 0.0, "5DBQWDGt7WVlyMgMgvGko9", "");
     Song song3 = new Song("", "", 0.0, "5blEjbK0DUQBxggguyKsEP", "");
     Song[] songList  = {song1, song2, song3}; //Comms can put the list of song id's in here
+    ArrayList<String> URIs = new ArrayList();
 
     int songNumber = 0;
     int playing = 0;
 
     private Player mPlayer;
-    Config playerConfig;
 
-    public void addConfig(Config _playerConfig) {
-        playerConfig = _playerConfig;
-    }
 
-    public void replace(Song[] list)
-    {
-        songList = list;
-    };
 
-    public void play() {
+    public void initialise(Config playerConfig) {
         Spotify.getPlayer(playerConfig, this, new Player.InitializationObserver() {
             @Override
             public void onInitialized(Player player) {
+                System.out.println("INITIALISNG");
                 mPlayer = player;
                 mPlayer.addConnectionStateCallback(MusicPlayer.this);
                 mPlayer.addPlayerNotificationCallback(MusicPlayer.this);
-                if (playing == 0)
-                {
-                    mPlayer.play("spotify:track:" + songList[songNumber].getSpotifyID());
-                    playing = 2;
-                }
-                else if (playing == 1)
-                {
-                    mPlayer.resume();
-                    playing = 2;
-                }
-                else if (playing == 2)
-                {
-                    mPlayer.pause();
-                    playing = 1;
-                }
-
             }
 
             @Override
@@ -68,23 +51,55 @@ public class MusicPlayer extends Activity implements
         });
     }
 
-    public void skipNext() {
-        if (songNumber < songList.length) {
-            songNumber++;
-            playing = 0;
-            play();
-            //mPlayer.pause();
-            //mPlayer.resume()
-            //mPlayer.playing();
+    public void replace(ArrayList<Song> List){
+        if (mPlayer != null){
+            Log.d("MainActivity", "CLEARING QUEUE");
+            mPlayer.clearQueue();
+
+            ArrayList<String> temp = new ArrayList();
+
+
+            for (int i = URIs.size(); i < List.size(); i++) {
+                URIs.add(i, "spotify:track:"+ List.get(i).getSpotifyID());
+                mPlayer.queue(URIs.get(i));
+                System.out.println("TRACK URI:" + List.get(i).getSpotifyID());
+            }
+
         }
     }
 
-    public void prevSong() {
-        if (songNumber > 0) {
-            songNumber--;
-            playing = 0;
-            play();
+
+
+
+    public void play() {
+        if (playing == 0)
+        {
+            System.out.println("PLAYING: " + URIs);
+            mPlayer.play(URIs);
+            playing = 2;
         }
+        else if (playing == 1)
+        {
+            mPlayer.resume();
+            playing = 2;
+        }
+        else if (playing == 2)
+        {
+            mPlayer.pause();
+            playing = 1;
+        };
+    }
+
+    public void skipNext() {
+        mPlayer.skipToNext();
+            //mPlayer.pause();
+            //mPlayer.resume()
+            //mPlayer.playing();
+
+    }
+
+    public void prevSong() {
+        mPlayer.skipToPrevious();
     }
 
     @Override

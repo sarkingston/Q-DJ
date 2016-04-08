@@ -32,6 +32,7 @@ import com.spotify.sdk.android.player.PlayerState;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -73,6 +74,7 @@ public class HostActivity extends AppCompatActivity implements
     MusicPlayer mPlayer = new MusicPlayer();
     SeekBar seekBar;
     int SBCounter = 0;
+    Config playerConfig;
     // Request code that will be used to verify if the result comes from correct activity
     // Can be any integer
     private static final int REQUEST_CODE = 1337;
@@ -105,8 +107,6 @@ public class HostActivity extends AppCompatActivity implements
 
         //brings up the login screen
         AuthenticationClient.openLoginActivity(HostActivity.this, REQUEST_CODE, request);
-
-        //**********************************************************//
 
         player = (com.getbase.floatingactionbutton.FloatingActionsMenu) findViewById(R.id.multiple_actions);
         play = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.play);
@@ -146,7 +146,11 @@ public class HostActivity extends AppCompatActivity implements
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         try {
-            mAdapter = new CardViewAdapter(ServerComms.getQueue(code), code, false);
+            ArrayList<Song> list = ServerComms.getQueue(code);
+            mPlayer.replace(list);
+            Toast.makeText(HostActivity.this,
+                    "Replacing queue", Toast.LENGTH_LONG).show();
+            mAdapter = new CardViewAdapter(list, code);
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
@@ -164,7 +168,7 @@ public class HostActivity extends AppCompatActivity implements
             //grants access token
             if (response.getType() == AuthenticationResponse.Type.TOKEN) {
                 Config playerConfig = new Config(this, response.getAccessToken(), CLIENT_ID);
-                mPlayer.addConfig(playerConfig);
+
                 Toast.makeText(HostActivity.this,
                         "Log in successful", Toast.LENGTH_LONG).show();
 
@@ -172,7 +176,7 @@ public class HostActivity extends AppCompatActivity implements
                 final int idPause = R.mipmap.ic_pause_white_24dp;
                 getInit();
                 seekBar.setProgress(SBCounter);
-
+                mPlayer.initialise(playerConfig);
                 //accesses spotify player and plays a song
 
                 play.setOnClickListener(new View.OnClickListener() {
