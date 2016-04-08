@@ -28,14 +28,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings" >
-        </activity>
-        <activity
-            android:name=".SettingsActivity2"
-            android:label="@string/title_activity_settings" >
-        </activity>
-        <activity
             android:name=".GraphActivity"
             android:label="@string/title_activity_graph" >
         </activity>

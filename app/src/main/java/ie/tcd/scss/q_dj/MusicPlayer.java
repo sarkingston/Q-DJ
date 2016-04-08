@@ -1,10 +1,6 @@
 package ie.tcd.scss.q_dj;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.spotify.sdk.android.player.Config;
@@ -12,7 +8,6 @@ import com.spotify.sdk.android.player.ConnectionStateCallback;
 import com.spotify.sdk.android.player.Player;
 import com.spotify.sdk.android.player.PlayerNotificationCallback;
 import com.spotify.sdk.android.player.PlayerState;
-import com.spotify.sdk.android.player.PlayerStateCallback;
 import com.spotify.sdk.android.player.Spotify;
 
 /**
