@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.spotify.sdk.android.player.Config;
 import com.spotify.sdk.android.player.ConnectionStateCallback;
@@ -14,6 +15,10 @@ import com.spotify.sdk.android.player.PlayerNotificationCallback;
 import com.spotify.sdk.android.player.PlayerState;
 import com.spotify.sdk.android.player.PlayerStateCallback;
 import com.spotify.sdk.android.player.Spotify;
+
+import java.util.ArrayList;
+
+
 
 /**
  * Created by john on 17/02/16.
@@ -30,40 +35,17 @@ public class MusicPlayer extends Activity implements
     int playing = 0;
 
     private Player mPlayer;
-    Config playerConfig;
 
-    public void addConfig(Config _playerConfig) {
-        playerConfig = _playerConfig;
-    }
 
-    public void replace(Song[] list)
-    {
-        songList = list;
-    };
 
-    public void play() {
+    public void initialise(Config playerConfig) {
         Spotify.getPlayer(playerConfig, this, new Player.InitializationObserver() {
             @Override
             public void onInitialized(Player player) {
+                System.out.println("INITIALISNG");
                 mPlayer = player;
                 mPlayer.addConnectionStateCallback(MusicPlayer.this);
                 mPlayer.addPlayerNotificationCallback(MusicPlayer.this);
-                if (playing == 0)
-                {
-                    mPlayer.play("spotify:track:" + songList[songNumber].getSpotifyID());
-                    playing = 2;
-                }
-                else if (playing == 1)
-                {
-                    mPlayer.resume();
-                    playing = 2;
-                }
-                else if (playing == 2)
-                {
-                    mPlayer.pause();
-                    playing = 1;
-                }
-
             }
 
             @Override
@@ -73,23 +55,52 @@ public class MusicPlayer extends Activity implements
         });
     }
 
-    public void skipNext() {
-        if (songNumber < songList.length) {
-            songNumber++;
-            playing = 0;
-            play();
-            //mPlayer.pause();
-            //mPlayer.resume()
-            //mPlayer.playing();
+    public void replace(ArrayList<Song> List){
+        if (mPlayer != null){
+            Log.d("MainActivity", "CLEARING QUEUE");
+            mPlayer.clearQueue();
+            ArrayList<String> URIs = new ArrayList();
+            for (int i = 0; i < List.size(); i++) {
+                URIs.add(i, List.get(i).getSpotifyID());
+
+                System.out.println("TRACK URI:" + List.get(i).getSpotifyID());
+            }
+
+            mPlayer.play(URIs);
         }
     }
 
-    public void prevSong() {
-        if (songNumber > 0) {
-            songNumber--;
-            playing = 0;
-            play();
+
+
+
+    public void play() {
+        if (playing == 0)
+        {
+            mPlayer.play("spotify:track:" + songList[songNumber].getSpotifyID());
+            playing = 2;
         }
+        else if (playing == 1)
+        {
+            mPlayer.resume();
+            playing = 2;
+        }
+        else if (playing == 2)
+        {
+            mPlayer.pause();
+            playing = 1;
+        };
+    }
+
+    public void skipNext() {
+        mPlayer.skipToNext();
+            //mPlayer.pause();
+            //mPlayer.resume()
+            //mPlayer.playing();
+
+    }
+
+    public void prevSong() {
+        mPlayer.skipToPrevious();
     }
 
     @Override
