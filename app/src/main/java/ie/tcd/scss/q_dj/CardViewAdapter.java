@@ -112,7 +112,7 @@ public class CardViewAdapter extends RecyclerView.Adapter<CardViewAdapter.DataOb
     public void onBindViewHolder(DataObjectHolder holder, int position) {
         holder.song.setText(mDataset.get(position).getTitle());
         holder.artist.setText(mDataset.get(position).getArtist());
-
+        holder.userID.setText(mDataset.get(position).getSpotifyID());
         //Code to change the 'double' duration to a string in time format
         double timeInMillis = mDataset.get(position).getDuration();
         long longTimeInMillis = (long)timeInMillis;

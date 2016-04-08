@@ -30,6 +30,7 @@ public class MusicPlayer extends Activity implements
     Song song2 = new Song("", "", 0.0, "5DBQWDGt7WVlyMgMgvGko9", "");
     Song song3 = new Song("", "", 0.0, "5blEjbK0DUQBxggguyKsEP", "");
     Song[] songList  = {song1, song2, song3}; //Comms can put the list of song id's in here
+    ArrayList<String> URIs = new ArrayList();
 
     int songNumber = 0;
     int playing = 0;
@@ -59,14 +60,16 @@ public class MusicPlayer extends Activity implements
         if (mPlayer != null){
             Log.d("MainActivity", "CLEARING QUEUE");
             mPlayer.clearQueue();
-            ArrayList<String> URIs = new ArrayList();
-            for (int i = 0; i < List.size(); i++) {
-                URIs.add(i, List.get(i).getSpotifyID());
 
+            ArrayList<String> temp = new ArrayList();
+
+
+            for (int i = URIs.size(); i < List.size(); i++) {
+                URIs.add(i, "spotify:track:"+ List.get(i).getSpotifyID());
+                mPlayer.queue(URIs.get(i));
                 System.out.println("TRACK URI:" + List.get(i).getSpotifyID());
             }
 
-            mPlayer.play(URIs);
         }
     }
 
@@ -76,7 +79,8 @@ public class MusicPlayer extends Activity implements
     public void play() {
         if (playing == 0)
         {
-            mPlayer.play("spotify:track:" + songList[songNumber].getSpotifyID());
+            System.out.println("PLAYING: " + URIs);
+            mPlayer.play(URIs);
             playing = 2;
         }
         else if (playing == 1)
