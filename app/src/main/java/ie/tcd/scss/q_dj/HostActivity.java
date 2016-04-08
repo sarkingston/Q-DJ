@@ -150,7 +150,7 @@ public class HostActivity extends AppCompatActivity implements
             mPlayer.replace(list);
             Toast.makeText(HostActivity.this,
                     "Replacing queue", Toast.LENGTH_LONG).show();
-            mAdapter = new CardViewAdapter(list, code);
+            mAdapter = new CardViewAdapter(list, code, false);
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
