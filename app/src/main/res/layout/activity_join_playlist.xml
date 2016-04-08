@@ -41,23 +41,31 @@
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="150dp"
             android:text="Join Party"
             android:id="@+id/joinButton"
             android:textSize="20dp"
+            android:textColor="@color/colorPrimary"
             android:layout_below="@+id/party_name"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="77dp" />
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="77dp"
+            android:background="@drawable/client_pic"
+            />
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="150dp"
             android:text="Host Party"
             android:id="@+id/hostButton"
             android:textSize="20dp"
+            android:textColor="@color/colorPrimary"
             android:layout_below="@+id/joinButton"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="53dp" />
+            android:background="@drawable/host_pic"
+            android:layout_marginLeft="77dp"
+
+            />
 
         <!--ImageView
             android:layout_width="120dp"
