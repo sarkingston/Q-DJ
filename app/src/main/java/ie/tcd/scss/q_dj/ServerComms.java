@@ -40,7 +40,7 @@ public class ServerComms {
         JSONObject httpJson = new HTTPRequest().get(base_server_url + getQueuePHP, req);
         ArrayList<Song> songs_list = new ArrayList<>();
 
-        String title, artist, id, timeSent, userID;
+        String title, artist, id, timeSent, userID, image;
         Double duration;
 
         if(httpJson.get("status").equals("true")){
@@ -54,10 +54,12 @@ public class ServerComms {
                 timeSent = song_x.optString("timesent");
                 userID = song_x.optString("userID");
                 duration = Double.parseDouble(song_x.getString("songlength"));
+                image = song_x.optString("image");
 
                 System.out.println(title + " by " + artist + " with ID " + id +
                         " with length " + duration + " was sent by " + userID + " at " + timeSent);
-                songs_list.add(new Song(title, artist, duration, id));
+
+                songs_list.add(new Song(title, artist, duration, id, image));
             }
             return songs_list;
         }
@@ -86,8 +88,8 @@ public class ServerComms {
         req.put("userID", userID);
         req.put("partyid", partyID);
         req.put("spotifyID", spotifyID);
-        req.put("songtitle", title);
-        req.put("artist", artist);
+        req.put("songtitle", title.replace(" ", "%20"));
+        req.put("artist", artist.replace(" ", "%20"));
         req.put("songlength", Long.toString(duration));
         req.put("timesent", timestamp);
 

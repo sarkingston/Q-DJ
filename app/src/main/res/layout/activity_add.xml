@@ -24,36 +24,38 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_toStartOf="@+id/seach_btn"
-            android:layout_toLeftOf="@+id/seach_btn"
+            android:layout_toStartOf="@+id/cancel"
             android:autoText="true"
             android:editable="true"
             android:textColor="#fff"
             android:singleLine="true"
             android:lines="1"
-            android:imeOptions="actionDone" />
+            android:imeOptions="actionDone"
+            android:layout_toLeftOf="@+id/cancel" />
 
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/cancel"
+            android:src="@drawable/ic_action_cancel"
+            android:clickable="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/seach_btn"
+            android:layout_toStartOf="@+id/seach_btn" />
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/seach_btn"
             android:onClick="search"
-            android:src="@drawable/search"
-            android:layout_alignParentTop="true"
+            android:src="@drawable/ic_action_search"
+            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:clickable="true" />
-
-
-
-
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>
-
-
-
-
-
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerList"
@@ -62,150 +64,3 @@
         android:scrollbars="vertical"
         android:layout_below="@+id/toolbar" />
 </RelativeLayout>
-
-    <!--
-
-   <TabHost
-xmlns:android="http://schemas.android.com/apk/res/android"
-android:id="@android:id/tabhost"
-android:layout_width="fill_parent"
-android:layout_height="fill_parent"
-    >
-<RelativeLayout
-    android:layout_height="fill_parent"
-    android:layout_width="fill_parent"
-    >
-
-
-
-    <FrameLayout
-        android:id="@android:id/tabcontent"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:padding="5dp" >
-
-        <LinearLayout
-            android:id="@+id/Albums"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <SearchView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Search for songs to add"
-                android:id="@+id/searchalbums"
-                />
-            <ScrollView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                >
-
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="card here"
-                    android:textSize="50dp"
-                    android:gravity="center|center_vertical|center_horizontal"
-                    android:height="500dp" />
-            </ScrollView>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/Artists"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <SearchView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Search for songs to add"
-                android:id="@+id/searchartists"
-                />
-            <ScrollView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                >
-
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="card here"
-                    android:textSize="50dp"
-                    android:gravity="center|center_vertical|center_horizontal"
-                    android:height="500dp" />
-            </ScrollView>
-
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/Playlist"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <SearchView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Search for songs to add"
-                android:id="@+id/searchplaylists"
-                />
-            <ScrollView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                >
-
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="card here"
-                    android:textSize="50dp"
-                    android:gravity="center|center_vertical|center_horizontal"
-                    android:height="500dp" />
-            </ScrollView>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/Songs"
-            android:layout_width="match_parent"
-            android:layout_height="732dp"
-            android:orientation="vertical"
-            >
-
-            <SearchView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Search for songs to add"
-                android:id="@+id/searchsongs"
-                />
-
-            <TabWidget
-                android:id="@android:id/tabs"
-                android:layout_alignParentBottom="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="card here"
-                android:textSize="50dp"
-                android:gravity="center|center_vertical|center_horizontal"
-                android:height="500dp" />
-
-            <ScrollView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                >
-
-            </ScrollView>
-
-
-        </LinearLayout>
-    </FrameLayout>
-</RelativeLayout>
-
-
-</TabHost>
-
--->

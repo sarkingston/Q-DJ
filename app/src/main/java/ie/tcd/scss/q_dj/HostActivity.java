@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.spotify.sdk.android.authentication.AuthenticationClient;
@@ -31,6 +32,9 @@ import com.spotify.sdk.android.player.PlayerState;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by Sam on 24/2/16.
@@ -68,6 +72,8 @@ public class HostActivity extends AppCompatActivity implements
 
     //initialse spotify player variable
     MusicPlayer mPlayer = new MusicPlayer();
+    SeekBar seekBar;
+    int SBCounter = 0;
     Config playerConfig;
     // Request code that will be used to verify if the result comes from correct activity
     // Can be any integer
@@ -106,12 +112,14 @@ public class HostActivity extends AppCompatActivity implements
         play = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.play);
         previous = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.skip_previous);
         next = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.skip_next);
+        seekBar = (SeekBar)findViewById(R.id.seekBar);
 
         if(userMode.equals("guest")) {
             player.setVisibility(View.INVISIBLE);
             play.setVisibility(View.INVISIBLE);
             previous.setVisibility(View.INVISIBLE);
             next.setVisibility(View.INVISIBLE);
+            seekBar.setVisibility(View.INVISIBLE);
         }
 
         final int idPlay = R.mipmap.ic_play_arrow_white_24dp;
@@ -138,7 +146,11 @@ public class HostActivity extends AppCompatActivity implements
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         try {
-            mAdapter = new CardViewAdapter(ServerComms.getQueue(code), code);
+            ArrayList<Song> list = ServerComms.getQueue(code);
+            mPlayer.replace(list);
+            Toast.makeText(HostActivity.this,
+                    "Replacing queue", Toast.LENGTH_LONG).show();
+            mAdapter = new CardViewAdapter(list, code, false);
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
@@ -156,13 +168,15 @@ public class HostActivity extends AppCompatActivity implements
             //grants access token
             if (response.getType() == AuthenticationResponse.Type.TOKEN) {
                 Config playerConfig = new Config(this, response.getAccessToken(), CLIENT_ID);
-                mPlayer.addConfig(playerConfig);
+
                 Toast.makeText(HostActivity.this,
                         "Log in successful", Toast.LENGTH_LONG).show();
 
                 final int idPlay = R.mipmap.ic_play_arrow_white_24dp;
                 final int idPause = R.mipmap.ic_pause_white_24dp;
-
+                getInit();
+                seekBar.setProgress(SBCounter);
+                mPlayer.initialise(playerConfig);
                 //accesses spotify player and plays a song
 
                 play.setOnClickListener(new View.OnClickListener() {
@@ -172,6 +186,7 @@ public class HostActivity extends AppCompatActivity implements
                             play.setIcon(idPause);
                             mPlayer.play();
                             playActive = false;
+                            seekUpdate();
                         }
                         else {
                             play.setIcon(idPlay);
@@ -224,6 +239,7 @@ public class HostActivity extends AppCompatActivity implements
             play.setVisibility(View.INVISIBLE);
             previous.setVisibility(View.INVISIBLE);
             next.setVisibility(View.INVISIBLE);
+            seekBar.setVisibility(View.INVISIBLE);
         }
 
         ((CardViewAdapter) mAdapter).setOnItemClickListener(new CardViewAdapter
@@ -354,6 +370,37 @@ public class HostActivity extends AppCompatActivity implements
     protected void onDestroy() {
         Spotify.destroyPlayer(this);
         super.onDestroy();
+    }
+
+    public void getInit(){
+        //seekBar = (SeekBar)findViewById(R.id.seekBar);
+        //double dDuration = mPlayer.getSongDuration();
+        //int duration = (int)dDuration;
+        //seekBar.setMax(duration);
+        //seekBar.setMax(50);
+
+       // int percentageUpdate = (duration/100);
+    }
+
+    public void seekUpdate() {
+        //SBCounter++;
+        //seekBar.setProgress(SBCounter);
+        final int delay = 1000; // delay for 5 sec.
+        final int period = 1000; // repeat every sec.
+
+
+        final Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            public void run() {
+                if (playActive) {
+                    timer.cancel();
+                } else {
+                    SBCounter++;
+                    seekBar.setProgress(SBCounter);
+                }
+            }
+        }, delay, period);
+
     }
 
 

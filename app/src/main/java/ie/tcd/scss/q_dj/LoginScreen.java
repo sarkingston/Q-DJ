@@ -21,7 +21,8 @@ import com.spotify.sdk.android.player.ConnectionStateCallback;
 import com.spotify.sdk.android.player.Player;
 import com.spotify.sdk.android.player.PlayerNotificationCallback;
 import com.spotify.sdk.android.player.PlayerState;
-
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import java.io.IOException;
 //import android.R;
 
@@ -47,6 +48,11 @@ public class LoginScreen extends Activity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_login_screen);
+        /*Code that initializes the login screen banner add*/
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
 
         guestBtn = (Button) findViewById(R.id.guestLogin);
         //hostBtn = (Button) findViewById(R.id.hostLogin);
